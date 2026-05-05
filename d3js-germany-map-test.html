@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html>
+<meta charset="utf-8">
+<head>
+    <script src="http://d3js.org/d3.v3.min.js"></script>
+</head>
+<body>
+<script type="text/javascript">
+ 
+var width = 960;
+var height = 500;
+
+var canvas = d3.select("body").append("svg")
+    .attr("width", width)
+    .attr("height", height)
+
+d3.json("germany.json", function(data) {
+
+    //jeder gemeinde ein path
+    var group = canvas.selectAll("g")
+        .data(data.features)  //array in geojson heißt "features"
+        .enter()
+        .append("g")
+        // now: data is bound
+        
+    
+    //earth not flat --> map on flat surface --> projection notwendig
+    //standard: mercator
+
+var projection = d3.geo.mercator()
+                    .scale(50000)
+                    .center([13.439235,48.830666])  // centers map at given coordinates
+                    .translate([width / 2, height / 2]); // translate map to svg
+    //path generator
+    var path = d3.geo.path().projection(projection); //hand projection to projection generator --> how to translate coordinate to pixels
+    
+    
+    //append to path to each "g" element
+    var areas = group.append("path")
+        .attr("d", path) //data comes from path generator
+        .attr("class", "area") //CSS
+        .attr("fill", "steelblue");
+        
+});
+</script>
+</body>
+</html>
