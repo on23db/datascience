@@ -1,1 +1,1 @@
-# [→ Zur Seite](https://corvinbreyer.github.io/datascience/)
+# <a href="https://corvinbreyer.github.io/datascience/" target="_blank">→ Zur Seite</a>
