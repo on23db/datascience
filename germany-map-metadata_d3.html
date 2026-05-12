@@ -1,0 +1,123 @@
+<!doctype html>
+<meta charset="utf-8" />
+
+<style>
+  #map {
+    border: 1px solid #ccc;
+    cursor: grab;
+  }
+
+  path.district {
+    cursor: pointer;
+  }
+
+  path.district:hover {
+    fill: orange;
+  }
+
+  #info {
+    margin-top: 1rem;
+    font-family: sans-serif;
+    max-width: 900px;
+  }
+</style>
+
+<svg id="map" width="900" height="700"></svg>
+
+<div id="info">
+  Click a district to see metadata.
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/d3@7"></script>
+<script>
+const width = 900;
+const height = 700;
+
+const svg = d3.select("#map");
+const g = svg.append("g");
+const info = d3.select("#info");
+
+const url =
+  "https://raw.githubusercontent.com/isellsoap/deutschlandGeoJSON/main/4_kreise/2_hoch.geo.json";
+
+const zoom = d3.zoom()
+  .scaleExtent([1, 12])
+  .on("zoom", event => {
+    g.attr("transform", event.transform);
+  });
+
+svg.call(zoom);
+
+// Click empty map area to reset zoom
+svg.on("click", () => {
+  svg.transition().duration(750).call(
+    zoom.transform,
+    d3.zoomIdentity
+  );
+
+  info.html("Click a district to see metadata.");
+});
+
+d3.json(url).then(geojson => {
+  const projection = d3.geoMercator()
+    .fitSize([width, height], geojson);
+
+  const path = d3.geoPath(projection);
+
+  g.selectAll("path")
+    .data(geojson.features)
+    .join("path")
+    .attr("class", "district")
+    .attr("id", d => {
+      // Prefer official district key if available
+      const id =
+        d.properties.RS ||
+        d.properties.AGS ||
+        d.properties.id ||
+        d.properties.name ||
+        d.properties.NAME_3;
+
+      return "district-" + String(id).replaceAll(" ", "-");
+    })
+    .attr("d", path)
+    .attr("fill", "#ddd")
+    .attr("stroke", "#555")
+    .attr("stroke-width", 0.4)
+    .on("click", function(event, d) {
+      event.stopPropagation();
+
+      const [[x0, y0], [x1, y1]] = path.bounds(d);
+
+      svg.transition().duration(750).call(
+        zoom.transform,
+        d3.zoomIdentity
+          .translate(width / 2, height / 2)
+          .scale(
+            Math.min(
+              12,
+              0.9 / Math.max(
+                (x1 - x0) / width,
+                (y1 - y0) / height
+              )
+            )
+          )
+          .translate(
+            -(x0 + x1) / 2,
+            -(y0 + y1) / 2
+          )
+      );
+
+      showDistrictMetadata(d);
+    });
+});
+
+function showDistrictMetadata(d) {
+  const props = d.properties;
+
+  info.html(`
+    <h2>${props.name || props.NAME_3 || "Unknown district"}</h2>
+    <p><strong>ID:</strong> ${props.RS || props.AGS || "No ID found"}</p>
+    <pre>${JSON.stringify(props, null, 2)}</pre>
+  `);
+}
+</script>
