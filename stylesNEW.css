@@ -33,14 +33,14 @@ footer {
 }
 
 h1 {
-  font-size: clamp(2rem, 5vw, 3.5rem);
+  font-size: clamp(2rem, 1vw, 3.5rem);
   line-height: 1;
   text-transform: uppercase;
   padding-bottom: 1rem;
 }
 
 h2 {
-  font-size: clamp(1.5rem, 3vw, 2.5rem);
+  font-size: clamp(1.5rem, 2vw, 2.5rem);
   line-height: 1;
   text-transform: uppercase;
   padding-bottom:1rem;
@@ -165,6 +165,10 @@ button:hover,
   height: 90vh;
 }
 
+.cell.c-12.empty {
+  height: 18vh;
+}
+
 .cell.c-12.hero img {
   width: clamp(280px, 70vw, 850px);
   height: auto;
@@ -196,7 +200,7 @@ button:hover,
 
 .deco-pen {
   width: clamp(250px, 30vw, 400px);
-  bottom: -55%;
-  right: -10%;
+  bottom: clamp(-20%, 2vw, -60%);;
+  right: clamp(-5%, 15vw, -10%);
   transform: rotate(-245deg);
 }
