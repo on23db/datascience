@@ -1,3 +1,42 @@
+:root {
+  --base-10: #ffffff;
+  --base-50: #ebebf0;
+  --base-100: #d9dae2;
+  --base-200: #c2c3cf;
+  --base-300: #a8a9b9;
+  --base-400: #898a9d;
+  --base-500: #6a6b7f;
+  --base-600: #525366;
+  --base-700: #3d3e4d;
+  --base-800: #272834;
+  --base-900: #14141d;
+  --base-950: #06060b;
+  --base-970: #020204;
+  --base-990: #010101;
+  --base-999: #000000;
+
+  --accent-50: #deeff2;
+  --accent-100: #c6e1e6;
+  --accent-200: #a5ccd4;
+  --accent-300: #7eb5c1;
+  --accent-400: #5198a7;
+  --accent-500: #23798b;
+  --accent-600: #045f71;
+  --accent-700: #004756;
+  --accent-800: #002f3c;
+  --accent-900: #001922;
+  --accent-950: #00080f;
+  --accent-970: #000305;
+  --accent-990: #000102;
+  
+  --border-color: var(--base-700);
+}
+
+::selection {
+  background: var(--accent-700);
+  color: var(--accent-50);
+}
+
 *,
 *::before,
 *::after {
@@ -6,14 +45,10 @@
   padding: 0;
 }
 
-:root {
-  --border-color: rgba(255, 255, 255, 0.2);
-}
-
 body {
   font-family: "Elms Sans", sans-serif;
-  color: #fff;
-  background-color: #141414;
+  color: var(--base-50);
+  background: var(--base-900);
   background-image: url("assets/bg.svg");
   background-size: 500px 500px;
   background-repeat: repeat;
@@ -26,6 +61,11 @@ main {
   margin: 0 auto;
 }
 
+section {
+  background: var(--base-900);
+  margin-bottom: 15px;
+}
+
 footer {
   text-align: center;
   padding: 2rem;
@@ -34,6 +74,7 @@ footer {
 
 h1 {
   font-size: clamp(2rem, 1vw, 3.5rem);
+  font-weight: 900;
   line-height: 1;
   text-transform: uppercase;
   padding-bottom: 1rem;
@@ -41,6 +82,7 @@ h1 {
 
 h2 {
   font-size: clamp(1.5rem, 2vw, 2.5rem);
+  font-weight: 700;
   line-height: 1;
   text-transform: uppercase;
   padding-bottom:1rem;
@@ -141,8 +183,8 @@ button,
   display: inline-block;
   font-family: "Elms Sans", sans-serif;
   background: transparent;
-  border: 1px solid #fff;
-  color: #fff;
+  border: 1px solid var(--base-50);
+  color: var(--base-50);
   padding: 0.6rem 1.5rem;
   font-size: 1rem;
   text-transform: uppercase;
@@ -154,8 +196,8 @@ button,
 
 button:hover,
 .btn:hover {
-  background: #fff;
-  color: #141414;
+  background: var(--base-50);
+  color: var(--base-900);
 }
 
 .cell.c-12.hero {
