@@ -1,0 +1,412 @@
+<!doctype html>
+<meta charset="utf-8" />
+
+<style>
+  body {
+    font-family: sans-serif;
+    display: grid;
+    grid-template-columns: 900px 360px;
+    gap: 20px;
+  }
+
+  svg {
+    border: 1px solid #ccc;
+  }
+
+  .district {
+    cursor: pointer;
+  }
+
+  .district:hover {
+    stroke: black;
+    stroke-width: 1.5;
+  }
+
+  #info {
+    padding: 16px;
+    border: 1px solid #ccc;
+    background: #f8f8f8;
+  }
+
+  pre {
+    white-space: pre-wrap;
+  }
+</style>
+
+<svg id="map" width="900" height="700"></svg>
+
+<div id="info">
+  Click a district.
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/d3@7"></script>
+
+<script>
+const width = 900;
+const height = 700;
+
+const svg = d3.select("#map");
+const g = svg.append("g");
+const info = d3.select("#info");
+
+const geoJsonUrl =
+  "https://raw.githubusercontent.com/isellsoap/deutschlandGeoJSON/main/4_kreise/2_hoch.geo.json";
+
+/**
+ * IMPORTANT:
+ * Set this to the property name that worked for you.
+ *
+ * Examples could be:
+ * "name"
+ * "NAME_3"
+ * "GEN"
+ *
+ * Since you said your name lookup now works, put that exact field here.
+ */
+const DISTRICT_NAME_FIELD = "NAME_3";
+
+/**
+ * These are filled automatically after the GeoJSON loads.
+ */
+const districtNumberToName = {};
+const districtNameToNumber = {};
+const customMetadataByNumber = {};
+
+/**
+ * Zoom setup
+ */
+const zoom = d3.zoom()
+  .scaleExtent([1, 12])
+  .on("zoom", event => {
+    g.attr("transform", event.transform);
+  });
+
+svg.call(zoom);
+
+/**
+ * Click empty map area to reset zoom
+ */
+svg.on("click", () => {
+  svg.transition()
+    .duration(750)
+    .call(zoom.transform, d3.zoomIdentity);
+
+  info.html("Click a district.");
+});
+
+/**
+ * Load GeoJSON
+ */
+d3.json(geoJsonUrl).then(geojson => {
+  /**
+   * Step 1:
+   * Give every district a numeric ID and build lookup tables.
+   */
+  geojson.features.forEach((feature, index) => {
+    feature.properties.__index = index;
+
+    const name = getDistrictName(feature);
+
+    districtNumberToName[index] = name;
+    districtNameToNumber[name] = index;
+  });
+
+  /**
+   * Step 2:
+   * Add your metadata by district name.
+   *
+   * This happens AFTER districtNameToNumber has been created,
+   * so this now works correctly.
+   */
+   
+   
+   
+   
+   
+   
+   /* ---------- EDIT CUSTOM DATA HERE ---------- */
+   /* ---------- EDIT CUSTOM DATA HERE ---------- */
+   /* ---------- EDIT CUSTOM DATA HERE ---------- */
+   
+	let customMetadata = [
+	/*[  Landkreis Name,		Hex-Farbe,	Kategorie,			Notizen  ]*/
+		["Märkisch-Oderland", 	"#fed500", "Example district", 	"Custom metadata for Märkisch-Oderland."],
+		["Berlin", 				"#ffcc66", "Capital", 			"Custom metadata for Berlin."],
+		["Hamburg Städte",		"#99dd99", "Port city",			"Custom metadata for Hamburg."],
+		["München",				"#66ccff", "Large city",		"Custom metadata for Munich."]
+	];
+	
+   /* ---------- EDIT CUSTOM DATA HERE ---------- */
+   /* ---------- EDIT CUSTOM DATA HERE ---------- */
+   /* ---------- EDIT CUSTOM DATA HERE ---------- */
+   
+   
+   
+   
+   
+	
+	customMetadata.forEach(item => {
+		setDistrictMetadata(item[0], {
+			color: item[1],
+			category: item[2],
+			notes: item[3]
+		});
+	});
+   
+  /*setDistrictMetadata("Märkisch-Oderland", {
+    color: "#fed500",
+    category: "Example district",
+    notes: "Custom metadata for Märkisch-Oderland."
+  });
+
+  setDistrictMetadata("Berlin", {
+    color: "#ffcc66",
+    category: "Capital",
+    notes: "Custom metadata for Berlin."
+  });
+
+  setDistrictMetadata("Hamburg", {
+    color: "#99dd99",
+    category: "Port city",
+    notes: "Custom metadata for Hamburg."
+  });
+
+  setDistrictMetadata("München", {
+    color: "#66ccff",
+    category: "Large city",
+    notes: "Custom metadata for Munich."
+  });*/
+
+  /**
+   * Step 3:
+   * Print useful lookup tables.
+   */
+  console.table(
+    Object.entries(districtNumberToName).map(([number, name]) => ({
+      number,
+      name
+    }))
+  );
+
+  console.log("districtNumberToName:", districtNumberToName);
+  console.log("districtNameToNumber:", districtNameToNumber);
+  console.log("customMetadataByNumber:", customMetadataByNumber);
+
+  /**
+   * Step 4:
+   * Draw the map.
+   */
+  drawMap(geojson);
+});
+
+/**
+ * Draw map
+ */
+function drawMap(geojson) {
+  const projection = d3.geoMercator()
+    .fitSize([width, height], geojson);
+
+  const path = d3.geoPath(projection);
+
+  g.selectAll("path")
+    .data(geojson.features)
+    .join("path")
+    .attr("class", "district")
+
+    /**
+     * HTML IDs like:
+     * district-0
+     * district-1
+     * district-165
+     */
+    .attr("id", d => {
+      const number = d.properties.__index;
+      return `district-${number}`;
+    })
+
+    .attr("d", path)
+
+    /**
+     * Background color from custom metadata.
+     */
+    .attr("fill", d => {
+      const number = d.properties.__index;
+      const custom = customMetadataByNumber[number];
+
+      return custom?.color || "#dddddd";
+    })
+
+    .attr("stroke", "#555")
+    .attr("stroke-width", 0.4)
+
+    /**
+     * Click district
+     */
+    /*.on("click", function(event, d) {
+      event.stopPropagation();
+
+      const number = d.properties.__index;
+
+      zoomToDistrict(d, path);
+      showDistrictInfo(number);
+    });*/
+	.on("click", function(event, d) {
+  event.stopPropagation();
+
+  const number = d.properties.__index;
+
+  const originalMetadata = d.properties;
+
+  const customMetadata =
+    customMetadataByNumber[number];
+
+  console.log("Original:", originalMetadata);
+  console.log("Custom:", customMetadata);
+  
+  zoomToDistrict(d, path);
+
+  showDistrictInfo(number, originalMetadata);
+});
+}
+
+/**
+ * Get district name from GeoJSON.
+ */
+function getDistrictName(feature) {
+  const p = feature.properties || {};
+
+  const name = p[DISTRICT_NAME_FIELD];
+
+  if (!name) {
+    console.warn(
+      `Could not find district name field "${DISTRICT_NAME_FIELD}". Available fields:`,
+      Object.keys(p),
+      p
+    );
+
+    return "Unknown district";
+  }
+
+  return name;
+}
+
+/**
+ * Add custom metadata using district name.
+ *
+ * Example:
+ *
+ * setDistrictMetadata("Märkisch-Oderland", {
+ *   color: "#fed500",
+ *   notes: "Hello"
+ * });
+ */
+function setDistrictMetadata(name, metadata) {
+  const number = districtNameToNumber[name];
+
+  if (number === undefined) {
+    console.warn(
+      `District not found: "${name}". Check spelling. Available names are:`,
+      Object.keys(districtNameToNumber)
+    );
+
+    return;
+  }
+
+  customMetadataByNumber[number] = {
+    name,
+    number,
+    ...metadata
+  };
+}
+
+/**
+ * Zoom into district
+ */
+function zoomToDistrict(d, path) {
+  const [[x0, y0], [x1, y1]] = path.bounds(d);
+
+  svg.transition()
+    .duration(750)
+    .call(
+      zoom.transform,
+      d3.zoomIdentity
+        .translate(width / 2, height / 2)
+        .scale(
+          Math.min(
+            12,
+            0.2 / Math.max(
+              (x1 - x0) / width,
+              (y1 - y0) / height
+            )
+          )
+        )
+        .translate(
+          -(x0 + x1) / 2,
+          -(y0 + y1) / 2
+        )
+    );
+}
+
+/**
+ * Show metadata in sidebar
+ */
+/*function showDistrictInfo(number) {
+  const name = districtNumberToName[number];
+
+  const custom = customMetadataByNumber[number];
+
+  if (!custom) {
+    info.html(`
+      <h2>${name}</h2>
+
+      <p>
+        <strong>District number:</strong>
+        ${number}
+      </p>
+
+      <p>No custom metadata added for this district yet.</p>
+    `);
+
+    return;
+  }
+
+  info.html(`
+    <h2>${name}</h2>
+
+    <p>
+      <strong>District number:</strong>
+      ${number}
+    </p>
+
+    <p>
+      <strong>Category:</strong>
+      ${custom.category || "No category"}
+    </p>
+
+    <p>
+      <strong>Notes:</strong>
+      ${custom.notes || "No notes"}
+    </p>
+
+    <h3>All custom metadata</h3>
+
+    <pre>${JSON.stringify(custom, null, 2)}</pre>
+  `);
+}*/
+
+function showDistrictInfo(number, originalMetadata) {
+
+  const custom =
+    customMetadataByNumber[number] || {};
+
+  info.html(`
+    <h2>${districtNumberToName[number]}</h2>
+
+    <h3>Custom Metadata</h3>
+    <pre>${JSON.stringify(custom, null, 2)}</pre>
+
+    <h3>Original GeoJSON Metadata</h3>
+    <pre>${JSON.stringify(originalMetadata, null, 2)}</pre>
+  `);
+}
+</script>
