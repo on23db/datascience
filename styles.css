@@ -15,26 +15,40 @@
   --base-990: #010101;
   --base-999: #000000;
 
-  --accent-50: #deeff2;
-  --accent-100: #c6e1e6;
-  --accent-200: #a5ccd4;
-  --accent-300: #7eb5c1;
-  --accent-400: #5198a7;
-  --accent-500: #23798b;
-  --accent-600: #045f71;
-  --accent-700: #004756;
-  --accent-800: #002f3c;
-  --accent-900: #001922;
-  --accent-950: #00080f;
-  --accent-970: #000305;
-  --accent-990: #000102;
-  
+  --primary-50: #deeff2;
+  --primary-100: #c6e1e6;
+  --primary-200: #a5ccd4;
+  --primary-300: #7eb5c1;
+  --primary-400: #5198a7;
+  --primary-500: #23798b;
+  --primary-600: #045f71;
+  --primary-700: #004756;
+  --primary-800: #002f3c;
+  --primary-900: #001922;
+  --primary-950: #00080f;
+  --primary-970: #000305;
+  --primary-990: #000102;
+
+  --accent-50: #fcfafb;
+  --accent-100: #f7f0f3;
+  --accent-200: #f3dbe5;
+  --accent-300: #f1b9d1;
+  --accent-400: #f483b4;
+  --accent-500: #f84693;
+  --accent-600: #f11f7a;
+  --accent-700: #c81b66;
+  --accent-800: #902050;
+  --accent-900: #5d203a;
+  --accent-950: #371825;
+  --accent-970: #22141a;
+  --accent-990: #181114;
+
   --border-color: var(--base-700);
 }
 
 ::selection {
-  background: var(--accent-700);
-  color: var(--accent-50);
+  background: var(--primary-700);
+  color: var(--primary-50);
 }
 
 *,
@@ -69,23 +83,43 @@ section {
 footer {
   text-align: center;
   padding: 2rem;
-  font-size: 0.9rem;
 }
 
-h1 {
-  font-size: clamp(2rem, 1vw, 3.5rem);
-  font-weight: 900;
-  line-height: 1;
-  text-transform: uppercase;
-  padding-bottom: 1rem;
+footer .logo {
+  width: 300px;
+  margin: 150px auto;
 }
 
 h2 {
-  font-size: clamp(1.5rem, 2vw, 2.5rem);
-  font-weight: 700;
-  line-height: 1;
+  font-weight: 900;
   text-transform: uppercase;
-  padding-bottom:1rem;
+  position: relative;
+  margin-bottom: 1rem;
+}
+
+h2::before {
+  content: '';
+  position: absolute;
+  width: 55px;
+  height: 7px;
+  background: var(--accent-600);
+  bottom: -7px;
+}
+
+h3 {
+  font-weight: 700;
+  text-transform: uppercase;
+  position: relative;
+  margin-bottom: 1rem;
+}
+
+h3::before {
+  content: '';
+  position: absolute;
+  width: 40px;
+  height: 4px;
+  background: var(--primary-600);
+  bottom: -4px;
 }
 
 p {
@@ -95,7 +129,6 @@ p {
 }
 
 .subheadline {
-  font-size: clamp(0.75rem, 1.5vw,1rem);
   text-transform: uppercase;
   letter-spacing: 0.25em;
   font-weight: 200;
@@ -107,7 +140,6 @@ p {
 img {
   display: block;
   max-width: 100%;
-  height: auto;
 }
 
 .grid {
@@ -242,7 +274,20 @@ button:hover,
 
 .deco-pen {
   width: clamp(250px, 30vw, 400px);
-  bottom: clamp(-20%, 2vw, -60%);;
+  bottom: clamp(-20%, 2vw, -60%);
+  ;
   right: clamp(-5%, 15vw, -10%);
   transform: rotate(-245deg);
+}
+
+.sr-only {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+  border: 0;
 }
