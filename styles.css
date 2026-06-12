@@ -71,7 +71,7 @@ body {
 
 main {
   padding: 2rem;
-  max-width: 1440px;
+  max-width: 1350px;
   margin: 0 auto;
 }
 
@@ -295,7 +295,7 @@ button:hover,
   max-height: 60vh;
   min-height: 520px;
   overflow: hidden;
-  background: var(--base-10);
+  background: var(--base-900);
 }
 
 #Bundesrepublik_Deutschland {
