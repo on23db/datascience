@@ -76,7 +76,41 @@
         <p>Text hier</p>
       </div>
     </section>
-
+    <!-- Interactive Map -->
+    <section class="grid map-section">
+      <div class="cell c-7 map-cell">
+        <div id="map-shell"><svg xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:cc="http://web.resource.org/cc/"
+            xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:svg="http://www.w3.org/2000/svg"
+            xmlns="http://www.w3.org/2000/svg" xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
+            xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape" version="1.1" id="Bundesrepublik_Deutschland"
+            width="591.504" height="800.504" viewBox="0 0 591.504 800.504" overflow="visible"
+            enable-background="new 0 0 591.504 800.504" xml:space="preserve" sodipodi:version="0.32"
+            inkscape:version="0.44.1" sodipodi:docname="Karte_Deutschland.svg" sodipodi:docbase="C:\temp">
+            <metadata id="metadata24">
+              <rdf:RDF>
+                <cc:Work rdf:about="">
+                  <dc:format>image/svg+xml</dc:format>
+                  <dc:type rdf:resource="http://purl.org/dc/dcmitype/StillImage" />
+                </cc:Work>
+              </rdf:RDF>
+            </metadata>
+            <sodipodi:namedview inkscape:window-height="1146" inkscape:window-width="1600" inkscape:pageshadow="2"
+              inkscape:pageopacity="0.0" guidetolerance="10.0" gridtolerance="10.0" objecttolerance="10.0"
+              borderopacity="1.0" bordercolor="#666666" pagecolor="#ffffff" id="base" inkscape:zoom="0.93940815"
+              inkscape:cx="-47.643609" inkscape:cy="481.74912" inkscape:window-x="-4" inkscape:window-y="-4"
+              inkscape:current-layer="Bundesrepublik_Deutschland" />
+            <g id="g1923">
+            </g>
+          </svg></div>
+        <button onclick="resetZoom()">Position zurücksetzen</button>
+      </div>
+      <div class="cell c-5 map-info-cell">
+        <h2>Map info</h2>
+        <div id="info">
+          Click a federal state.
+        </div>
+      </div>
+    </section>
     <section class="grid">
       <div class="cell c-6">
         <img src="assets/images/sitze.webp" alt="Sitze im Parlament">
@@ -148,6 +182,9 @@
       <p>Ein Projekt von Studenten der DHBW Mosbach <span style="color: var(--accent-600)">•</span> Juni 2026<br></p>
     </footer>
   </main>
+  <script src="https://cdn.jsdelivr.net/npm/d3@7"></script>
+  <script src="mapSvg.js"></script>
+  <script src="map.js"></script>
 </body>
 
 </html>
