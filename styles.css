@@ -10,6 +10,7 @@
   --base-700: #3d3d41;
   --base-800: #27272b;
   --base-900: #141417;
+  --base-bg: #101013;
   --base-950: #060607;
   --base-970: #020202;
   --base-990: #010101;
@@ -72,7 +73,7 @@ body {
 main {
   padding: 2rem;
   max-width: 1350px;
-  margin: 0 auto;
+  margin: 50px auto 0;
 }
 
 section {
@@ -94,6 +95,7 @@ h2 {
   font-weight: 900;
   text-transform: uppercase;
   position: relative;
+  padding-top: 4rem;
   margin-bottom: 1rem;
 }
 
@@ -120,6 +122,44 @@ h3::before {
   height: 4px;
   background: var(--primary-600);
   bottom: -4px;
+}
+
+nav {
+  position: fixed;
+  top: 0;
+  left: 0;
+  z-index: 99;
+  width: 100%;
+  padding: 1rem 1rem 1rem 4rem;
+  background: var(--base-bg);
+  box-shadow: 0 0 20px var(--base-970);
+  transition: all 0.4s;
+}
+
+nav:hover {
+  background: var(--base-950);
+}
+
+nav .icon {
+  height: 1.1rem;
+  position: absolute;
+  transform: translate(-50%, -50%);
+  top: 50%;
+  left: 2rem;
+}
+
+nav a.navLink {
+  color: var(--base-50);
+  padding: 3px 8px;
+  background: var(--base-800);
+}
+
+nav a.navLink:hover {
+  background: var(--accent-800);
+}
+
+a {
+  text-decoration: none;
 }
 
 p {
@@ -214,7 +254,7 @@ button,
 .btn {
   display: inline-block;
   font-family: "Elms Sans", sans-serif;
-  background: transparent;
+  background: var(--base-bg);
   border: 1px solid var(--base-50);
   color: var(--base-50);
   padding: 0.6rem 1.5rem;
@@ -304,7 +344,7 @@ button:hover,
   height: 100%;
   min-height: 520px;
   padding: 20px;
-  background: var(--base-900);
+  background: var(--base-bg);
   border: 1px solid var(--base-50);
 }
 

@@ -1,5 +1,5 @@
 <!doctype html>
-<html>
+<html id="top">
 
 <head>
   <meta charset="UTF-8">
@@ -19,6 +19,17 @@
 <body>
   <main>
     <h1 class="sr-only">The Right Vote</h1>
+    <nav>
+      <a href="#top"><img class="icon" src="assets/icon.svg" alt="Logo"></a>
+      <a class="navLink" href="#erklaerung">Erklärung</a>
+      <a class="navLink" href="#keynumbers">Key-Numbers</a>
+      <a class="navLink" href="#entwicklung">Entwicklung</a>
+      <a class="navLink" href="#demografie">Demografie</a>
+      <a class="navLink" href="#regionen">Regionen</a>
+      <a class="navLink" href="#gruende">Gründe</a>
+      <a class="navLink" href="#simulation">Simulation</a>
+      <a class="navLink" href="#einordnung">Einordnung</a>
+    </nav>
     <!-- Hero -->
     <div class="hero-wrapper">
       <img class="deco deco-letter" src="assets/images/brief_blau.webp" alt="Wahlbrief">
@@ -32,16 +43,10 @@
       </section>
     </div>
 
-    <section class="grid">
-      <div class="cell c-12 empty">
-        <!--- This is for the aesthetics. Pls don't remove.-->
-      </div>
-    </section>
-
     <!-- Introduction -->
+    <h2 id="erklaerung">Erklärung des Projektes</h2>
     <section class="grid">
       <div class="cell c-4">
-        <h2>Erklärung des Projektes</h2>
       </div>
       <div class="cell c-8">
         <p>
@@ -53,30 +58,78 @@
     </section>
 
     <!-- Key-Numbers -->
+    <h2 id="keynumbers">Key-Numbers</h2>
     <section class="grid">
-      <div class="cell c-12 empty">
-        <!--- This is for the aesthetics. Pls don't remove.-->
+      <div class="cell c-2">
+        <h3>Entwicklung</h3>
+        <p>Text hier</p>
+        <a class="btn" href="#entwicklung">Mehr...</a>
+      </div>
+      <div class="cell c-2">
+        <h3>Demografie</h3>
+        <p>Text hier</p>
+        <a class="btn" href="#demografie">Mehr...</a>
+      </div>
+      <div class="cell c-2">
+        <h3>Regionen</h3>
+        <p>Text hier</p>
+        <a class="btn" href="#regionen">Mehr...</a>
+      </div>
+      <div class="cell c-2">
+        <h3>Gründe</h3>
+        <p>Text hier</p>
+        <a class="btn" href="#gruende">Mehr...</a>
+      </div>
+      <div class="cell c-2">
+        <h3>Simulation</h3>
+        <p>Text hier</p>
+        <a class="btn" href="#simulation">Mehr...</a>
+      </div>
+      <div class="cell c-2">
+        <h3>Einordnung</h3>
+        <p>Text hier</p>
+        <a class="btn" href="#einordnung">Mehr...</a>
       </div>
     </section>
 
+    <h2 id="entwicklung">Entwicklung</h2>
     <section class="grid">
-      <div class="cell c-6">
-        <h2>Key-Numbers</h2>
-      </div>
-      <div class="cell c-2">
-        <h3>Key-Number 1</h3>
-        <p>Text hier</p>
-      </div>
-      <div class="cell c-2">
-        <h3>Key-Number 2</h3>
-        <p>Text hier</p>
-      </div>
-      <div class="cell c-2">
-        <h3>Key-Number 3</h3>
-        <p>Text hier</p>
+      <div class="cell c-12">
       </div>
     </section>
+
+    <h2 id="demografie">Demografie</h2>
+    <section class="grid">
+      <div class="cell c-12">
+      </div>
+    </section>
+
+    <h2 id="regionen">Regionen</h2>
+    <section class="grid">
+      <div class="cell c-12">
+      </div>
+    </section>
+
+    <h2 id="gruende">Gründe</h2>
+    <section class="grid">
+      <div class="cell c-12">
+      </div>
+    </section>
+
+    <h2 id="simulation">Simulation</h2>
+    <section class="grid">
+      <div class="cell c-12">
+      </div>
+    </section>
+
+    <h2 id="einordnung">Einordnung</h2>
+    <section class="grid">
+      <div class="cell c-12">
+      </div>
+    </section>
+
     <!-- Interactive Map -->
+    <h2>Interaktive Karte</h2>
     <section class="grid map-section">
       <div class="cell c-7 map-cell">
         <div id="map-shell"><svg xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:cc="http://web.resource.org/cc/"
@@ -102,22 +155,22 @@
             <g id="g1923">
             </g>
           </svg></div>
-        <button onclick="resetZoom()">Position zurücksetzen</button>
       </div>
       <div class="cell c-5 map-info-cell">
-        <h2>Map info</h2>
         <div id="info">
           Click a federal state.
         </div>
+        <button onclick="resetZoom()">Position zurücksetzen</button>
       </div>
     </section>
+
+    <h2>Headline</h2>
+    <!-- <p class="subheadline">Subheadline</p> -->
     <section class="grid">
       <div class="cell c-6">
         <img src="assets/images/sitze.webp" alt="Sitze im Parlament">
       </div>
       <div class="cell c-6">
-        <p class="subheadline">Sub(Top?)headline</p>
-        <h2>Headline</h2>
         <p>
           Das ist ein Test um zu sehen, wie Bilder auf der Website aussehen.
           <br><br>Lorem ipsum dolor sit amet adipiscing bibendum sem orci
@@ -143,10 +196,17 @@
       </div>
     </section>
 
+    <section class="grid">
+      <div class="cell c-12 empty">
+        <!--- This is for the aesthetics. Pls don't remove.-->
+      </div>
+    </section>
+
     <!-- volle Breite -->
+    <h2>Design the Pain away</h2>
     <section class="grid">
       <div class="cell c-12">
-        <h2>Design the Pain away</h2>
+        <p>Just do it</p>
       </div>
     </section>
 
@@ -177,6 +237,7 @@
         <p>Punkt D</p>
       </div>
     </section>
+
     <footer>
       <img class="logo" src="assets/logo_clean.svg" alt="Logo">
       <p>Ein Projekt von Studenten der DHBW Mosbach <span style="color: var(--accent-600)">•</span> Juni 2026<br></p>
