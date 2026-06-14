@@ -272,6 +272,96 @@ button:hover,
   color: var(--base-900);
 }
 
+.vote-chart-cell {
+  min-height: 560px;
+}
+
+.chart-header {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 2rem;
+  margin-bottom: 2rem;
+}
+
+.chart-header p {
+  color: var(--base-200);
+}
+
+.chart-controls {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 1rem;
+  justify-content: flex-end;
+}
+
+.chart-controls label {
+  display: grid;
+  gap: 0.35rem;
+  min-width: 180px;
+  color: var(--base-200);
+  font-family: "Elms Sans", sans-serif;
+  font-size: 0.85rem;
+  font-weight: 700;
+  text-transform: uppercase;
+}
+
+.chart-controls select {
+  width: 100%;
+  background: var(--base-bg);
+  border: 1px solid var(--base-50);
+  color: var(--base-50);
+  padding: 0.65rem 0.75rem;
+  font: inherit;
+  text-transform: none;
+}
+
+.bar-chart {
+  width: 100%;
+  min-height: 430px;
+  overflow-x: auto;
+}
+
+.bar-chart svg {
+  display: block;
+  min-width: 720px;
+}
+
+.chart-axis text {
+  fill: var(--base-100);
+  font-family: system-ui, sans-serif;
+  font-size: 0.82rem;
+}
+
+.chart-axis path,
+.chart-axis line {
+  stroke: var(--base-500);
+}
+
+.chart-grid line {
+  stroke: var(--base-700);
+  stroke-dasharray: 3 6;
+}
+
+.chart-grid path {
+  stroke: transparent;
+}
+
+.bar {
+  transition: opacity 0.15s;
+}
+
+.bar:hover {
+  opacity: 0.78;
+}
+
+.bar-label {
+  fill: var(--base-50);
+  font-family: system-ui, sans-serif;
+  font-size: 0.78rem;
+  font-weight: 600;
+}
+
 .cell.c-12.hero {
   display: flex;
   align-items: center;
@@ -372,6 +462,12 @@ button:hover,
 }
 
 @media (max-width: 700px) {
+  .chart-header,
+  .chart-controls {
+    display: grid;
+    justify-content: stretch;
+  }
+
   .map-section,
   .map-cell,
   .map-info-cell {
