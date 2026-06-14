@@ -158,6 +158,15 @@ nav a.navLink:hover {
   background: var(--accent-800);
 }
 
+.bg-icon {
+  position: fixed;
+  width: 180px;
+  transform: translate(50%, 50%);
+  opacity: 0.03;
+  bottom: 35px;
+  right: 35px;
+}
+
 a {
   text-decoration: none;
 }
