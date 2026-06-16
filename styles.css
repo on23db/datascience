@@ -141,13 +141,15 @@ h2 {
   text-transform: uppercase;
   position: relative;
   padding-top: 4rem;
+  padding-bottom: 2px;
   margin-bottom: 1rem;
+  display: inline-block;
 }
 
 h2::before {
   content: '';
   position: absolute;
-  width: 55px;
+  width: 35%;
   height: 7px;
   background: var(--accent-600);
   bottom: -7px;
@@ -158,6 +160,7 @@ h3 {
   text-transform: uppercase;
   position: relative;
   margin-bottom: 1rem;
+  padding-bottom: 1px;
 }
 
 h3::before {
@@ -366,6 +369,21 @@ button:hover,
 .btn:hover {
   background: var(--base-50);
   color: var(--base-900);
+}
+
+.breaker {
+  background: var(--primary-800);
+  border: 1px solid var(--primary-600);
+  padding: 30px;
+}
+
+.breaker.accent {
+  background: var(--accent-900);
+  border: 1px solid var(--accent-700);
+}
+
+.breaker h2 {
+  padding-top: 0;
 }
 
 .vote-chart-cell {
