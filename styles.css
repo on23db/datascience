@@ -1,3 +1,35 @@
+@font-face {
+  font-family: "Elms Sans";
+  src: url('assets/fonts/ElmsSans-VariableFont_wght.ttf');
+  font-weight: 100 900;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: "Elms Sans";
+  src: url('assets/fonts/ElmsSans-Italic-VariableFont_wght.ttf');
+  font-weight: 100 900;
+  font-style: italic;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: "Chivo Mono";
+  src: url('assets/fonts/ChivoMono-VariableFont_wght.ttf');
+  font-weight: 100 900;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: "Chivo Mono";
+  src: url('assets/fonts/ChivoMono-Italic-VariableFont_wght.ttf');
+  font-weight: 100 900;
+  font-style: italic;
+  font-display: swap;
+}
+
 :root {
   --base-10: #ffffff;
   --base-50: #eaeaeb;
@@ -44,6 +76,8 @@
   --accent-970: #22141a;
   --accent-990: #181114;
 
+  --font-base: "Elms Sans", sans-serif;
+  --font-mono: "Chivo Mono", monospace;
   --border-color: var(--base-700);
 }
 
@@ -61,7 +95,7 @@
 }
 
 body {
-  font-family: "Elms Sans", sans-serif;
+  font-family: var(--font-base);
   color: var(--base-50);
   background: var(--base-900);
   background-image: url("assets/bg.svg");
@@ -109,7 +143,7 @@ h2::before {
 }
 
 h3 {
-  font-weight: 700;
+  font-weight: 800;
   text-transform: uppercase;
   position: relative;
   margin-bottom: 1rem;
@@ -173,15 +207,15 @@ a {
 
 p {
   line-height: 1.5;
-  font-weight: 200;
-  font-family: system-ui, sans-serif;
+  font-weight: 300;
+  font-family: var(--font-base);
 }
 
 .subheadline {
   text-transform: uppercase;
   letter-spacing: 0.25em;
   font-weight: 200;
-  font-family: "Elms Sans", sans-serif;
+  font-family: var(--font-base);
   margin-bottom: 0.4rem;
   opacity: 0.8;
 }
@@ -262,7 +296,7 @@ img {
 button,
 .btn {
   display: inline-block;
-  font-family: "Elms Sans", sans-serif;
+  font-family: var(--font-base);
   background: var(--base-bg);
   border: 1px solid var(--base-50);
   color: var(--base-50);
@@ -309,7 +343,7 @@ button:hover,
   gap: 0.35rem;
   min-width: 180px;
   color: var(--base-200);
-  font-family: "Elms Sans", sans-serif;
+  font-family: var(--font-base);
   font-size: 0.85rem;
   font-weight: 700;
   text-transform: uppercase;
@@ -338,7 +372,7 @@ button:hover,
 
 .chart-axis text {
   fill: var(--base-100);
-  font-family: system-ui, sans-serif;
+  font-family: var(--font-mono);
   font-size: 0.82rem;
 }
 
@@ -366,7 +400,7 @@ button:hover,
 
 .bar-label {
   fill: var(--base-50);
-  font-family: system-ui, sans-serif;
+  font-family: var(--font-mono);
   font-size: 0.78rem;
   font-weight: 600;
 }
@@ -401,7 +435,8 @@ button:hover,
 .deco-ballot {
   width: clamp(100px, 28vw, 250px);
   top: -20px;
-  left: -30px;
+  left: -60px;
+  transform: rotate(-6deg);
 }
 
 .deco-letter {
@@ -464,7 +499,7 @@ button:hover,
 #info pre {
   margin-top: 0.75rem;
   white-space: pre-wrap;
-  font-family: ui-monospace, SFMono-Regular, Consolas, "Liberation Mono", monospace;
+  font-family: var(--font-base);
   font-size: 0.85rem;
   line-height: 1.5;
   color: var(--base-100);
