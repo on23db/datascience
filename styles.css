@@ -76,6 +76,17 @@
   --accent-970: #22141a;
   --accent-990: #181114;
 
+  --color-spd: #cd3c33;
+  --color-piraten: #d06a00;
+  --color-fdp: #d79900;
+  --color-gruene: #138f3b;
+  --color-csu: #50ad88;
+  --color-afd: #008fd3;
+  --color-linke: #c95c9f;
+  --color-partei: #808191;
+  --color-nsdap: #84532c;
+  --color-cdu: #d2d2d8;
+
   --font-base: "Elms Sans", sans-serif;
   --font-mono: "Chivo Mono", monospace;
   --border-color: var(--base-700);
@@ -307,6 +318,48 @@ button,
   letter-spacing: 0.05em;
   transition: background 0.1s, color 0.2s;
   margin-top: 1.5rem;
+}
+
+details {
+  color: var(--base-50);
+  font-size: 1rem;
+  cursor: pointer;
+  letter-spacing: 0.05em;
+  transition: background 0.1s, color 0.2s;
+  margin-top: 1.5rem;
+}
+
+summary {
+  background: var(--base-bg);
+  border: 1px solid var(--base-50);
+  padding: 1.2rem;
+  text-transform: uppercase;
+}
+
+summary::marker {
+  content: '';
+  display: none;
+}
+
+details > summary .caret-icon {
+  display: inline-block;
+  transition: all 0.2s;
+  color: var(--accent-500);
+}
+
+details[open] > summary .caret-icon {
+  transform: rotate(90deg);
+}
+
+details .header {
+  display: inline-block;
+}
+
+details[open] .content {
+  padding: 15px;
+  border: 1px solid var(--base-600);
+  border-top: none;
+  background: var(--base-900);
 }
 
 button:hover,

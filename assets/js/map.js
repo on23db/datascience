@@ -199,12 +199,3 @@ function showStateInfo(number, originalMetadata) {
     <pre>${escapeHtml(JSON.stringify(originalMetadata, null, 2))}</pre>
   `);
 }
-
-function escapeHtml(value) {
-  return String(value)
-    .replaceAll("&", "&amp;")
-    .replaceAll("<", "&lt;")
-    .replaceAll(">", "&gt;")
-    .replaceAll('"', "&quot;")
-    .replaceAll("'", "&#039;");
-}

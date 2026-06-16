@@ -1,27 +1,27 @@
 const partyColumns = ["CDU", "SPD", "DIE LINKE", "GRÜNE", "CSU", "FDP", "AfD", "Sonstige"];
 const partyColors = {
-  CDU: "#d8d8db",
-  SPD: "#e23a47",
-  "DIE LINKE": "#be2c72",
-  "GRÜNE": "#48a456",
-  CSU: "#23798b",
-  FDP: "#f5c542",
-  AfD: "#3b82d6",
-  Sonstige: "#88888e"
+  CDU: cssVar('--color-cdu'),
+  SPD: cssVar('--color-spd'),
+  "DIE LINKE": cssVar('--color-linke'),
+  "GRÜNE": cssVar('--color-gruene'),
+  CSU: cssVar('--color-csu'),
+  FDP: cssVar('--color-fdp'),
+  AfD: cssVar('--color-afd'),
+  Sonstige: cssVar('--color-partei')
 };
 const ageLabels = {
   Summe: "Alle",
-  "1993 - 1999": "18-24 Jahre",
-  "1983 - 1992": "25-34 Jahre",
-  "1973 - 1982": "35-44 Jahre",
-  "1958 - 1972": "45-59 Jahre",
-  "1948 - 1957": "60-69 Jahre",
-  "1947 und früher": "70 Jahre und älter"
+  "1993 - 1999": "1993 - 1999",
+  "1983 - 1992": "1983 - 1992",
+  "1973 - 1982": "1973 - 1982",
+  "1958 - 1972": "1958 - 1972",
+  "1948 - 1957": "1948 - 1957",
+  "1947 und früher": "1947 und früher"
 };
 
 const numberFormatter = new Intl.NumberFormat("de-DE");
-const genderFilter = document.getElementById("genderFilter");
-const ageFilter = document.getElementById("ageFilter");
+const genderFilter = getID("genderFilter");
+const ageFilter = getID("ageFilter");
 const chartContainer = d3.select("#firstVoteChart");
 
 d3.dsv(";", "rawData/btw_2017.csv", d3.autoType).then((rows) => {
