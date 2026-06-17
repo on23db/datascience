@@ -14,4 +14,4 @@ function cssVar(s) {
     return getComputedStyle(document.documentElement).getPropertyValue(s);
 }
 
-console.log('utils.js loaded');
+console.log('utils.js loaded and executed');

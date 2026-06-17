@@ -87,6 +87,20 @@
   --color-nsdap: #84532c;
   --color-cdu: #d2d2d8;
 
+  --afd-10: #e6ffff;
+  --afd-20: #cff7ff;
+  --afd-30: #afe9ff;
+  --afd-40: #84d4ff;
+  --afd-50: #4db4f0;
+  --afd-60: #008fd3; /*same as --color-afd*/
+  --afd-70: #0074b4;
+  --afd-80: #00588f;
+  --afd-90: #003c68;
+  --afd-100: #002142;
+  /*--afd-110: #000c24;
+  --afd-120: #000411;
+  --afd-130: #000207;*/
+
   --color-link: #009fc1;
 
   --font-base: "Elms Sans", sans-serif;

@@ -120,4 +120,4 @@ d3.dsv(";", "rawData/btw_2017.csv", d3.autoType).then((rows) => {
   console.error(error);
 });
 
-console.log('chart-85d728e.js loaded');
+console.log('chart-85d728e.js loaded and executed');

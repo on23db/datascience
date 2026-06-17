@@ -67,11 +67,28 @@ function initMap() {
   /* ---------- EDIT CUSTOM DATA HERE ---------- */
 
   let customMetadata = [
-    /* [ Bundesland Name,          Hex-Farbe, Kategorie,        Notizen ] */
-    ["Berlin",                    "#ffcc66", "Capital",        "Custom metadata for Berlin."],
-    ["Hamburg",                   "#99dd99", "City state",     "Custom metadata for Hamburg."],
-    ["Bayern",                    "#66ccff", "Large state",    "Custom metadata for Bayern."],
-    ["Baden-Württemberg",         "#fed500", "Example state",  "Custom metadata for Baden-Württemberg."]
+    /* [ Bundesland Name,          Hex-Farbe,     Kategorie,              Notizen ] */
+    /*["Berlin",                   "#ffcc66",   Capital",            "Custom metadata for Berlin."],
+    ["Hamburg",                    "#99dd99",   City state",         "Custom metadata for Hamburg."],
+    ["Bayern",                     "#66ccff",   Large state",        "Custom metadata for Bayern."],
+    ["Baden-Württemberg",          "#fed500",   Example state",      "Custom metadata for Baden-Württemberg."]*/
+
+    ["Thüringen",                  cssVar('--afd-50'),   "Example category",   "Custom metadata for Thüring."],
+    ["Schleswig-Holstein" ,        cssVar('--afd-30'),   "Example category",   "Custom metadata for Schleswig-Holstein."],
+    ["Sachsen-Anhalt",             cssVar('--afd-100'),  "Example category",   "Custom metadata for Sachsen-Anha."],
+    ["Sachsen",                    cssVar('--afd-70'),   "Example category",   "Custom metadata for Sachs."],
+    ["Saarland",                   cssVar('--afd-30'),   "Example category",   "Custom metadata for Saarla."],
+    ["Rheinland-Pfalz",            cssVar('--afd-80'),   "Example category",   "Custom metadata for Rheinland-Pfa."],
+    ["Nordrhein-Westfalen",        cssVar('--afd-40'),   "Example category",   "Custom metadata for Nordrhein-Westfal."],
+    ["Niedersachsen",              cssVar('--afd-10'),   "Example category",   "Custom metadata for Niedersachs."],
+    ["Mecklenburg-Vorpommern",     cssVar('--afd-10'),   "Example category",   "Custom metadata for Mecklenburg-Vorpomme."],
+    ["Hessen" ,                    cssVar('--afd-20'),   "Example category",   "Custom metadata for Hessen."],
+    ["Hamburg",                    cssVar('--afd-90'),   "Example category",   "Custom metadata for Hambu."],
+    ["Bremen" ,                    cssVar('--afd-40'),   "Example category",   "Custom metadata for Bremen."],
+    ["Brandenburg",                cssVar('--afd-20'),   "Example category",   "Custom metadata for Brandenbu."],
+    ["Berlin" ,                    cssVar('--afd-50'),   "Example category",   "Custom metadata for Berlin."],
+    ["Bayern" ,                    cssVar('--afd-40'),   "Example category",   "Custom metadata for Bayern."],
+    ["Baden-Württemberg",          cssVar('--afd-20'),   "Example category",   "Custom metadata for Baden-Württembe."]
   ];
 
   /* ---------- EDIT CUSTOM DATA HERE ---------- */
@@ -200,4 +217,4 @@ function showStateInfo(number, originalMetadata) {
   `);
 }
 
-console.log('map.js loaded');
+console.log('map.js loaded and executed');
