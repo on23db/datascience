@@ -1,4 +1,3 @@
-console.log('utils loaded');
 const getID = s => document.getElementById(s);
 const getAll = s => document.querySelectorAll(s);
 
@@ -14,3 +13,5 @@ function escapeHtml(value) {
 function cssVar(s) {
     return getComputedStyle(document.documentElement).getPropertyValue(s);
 }
+
+console.log('utils.js loaded');

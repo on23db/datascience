@@ -199,3 +199,5 @@ function showStateInfo(number, originalMetadata) {
     <pre>${escapeHtml(JSON.stringify(originalMetadata, null, 2))}</pre>
   `);
 }
+
+console.log('map.js loaded');
