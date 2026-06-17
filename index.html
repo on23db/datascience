@@ -321,9 +321,30 @@
     </footer>
   </main>
   <script>
-    if (window.location.protocol === 'file:') alert(
-      '⚠️ Achtung!\n\nDiese Seite wurde direkt aus einer Datei geöffnet (Datei-Protokoll "file://""). Dies verhindert fetch()-Anweisungen im Browser. Daher können einige Diagramme nicht geladen werden. Starte die Seite über einen Server, um alle Funktionen korrekt angezeigt zu bekommen.'
-    );
+    if (window.location.protocol === 'file:') {
+      document.body.innerHTML = `
+      <main>
+        <section class="grid">
+          <div class="cell c-12">
+            <h2 style="padding-top:0">Fehlender Server</h2>
+            <p>Diese Seite wurde direkt aus einer Datei geöffnet (Datei-Protokoll <code>file://</code>). Dies verhindert unter anderem <code>fetch()</code>-Anweisungen im Browser. Das bewirkt, dass einige Diagramme nicht geladen oder falsch angezeigt werden. Starte die Seite über einen Server, um alle Funktionen korrekt angezeigt zu bekommen. Aus Sicherheitsgründen wird diese Seiten daher nicht angezeigt.</p>
+          </div>
+          <div class="cell c-2">
+            <img class="logo" src="assets/logo_clean.svg" alt="Logo">
+          </div>
+          <div class="cell c-10">
+            <ul>
+              <li><a href="https://corvinbreyer.github.io/datascience/" target="_blank">Seite stattdessen per GitHub Pages aufrufen</a></li>
+              <li><a href="https://developer.mozilla.org/de/docs/Learn_web_development/Howto/Tools_and_setup/set_up_a_local_testing_server" target="_blank">Seite per lokalem Server anzeigen</a></li>
+            </ul>
+          </div>
+        </section>
+        <footer>
+          <p>Ein Projekt von Studenten der DHBW Mosbach <span style="color: var(--accent-600)"><i
+                class="bi bi-asterisk"></i></span> Juni 2026<br></p>
+        </footer>
+      <main>`;
+    }
   </script>
   <script src="https://cdn.jsdelivr.net/npm/d3@7"></script>
   <script src="assets/js/_utils.js"></script>

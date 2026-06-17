@@ -87,6 +87,8 @@
   --color-nsdap: #84532c;
   --color-cdu: #d2d2d8;
 
+  --color-link: #009fc1;
+
   --font-base: "Elms Sans", sans-serif;
   --font-mono: "Chivo Mono", monospace;
   --border-color: var(--base-700);
@@ -172,6 +174,10 @@ h3::before {
   bottom: -4px;
 }
 
+li::marker {
+  content: '→ ';
+}
+
 nav {
   position: fixed;
   top: 0;
@@ -217,12 +223,19 @@ nav a.navLink:hover {
 
 a {
   text-decoration: none;
+  color: var(--color-link);
 }
 
 p {
   line-height: 1.5;
   font-weight: 300;
   font-family: var(--font-base);
+}
+
+code {
+  font-family: var(--font-mono);
+  padding: 0 5px;
+  background: var(--base-800);
 }
 
 .subheadline {
