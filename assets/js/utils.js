@@ -1,5 +1,4 @@
 console.log('utils loaded');
-
 const getID = s => document.getElementById(s);
 const getAll = s => document.querySelectorAll(s);
 
