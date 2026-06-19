@@ -102,15 +102,19 @@
   --afd-130: #000207;*/
 
   --color-link: #009fc1;
+  --border-color: var(--base-700);
 
   --font-base: "Elms Sans", sans-serif;
   --font-mono: "Chivo Mono", monospace;
-  --border-color: var(--base-700);
+
+  --bora-base: 2px;
 }
 
 ::selection {
   background: var(--primary-700);
   color: var(--primary-50);
+  background: var(--base-10);
+  color: var(--base-950);
 }
 
 *,
@@ -119,6 +123,10 @@
   box-sizing: border-box;
   margin: 0;
   padding: 0;
+}
+
+html {
+  scroll-behavior: smooth;
 }
 
 body {
@@ -134,12 +142,18 @@ body {
 main {
   padding: 2rem;
   max-width: 1350px;
-  margin: 50px auto 0;
+  margin: 0 auto;
 }
 
 section {
   background: var(--base-900);
   margin-bottom: 15px;
+}
+
+b,
+strong {
+  font-weight: 800;
+  color: var(--accent-200);
 }
 
 footer {
@@ -169,6 +183,7 @@ h2::before {
   height: 7px;
   background: var(--accent-600);
   bottom: -7px;
+  border-radius: var(--bora-base);
 }
 
 h3 {
@@ -186,6 +201,11 @@ h3::before {
   height: 4px;
   background: var(--primary-600);
   bottom: -4px;
+  border-radius: var(--bora-base);
+}
+
+li {
+  line-height: 1.5rem;
 }
 
 li::marker {
@@ -220,6 +240,7 @@ nav a.navLink {
   color: var(--base-50);
   padding: 3px 8px;
   background: var(--base-800);
+  border-radius: var(--bora-base);
 }
 
 nav a.navLink:hover {
@@ -242,7 +263,7 @@ a {
 
 p {
   line-height: 1.5;
-  font-weight: 300;
+  font-weight: 400;
   font-family: var(--font-base);
 }
 
@@ -250,6 +271,7 @@ code {
   font-family: var(--font-mono);
   padding: 0 5px;
   background: var(--base-800);
+  border-radius: var(--bora-base);
 }
 
 .subheadline {
@@ -264,6 +286,7 @@ code {
 img {
   display: block;
   max-width: 100%;
+  border-radius: var(--bora-base);
 }
 
 .grid {
@@ -271,12 +294,21 @@ img {
   grid-template-columns: repeat(12, 1fr);
   border-left: 1px solid var(--border-color);
   border-top: 1px solid var(--border-color);
+  border-radius: var(--bora-base);
+}
+
+.gruendeGrid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 1rem;
+  margin-top: 1.5rem;
 }
 
 .cell {
   border-right: 1px solid var(--border-color);
   border-bottom: 1px solid var(--border-color);
   padding: 2.5rem;
+  border-radius: var(--bora-base);
 }
 
 /* Spaltenbreiten */
@@ -348,6 +380,11 @@ button,
   letter-spacing: 0.05em;
   transition: background 0.1s, color 0.2s;
   margin-top: 1.5rem;
+  border-radius: var(--bora-base);
+}
+
+select {
+  border-radius: var(--bora-base);
 }
 
 details {
@@ -356,7 +393,7 @@ details {
   cursor: pointer;
   letter-spacing: 0.05em;
   transition: background 0.1s, color 0.2s;
-  margin-top: 1.5rem;
+  border-radius: var(--bora-base);
 }
 
 summary {
@@ -364,6 +401,7 @@ summary {
   border: 1px solid var(--base-50);
   padding: 1.2rem;
   text-transform: uppercase;
+  border-radius: var(--bora-base);
 }
 
 summary::marker {
@@ -377,12 +415,21 @@ details > summary .caret-icon {
   color: var(--accent-500);
 }
 
-details[open] > summary .caret-icon {
-  transform: rotate(90deg);
-}
-
 details .header {
   display: inline-block;
+}
+
+details > summary:hover {
+  background: var(--accent-950) !important;
+}
+
+details[open] > summary {
+  background: var(--accent-900);
+  font-weight: bold;
+}
+
+details[open] > summary .caret-icon {
+  transform: rotate(90deg);
 }
 
 details[open] .content {
@@ -390,6 +437,7 @@ details[open] .content {
   border: 1px solid var(--base-600);
   border-top: none;
   background: var(--base-900);
+  border-radius: 0 0 var(--bora-base) var(--bora-base);
 }
 
 button:hover,
@@ -402,6 +450,7 @@ button:hover,
   background: var(--primary-800);
   border: 1px solid var(--primary-600);
   padding: 30px;
+  border-radius: var(--bora-base);
 }
 
 .breaker.accent {
@@ -520,7 +569,18 @@ button:hover,
 }
 
 .hero-wrapper {
+  height: 100vh;
+  box-sizing: border-box;
   position: relative;
+}
+
+.hero {
+  display: block;
+  width: 60%;
+  position: absolute;
+  transform: translate(-50%, -50%);
+  top: 45%;
+  left: 50%;
 }
 
 .deco {
@@ -532,23 +592,22 @@ button:hover,
 /* Positionen – anpassen bis es passt */
 .deco-ballot {
   width: clamp(100px, 28vw, 250px);
-  top: -20px;
-  left: -60px;
+  top: 15%;
+  left: -5%;
   transform: rotate(-6deg);
 }
 
 .deco-letter {
   width: clamp(180px, 30vw, 800px);
-  top: -20px;
-  right: 60px;
+  top: -2%;
+  right: -7%;
   transform: rotate(8deg);
 }
 
 .deco-pen {
   width: clamp(250px, 30vw, 400px);
-  bottom: clamp(-20%, 2vw, -60%);
-  ;
-  right: clamp(-5%, 15vw, -10%);
+  right: -5%;
+  bottom: -60%;
   transform: rotate(-245deg);
 }
 
@@ -578,6 +637,7 @@ button:hover,
   padding: 20px;
   background: var(--base-bg);
   border: 1px solid var(--base-50);
+  border-radius: var(--bora-base);
 }
 
 .state {

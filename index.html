@@ -17,26 +17,18 @@
     <h1 class="sr-only">The Right Vote</h1>
     <nav>
       <a href="#top"><img class="icon" src="assets/icon.svg" alt="Logo"></a>
-      <a class="navLink" href="#erklaerung">Erklärung</a>
-      <a class="navLink" href="#keynumbers">Key-Numbers</a>
       <a class="navLink" href="#entwicklung">Entwicklung</a>
       <a class="navLink" href="#demografie">Demografie</a>
-      <a class="navLink" href="#regionen">Regionen</a>
-      <a class="navLink" href="#gruende">Gründe</a>
       <a class="navLink" href="#simulation">Simulation</a>
-      <a class="navLink" href="#einordnung">Einordnung</a>
     </nav>
     <!-- Hero -->
+    <img class="deco deco-letter" src="assets/images/brief_blau.webp" alt="Wahlbrief">
+    <img class="deco deco-pen" src="assets/images/stift.webp" alt="Stift">
+    <img class="deco deco-ballot" src="assets/images/stimmzettel.webp" alt="Stimmzettel">
     <div class="hero-wrapper">
-      <img class="deco deco-letter" src="assets/images/brief_blau.webp" alt="Wahlbrief">
-      <img class="deco deco-pen" src="assets/images/stift.webp" alt="Stift">
-      <img class="deco deco-ballot" src="assets/images/stimmzettel.webp" alt="Stimmzettel">
-
-      <section class="grid">
-        <div class="cell c-12 hero">
-          <img class="logo" src="assets/logo_clean.svg" alt="Logo">
-        </div>
-      </section>
+      <div class="hero">
+        <img class="logo" src="assets/logo_clean.svg" alt="Logo">
+      </div>
     </div>
 
     <!-- Introduction -->
@@ -143,66 +135,7 @@
     </section>
 
     <h2 id="regionen"><i class="bi bi-geo-alt"></i> Regionen</h2>
-    <section class="grid">
-      <div class="cell c-12">
-      </div>
-    </section>
-
-    <h2 id="gruende"><i class="bi bi-patch-question"></i> Gründe</h2>
-    <section class="grid">
-      <div class="cell c-12">
-        <p>Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et
-          dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet
-          clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet.</p>
-        <details>
-          <summary>
-            <div class="header">
-              <div class="caret-icon"><i class="bi bi-caret-right-fill"></i></div> Fakt
-            </div>
-          </summary>
-          <div class="content">Something small enough to escape casual notice.</div>
-        </details>
-        <details>
-          <summary>
-            <div class="header">
-              <div class="caret-icon"><i class="bi bi-caret-right-fill"></i></div> Fakt
-            </div>
-          </summary>
-          <div class="content">Something small enough to escape casual notice.</div>
-        </details>
-        <details>
-          <summary>
-            <div class="header">
-              <div class="caret-icon"><i class="bi bi-caret-right-fill"></i></div> Fakt
-            </div>
-          </summary>
-          <div class="content">Something small enough to escape casual notice.</div>
-        </details>
-        <details>
-          <summary>
-            <div class="header">
-              <div class="caret-icon"><i class="bi bi-caret-right-fill"></i></div> Fakt
-            </div>
-          </summary>
-          <div class="content">Something small enough to escape casual notice.</div>
-        </details>
-      </div>
-    </section>
-
-    <h2 id="simulation"><i class="bi bi-search"></i> Simulation</h2>
-    <section class="grid">
-      <div class="cell c-12">
-      </div>
-    </section>
-
-    <h2 id="einordnung"><i class="bi bi-boxes"></i> Einordnung</h2>
-    <section class="grid">
-      <div class="cell c-12">
-      </div>
-    </section>
-
     <!-- Interactive Map -->
-    <h2>Interaktive Karte</h2>
     <section class="grid map-section">
       <div class="cell c-7 map-cell">
         <div id="map-shell"><svg xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:cc="http://web.resource.org/cc/"
@@ -230,10 +163,112 @@
           </svg></div>
       </div>
       <div class="cell c-5 map-info-cell">
+        <h3>Interaktive Karte</h3>
         <div id="info">
           <i class="bi bi-geo-alt-fill"></i> Click a federal state.
         </div>
         <button onclick="resetZoom()"><i class="bi bi-arrow-repeat"></i> Position zurücksetzen</button>
+      </div>
+    </section>
+
+    <h2 id="gruende"><i class="bi bi-patch-question"></i> Gründe</h2>
+    <section class="grid">
+      <div class="cell c-12">
+        <p>Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et
+          dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet
+          clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet.</p>
+        <div class="gruendeGrid">
+          <details>
+            <summary>
+              <div class="header">
+                <div class="caret-icon"><i class="bi bi-caret-right-fill"></i></div> Fakt
+              </div>
+            </summary>
+            <div class="content">Something small enough to escape casual notice.</div>
+          </details>
+          <details>
+            <summary>
+              <div class="header">
+                <div class="caret-icon"><i class="bi bi-caret-right-fill"></i></div> Fakt
+              </div>
+            </summary>
+            <div class="content">Something small enough to escape casual notice.</div>
+          </details>
+          <details>
+            <summary>
+              <div class="header">
+                <div class="caret-icon"><i class="bi bi-caret-right-fill"></i></div> Fakt
+              </div>
+            </summary>
+            <div class="content">Something small enough to escape casual notice.</div>
+          </details>
+          <details>
+            <summary>
+              <div class="header">
+                <div class="caret-icon"><i class="bi bi-caret-right-fill"></i></div> Fakt
+              </div>
+            </summary>
+            <div class="content">Something small enough to escape casual notice.</div>
+          </details>
+          <details>
+            <summary>
+              <div class="header">
+                <div class="caret-icon"><i class="bi bi-caret-right-fill"></i></div> Fakt
+              </div>
+            </summary>
+            <div class="content">Something small enough to escape casual notice.</div>
+          </details>
+          <details>
+            <summary>
+              <div class="header">
+                <div class="caret-icon"><i class="bi bi-caret-right-fill"></i></div> Fakt
+              </div>
+            </summary>
+            <div class="content">Something small enough to escape casual notice.</div>
+          </details>
+        </div>
+      </div>
+    </section>
+
+    <h2 id="simulation"><i class="bi bi-search"></i> Simulation</h2>
+    <section class="grid">
+      <div class="cell c-12">
+      </div>
+    </section>
+
+    <h2 id="einordnung"><i class="bi bi-boxes"></i> Einordnung</h2>
+    <section class="grid">
+      <div class="cell c-12">
+      </div>
+    </section>
+
+    <h2 id="einordnung"><i class="bi bi-boxes"></i> Weiterführende Links</h2>
+    <section class="grid">
+      <div class="cell c-6">
+        <h3>Ihr wollt mehr?</h3>
+        <p>Es gibt unmengen an Informationen, Daten, Podcasts, Studien und weiteres Material im Web. Schaut gerne mal
+          rein, wenn ihr euch noch mehr informieren wollt. <strong>Hinweis:</strong> Dies sind <strong>externe
+            Links</strong> und gehören daher nicht zu unserer Seite. Das sind lediglich Links, die wir interessant
+          fanden und an euch weitergeben wollen.</p>
+      </div>
+      <div class="cell c-6">
+        <ul>
+          <li>
+            <a href="#">Link</a>
+          </li>
+          <li>
+            <a href="#">Podcast</a>
+          </li>
+          <li>
+            <a href="#">Wal-O-Mat</a>
+          </li>
+          <li>
+            <a href="#">Studien</a>
+          </li>
+          <li>
+            <a href="#">Link</a>
+          </li>
+        </ul>
       </div>
     </section>
 
@@ -248,60 +283,6 @@
           <br>Lorem ipsum dolor sit amet adipiscing bibendum sem orci
           tempus aliquet gravida, orci amet iaculis aptent blandit quam
           accumsan donec in facilisis.</p>
-      </div>
-    </section>
-
-    <!-- 3 gleiche Spalten -->
-    <section class="grid">
-      <div class="cell c-4">
-        <h3>Spalte 1</h3>
-        <p>Text hier</p>
-      </div>
-      <div class="cell c-4">
-        <h3>Spalte 2</h3>
-        <p>Text hier</p>
-      </div>
-      <div class="cell c-4">
-        <h3>Spalte 3</h3>
-        <p>Text hier</p>
-      </div>
-    </section>
-
-    <section class="grid">
-      <div class="cell c-12 empty">
-        <!--- This is for the aesthetics. Pls don't remove.-->
-      </div>
-    </section>
-
-    <!-- volle Breite -->
-    <h2><i class="bi bi-arrow-through-heart"></i> Design the Pain away</h2>
-    <section class="grid">
-      <div class="cell c-12">
-        <p>Just do it</p>
-      </div>
-    </section>
-
-    <!-- gemischte Reihen -->
-    <section class="grid">
-      <div class="cell c-6">
-        <p>Lorem ipsum dolor sit amet adipiscing bibendum sem orci tempus
-          aliquet gravida.</p>
-      </div>
-      <div class="cell c-6">
-        <p>Lorem ipsum dolor sit amet adipiscing bibendum sem orci tempus
-          aliquet gravida.</p>
-      </div>
-      <div class="cell c-3">
-        <p>Punkt A</p>
-      </div>
-      <div class="cell c-3">
-        <p>Punkt B</p>
-      </div>
-      <div class="cell c-3">
-        <p>Punkt C</p>
-      </div>
-      <div class="cell c-3">
-        <p>Punkt D</p>
       </div>
     </section>
 
