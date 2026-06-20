@@ -1,6 +1,6 @@
 ﻿<!doctype html>
 <html id="top">
-
+<!-- version 019ee4ee -->
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -8,7 +8,6 @@
   <link rel="stylesheet" href="styles.css">
   <link rel="icon" href="assets/favicon_white.ico" type="image/x-icon">
   <link rel="icon" href="assets/favicon_black.ico" type="image/x-icon" media="(prefers-color-scheme: light)">
-  <link rel="icon" href="assets/favicon_white.ico" type="image/x-icon" media="(prefers-color-scheme: dark)">
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.13.1/font/bootstrap-icons.min.css">
 </head>
 
@@ -176,7 +175,7 @@
               <g id="g1923">
               </g>
             </svg>
-            <button class="resetMap" onclick="resetZoom()"><i class="bi bi-arrow-repeat"></i> Position zurücksetzen</button>
+            <button class="resetMap" onclick="resetZoom()"><i class="bi bi-arrow-repeat"></i> Zurücksetzen</button>
           </div>
         </div>
         <div class="cell c-5 map-info-cell">
@@ -196,36 +195,11 @@
         </div>
       </section>
       <section class="grid">
-        <div class="cell c-12">
-          <div class="placeholder"></div>
-        </div>
-      </section>
-      <section class="grid">
-        <div class="cell c-3">
-          <div class="placeholder"></div>
-        </div>
-        <div class="cell c-3">
-          <div class="placeholder"></div>
-        </div>
-        <div class="cell c-3">
-          <div class="placeholder"></div>
-        </div>
-        <div class="cell c-3">
-          <div class="placeholder"></div>
-        </div>
-      </section>
-      <section class="grid">
-        <div class="cell c-12">
-          <p>Haben sich die Menschen verändert — oder nur ihre Einstellungen? Die Antwort ist komplizierter als sie klingt. Eines ist sicher: Wer heute jung ist, wählt anders als seine Eltern. Und die Lücke wird größer.</p>
-        </div>
-      </section>
-
-      <h2>Erststimmen</h2>
-      <section class="grid">
         <div class="cell c-12 vote-chart-cell">
+          <p class="devnote">Lassen wir das drin? Finde ich eigentlich noch cool (und schön farbig). Die unterschiedlichen Jahre fehlen halt noch.</p>
           <div class="chart-header">
             <div>
-              <h3><i class="bi bi-bar-chart-line"></i> Erststimmen nach Partei</h3>
+              <h3><i class="bi bi-bar-chart-line"></i> Nach Verteilung der Pateien</h3>
               <p>Bundestagswahl 2017, Bundesgebiet gesamt</p>
             </div>
             <div class="chart-controls" aria-label="Diagrammfilter">
@@ -247,6 +221,67 @@
           </div>
           <div data-chartID="85d728e" id="firstVoteChart" class="bar-chart" role="img"
             aria-label="Balkendiagramm der Erststimmen nach Partei, filterbar nach Geschlecht und Altersgruppe"></div>
+        </div>
+      </section>
+
+      <section class="grid">
+        <div class="cell c-12 vote-chart-cell voter-pyramid-cell">
+          <div class="chart-header">
+            <div>
+              <h3><i class="bi bi-bar-chart-line"></i> Nach Alter und Geschlecht</h3>
+              <p id="voterPyramidSubtitle">Erststimmen 2025, Bundesgebiet gesamt</p>
+            </div>
+            <div class="chart-controls" aria-label="Filter für das Alters- und Geschlechtsdiagramm">
+              <label>
+                Jahr
+                <select id="pyramidYearFilter">
+                  <option value="2025">2025</option>
+                  <option value="2021">2021</option>
+                  <option value="2017">2017</option>
+                  <option value="2013">2013</option>
+                </select>
+              </label>
+              <label>
+                Partei
+                <select id="pyramidPartyFilter">
+                  <option value="CDU_CSU">CDU/CSU</option>
+                  <option value="SPD">SPD</option>
+                  <option value="GRUENE">BÜNDNIS 90/DIE GRÜNEN</option>
+                  <option value="AfD">AfD</option>
+                  <option value="FDP">FDP</option>
+                  <option value="DIE_LINKE">DIE LINKE</option>
+                  <option value="Sonstige">Sonstige</option>
+                </select>
+              </label>
+            </div>
+          </div>
+          <div class="pyramid-legend" aria-hidden="true">
+            <span><i class="legend-swatch legend-male"></i> Männlich</span>
+            <span><i class="legend-swatch legend-female"></i> Weiblich</span>
+          </div>
+          <div data-chartID="e702aa1" id="voterPyramidChart" class="bar-chart voter-pyramid" role="img"
+            aria-label="Gespiegeltes Balkendiagramm der Erststimmen nach Altersgruppe und Geschlecht, filterbar nach Jahr und Partei"></div>
+          <!-- <p class="chart-source">Quelle: Bundeswahlleiter, repräsentative Wahlstatistik. Hochgerechnete absolute Erststimmen.</p> -->
+        </div>
+      </section>
+
+      <section class="grid">
+        <div class="cell c-3">
+          <div class="placeholder"></div>
+        </div>
+        <div class="cell c-3">
+          <div class="placeholder"></div>
+        </div>
+        <div class="cell c-3">
+          <div class="placeholder"></div>
+        </div>
+        <div class="cell c-3">
+          <div class="placeholder"></div>
+        </div>
+      </section>
+      <section class="grid">
+        <div class="cell c-12">
+          <p>Haben sich die Menschen verändert — oder nur ihre Einstellungen? Die Antwort ist komplizierter als sie klingt. Eines ist sicher: Wer heute jung ist, wählt anders als seine Eltern. Und die Lücke wird größer.</p>
         </div>
       </section>
 
@@ -447,6 +482,7 @@
   <script src="assets/js/mapSvg.js"></script>
   <script src="assets/js/map.js"></script>
   <script src="assets/js/chart-85d728e.js"></script>
+  <script src="assets/js/chart-e702aa1.js"></script>
 </body>
 
 </html>

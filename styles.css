@@ -565,6 +565,65 @@ button:hover,
   font-weight: 600;
 }
 
+.voter-pyramid-cell {
+  margin-top: 1rem;
+}
+
+.pyramid-legend {
+  display: flex;
+  justify-content: center;
+  gap: 1.5rem;
+  margin: -0.75rem 0 1rem;
+  color: var(--base-100);
+  font-family: var(--font-mono);
+  font-size: 0.82rem;
+}
+
+.pyramid-legend span {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.45rem;
+}
+
+.legend-swatch {
+  width: 0.8rem;
+  height: 0.8rem;
+  border: 1px solid var(--base-50);
+}
+
+.legend-male {
+  background: var(--afd-50);
+}
+
+.legend-female {
+  background: var(--accent-300);
+}
+
+.voter-pyramid {
+  min-height: 470px;
+}
+
+.pyramid-age-label {
+  fill: var(--base-50);
+  font-family: var(--font-mono);
+  font-size: 0.82rem;
+  font-weight: 700;
+}
+
+.pyramid-value-label {
+  fill: var(--base-50);
+  font-family: var(--font-mono);
+  font-size: 0.72rem;
+  pointer-events: none;
+}
+
+.chart-source {
+  margin-top: 0.75rem;
+  color: var(--base-300);
+  font-family: var(--font-mono);
+  font-size: 0.72rem;
+}
+
 .cell.c-12.hero {
   display: flex;
   align-items: center;
@@ -806,8 +865,8 @@ button:hover,
 }
 
 .devnote {
-  background: #cca541;
-  color: #000;
+  background: #cca541 !important;
+  color: #000 !important;
   padding: 0 5px;
   font-weight: 600;
 }
