@@ -1,3 +1,9 @@
+let numberFormatter = new Intl.NumberFormat("de-DE");
+let percentageFormatter = new Intl.NumberFormat("de-DE", {
+  minimumFractionDigits: 2,
+  maximumFractionDigits: 4
+});
+
 const getID = s => document.getElementById(s);
 const getAll = s => document.querySelectorAll(s);
 

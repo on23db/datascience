@@ -145,7 +145,7 @@
       <section class="grid">
         <div class="cell c-12">
           <h3>Wo wird was gewählt?</h3>
-          <p>Deutschland wählt nicht als ein Land — es wählt als viele. Wer die Karte betrachtet, erkennt schnell: der Osten und der Westen ticken anders. Manche Regionen haben sich in den letzten Jahren dramatisch verändert. Andere sind bemerkenswert stabil geblieben. Was steckt dahinter?</p>
+          <p>Deutschland wählt nicht als ein Land — es wählt als viele Teile. Wer die Karte betrachtet, erkennt schnell: der Osten und der Westen ticken anders. Manche Regionen haben sich in den letzten Jahren dramatisch verändert. Andere sind bemerkenswert stabil geblieben. Was steckt dahinter?</p>
           <p>Klicke auf Teile der Karte, um mehr zu erfahren.</p>
         </div>
       </section>
@@ -179,9 +179,39 @@
           </div>
         </div>
         <div class="cell c-5 map-info-cell">
-          <h3>Interaktive Karte</h3>
+          <div class="map-header">
+            <div>
+              <h3>Stimmenanteil je Bundesland</h3>
+              <p>Es werden die Zweitstimmen verwendet, weil diese den bundesweiten Stimmenanteil einer Partei und damit ihre parlamentarische Stärke bestimmt.</p>
+              <p>Je dünkler die Farbe des Bundeslandes, desto höher der Stimmenanteil.</p>
+            </div>
+            <div class="chart-controls map-controls" aria-label="Kartenfilter">
+              <label>
+                Jahr
+                <select id="mapYearFilter">
+                  <option value="2009">2009</option>
+                  <option value="2013">2013</option>
+                  <option value="2017">2017</option>
+                  <option value="2021">2021</option>
+                  <option value="2025" selected>2025</option>
+                </select>
+              </label>
+              <label>
+                Partei
+                <select id="mapPartyFilter">
+                  <option value="CDU_CSU">CDU/CSU</option>
+                  <option value="SPD">SPD</option>
+                  <option value="GRUENE">BÜNDNIS 90/DIE GRÜNEN</option>
+                  <option value="AfD">AfD</option>
+                  <option value="FDP">FDP</option>
+                  <option value="DIE_LINKE">DIE LINKE</option>
+                  <option value="Sonstige">Sonstige</option>
+                </select>
+              </label>
+            </div>
+          </div>
           <div id="info">
-            <i class="bi bi-geo-alt-fill"></i> Klicke auf Teile der Karte, um mehr zu erfahren
+            <i class="bi bi-hourglass-split"></i> Kartendaten werden geladen …
           </div>
         </div>
       </section>
@@ -235,10 +265,10 @@
               <label>
                 Jahr
                 <select id="pyramidYearFilter">
-                  <option value="2025">2025</option>
-                  <option value="2021">2021</option>
-                  <option value="2017">2017</option>
                   <option value="2013">2013</option>
+                  <option value="2017">2017</option>
+                  <option value="2021">2021</option>
+                  <option value="2025" selected>2025</option>
                 </select>
               </label>
               <label>

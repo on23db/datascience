@@ -87,20 +87,138 @@
   --color-nsdap: #84532c;
   --color-cdu: #d2d2d8;
 
+  /* PLEASE DON'T USE THESE VARIABLES ANYMORE
   --afd-10: #e6ffff;
   --afd-20: #cff7ff;
   --afd-30: #afe9ff;
   --afd-40: #84d4ff;
   --afd-50: #4db4f0;
   --afd-60: #008fd3;
-  /*same as --color-afd*/
   --afd-70: #0074b4;
   --afd-80: #00588f;
   --afd-90: #003c68;
-  --afd-100: #002142;
-  /*--afd-110: #000c24;
-  --afd-120: #000411;
-  --afd-130: #000207;*/
+  --afd-100: #002142;*/
+
+  --spd-50: #fff1e6;
+  --spd-100: #ffdfce;
+  --spd-200: #ffbda8;
+  --spd-300: #ff9981;
+  --spd-400: #fe745c;
+  --spd-500: #ec5240;
+  --spd-600: #cd3c33;
+  --spd-700: #991f22;
+  --spd-800: #680110;
+  --spd-900: #390003;
+  --spd-950: #220001;
+
+  --piraten-50: #fff6e1;
+  --piraten-100: #ffe8c8;
+  --piraten-200: #ffcea0;
+  --piraten-300: #ffb373;
+  --piraten-400: #f69744;
+  --piraten-500: #e87d11;
+  --piraten-600: #d06a00;
+  --piraten-700: #9b4500;
+  --piraten-800: #682400;
+  --piraten-900: #380600;
+  --piraten-950: #200000;
+
+  --fdp-50: #fffae2;
+  --fdp-100: #ffefc9;
+  --fdp-200: #f4dba2;
+  --fdp-300: #ecc575;
+  --fdp-400: #e3af44;
+  --fdp-500: #d79900;
+  --fdp-600: #ad7100;
+  --fdp-700: #814d00;
+  --fdp-800: #562c00;
+  --fdp-900: #2d0f00;
+  --fdp-950: #1a0400;
+
+  --gruene-50: #eeffe9;
+  --gruene-100: #daf8d2;
+  --gruene-200: #b6e4ae;
+  --gruene-300: #8ed088;
+  --gruene-400: #63bd65;
+  --gruene-500: #36a749;
+  --gruene-600: #138f3b;
+  --gruene-700: #006827;
+  --gruene-800: #004414;
+  --gruene-900: #002104;
+  --gruene-950: #001101;
+
+  --csu-50: #effff3;
+  --csu-100: #dcf7e5;
+  --csu-200: #bbe4cb;
+  --csu-300: #97d2b2;
+  --csu-400: #72c09c;
+  --csu-500: #50ad88;
+  --csu-600: #298768;
+  --csu-700: #07624b;
+  --csu-800: #003f2f;
+  --csu-900: #001e14;
+  --csu-950: #000f09;
+
+  --afd-50: #eaf1f2;
+  --afd-100: #d8e9ed;
+  --afd-200: #addbe7;
+  --afd-300: #78d1ec;
+  --afd-400: #3ac7fa;
+  --afd-500: #04b6ff;
+  --afd-600: #008fd3;
+  --afd-700: #0b669a;
+  --afd-800: #114366;
+  --afd-900: #102638;
+  --afd-950: #0e1923;
+
+  --linke-50: #fff1fb;
+  --linke-100: #ffe0f2;
+  --linke-200: #ffc3e0;
+  --linke-300: #ffa4d0;
+  --linke-400: #f586c1;
+  --linke-500: #e46cb1;
+  --linke-600: #c95c9f;
+  --linke-700: #933c76;
+  --linke-800: #601e4f;
+  --linke-900: #310429;
+  --linke-950: #1b0016;
+
+  /*dies ist die Farbe für sonstige Parteien*/
+  --partei-50: #f9fafe;
+  --partei-100: #edeef5;
+  --partei-200: #d5d8e1;
+  --partei-300: #bfc1ce;
+  --partei-400: #a9abbb;
+  --partei-500: #9496a7;
+  --partei-600: #808191;
+  --partei-700: #5b5b68;
+  --partei-800: #393842;
+  --partei-900: #19181f;
+  --partei-950: #0b0a0f;
+
+  --nsdap-50: #fff8ea;
+  --nsdap-100: #ffe9d5;
+  --nsdap-200: #eeceb0;
+  --nsdap-300: #deb28a;
+  --nsdap-400: #ce9766;
+  --nsdap-500: #ba7d47;
+  --nsdap-600: #a06736;
+  --nsdap-700: #84532c;
+  --nsdap-800: #573014;
+  --nsdap-900: #2d1101;
+  --nsdap-950: #190500;
+
+  --cdu-50: #e9e9ec;
+  --cdu-100: #d8d7dc;
+  --cdu-200: #c0bfc7;
+  --cdu-300: #a6a5b0;
+  --cdu-400: #878693;
+  --cdu-500: #686875;
+  --cdu-600: #50515d;
+  --cdu-700: #3b3c46;
+  --cdu-800: #26272e;
+  --cdu-900: #131419;
+  --cdu-950: #050609;
 
   --color-male: #008e82;
   --color-female: #8c5cad;
@@ -161,7 +279,7 @@ section {
 b,
 strong {
   font-weight: 800;
-  color: var(--accent-200);
+  color: var(--base-50);
 }
 
 footer {
@@ -719,6 +837,35 @@ button:hover,
   min-height: 600px;
 }
 
+.map-info-cell {
+  display: flex;
+  flex-direction: column;
+}
+
+.map-header {
+  display: grid;
+  gap: 1.5rem;
+  margin-bottom: 2rem;
+}
+
+.map-header p {
+  margin-bottom: 0;
+}
+
+.map-header p {
+  color: var(--base-200);
+}
+
+.map-controls {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  justify-content: stretch;
+}
+
+.map-controls label {
+  min-width: 0;
+}
+
 #map-shell {
   width: 100%;
   height: 100%;
@@ -734,23 +881,68 @@ button:hover,
   height: 100%;
   min-height: 520px;
   padding: 20px;
-  background: var(--base-bg);
-  border: 1px solid var(--base-50);
   border-radius: var(--bora-base);
+}
+
+#g1923 .state {
+  fill: var(--base-bg);
+  stroke: var(--base-50);
+  stroke-width: 0.5;
+  stroke-linejoin: round;
+}
+
+#path3789 {
+  fill: none;
 }
 
 .state {
   cursor: pointer;
   vector-effect: non-scaling-stroke;
+  stroke: red;
+  stroke-width: 1.5 !important;
 }
 
 .state:hover {
   stroke: var(--base-999) !important;
   stroke-width: 1.5 !important;
+  box-shadow: 0 0 20px red;
 }
 
 #info {
-  overflow: scroll;
+  overflow: auto;
+}
+
+.map-result {
+  padding: 1.25rem;
+  background: var(--base-900);
+  border-left: 4px solid var(--map-result-color, var(--primary-500));
+  border-radius: var(--bora-base);
+}
+
+.map-result h3 {
+  margin: 0;
+}
+
+.map-percentage {
+  margin: 0.6rem 0;
+  color: var(--base-50);
+  font-family: var(--font-mono);
+  font-size: clamp(2rem, 5vw, 3.5rem);
+  font-weight: 800;
+  line-height: 1;
+}
+
+.map-result-detail,
+.map-hint {
+  color: var(--base-200);
+}
+
+.map-result-detail {
+  margin-bottom: 0;
+}
+
+.map-error {
+  color: var(--spd-300);
 }
 
 #info pre {
@@ -827,6 +1019,10 @@ button:hover,
   #Bundesrepublik_Deutschland,
   #info {
     min-height: 520px;
+  }
+
+  .map-controls {
+    grid-template-columns: 1fr;
   }
 }
 

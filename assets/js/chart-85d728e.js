@@ -19,7 +19,7 @@ const ageLabels = {
   "1947 und früher": `${2026 - 1947} und älter`
 };
 
-const numberFormatter = new Intl.NumberFormat("de-DE");
+numberFormatter = new Intl.NumberFormat("de-DE");
 const genderFilter = getID("genderFilter");
 const ageFilter = getID("ageFilter");
 const chartContainer = d3.select("#firstVoteChart");
