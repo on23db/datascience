@@ -147,7 +147,7 @@
       .attr("y", (d) => y(d.age))
       .attr("width", (d) => x(d.male))
       .attr("height", y.bandwidth())
-      .attr("fill", "var(--afd-50)")
+      .attr("fill", "var(--color-male)")
       .append("title").text((d) => `Männlich, ${d.age}: ${numberFormatter.format(Math.round(d.male))}`);
     groups.append("rect")
       .attr("class", "bar pyramid-bar-female")
@@ -155,7 +155,7 @@
       .attr("y", (d) => y(d.age))
       .attr("width", (d) => x(d.female))
       .attr("height", y.bandwidth())
-      .attr("fill", "var(--accent-300)")
+      .attr("fill", "var(--color-female)")
       .append("title").text((d) => `Weiblich, ${d.age}: ${numberFormatter.format(Math.round(d.female))}`);
 
     groups.append("text")

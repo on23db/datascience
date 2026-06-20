@@ -102,6 +102,9 @@
   --afd-120: #000411;
   --afd-130: #000207;*/
 
+  --color-male: #008e82;
+  --color-female: #8c5cad;
+
   --color-link: #009fc1;
   --border-color: var(--base-700);
 
@@ -592,11 +595,11 @@ button:hover,
 }
 
 .legend-male {
-  background: var(--afd-50);
+  background: var(--color-male);
 }
 
 .legend-female {
-  background: var(--accent-300);
+  background: var(--color-female);
 }
 
 .voter-pyramid {
