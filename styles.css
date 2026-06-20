@@ -886,26 +886,18 @@ button:hover,
 
 #g1923 .state {
   fill: var(--base-bg);
-  stroke: var(--base-50);
-  stroke-width: 0.5;
+  stroke: var(--base-999);
+  stroke-width: 2.5;
   stroke-linejoin: round;
+}
+
+#g1923 .state:hover {
+  stroke: var(--base-999) !important;
+  stroke-width: 1.5 !important;
 }
 
 #path3789 {
   fill: none;
-}
-
-.state {
-  cursor: pointer;
-  vector-effect: non-scaling-stroke;
-  stroke: red;
-  stroke-width: 1.5 !important;
-}
-
-.state:hover {
-  stroke: var(--base-999) !important;
-  stroke-width: 1.5 !important;
-  box-shadow: 0 0 20px red;
 }
 
 #info {
