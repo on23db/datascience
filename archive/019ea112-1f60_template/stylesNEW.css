@@ -1,0 +1,206 @@
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+:root {
+  --border-color: rgba(255, 255, 255, 0.2);
+}
+
+body {
+  font-family: "Elms Sans", sans-serif;
+  color: #fff;
+  background-color: #141414;
+  background-image: url("assets/bg.svg");
+  background-size: 500px 500px;
+  background-repeat: repeat;
+  overflow-x: hidden;
+}
+
+main {
+  padding: 2rem;
+  max-width: 1440px;
+  margin: 0 auto;
+}
+
+footer {
+  text-align: center;
+  padding: 2rem;
+  font-size: 0.9rem;
+}
+
+h1 {
+  font-size: clamp(2rem, 1vw, 3.5rem);
+  line-height: 1;
+  text-transform: uppercase;
+  padding-bottom: 1rem;
+}
+
+h2 {
+  font-size: clamp(1.5rem, 2vw, 2.5rem);
+  line-height: 1;
+  text-transform: uppercase;
+  padding-bottom:1rem;
+}
+
+p {
+  line-height: 1.5;
+  font-weight: 200;
+  font-family: system-ui, sans-serif;
+}
+
+.subheadline {
+  font-size: clamp(0.75rem, 1.5vw,1rem);
+  text-transform: uppercase;
+  letter-spacing: 0.25em;
+  font-weight: 200;
+  font-family: "Elms Sans", sans-serif;
+  margin-bottom: 0.4rem;
+  opacity: 0.8;
+}
+
+img {
+  display: block;
+  max-width: 100%;
+  height: auto;
+}
+
+.grid {
+  display: grid;
+  grid-template-columns: repeat(12, 1fr);
+  border-left: 1px solid var(--border-color);
+  border-top: 1px solid var(--border-color);
+}
+
+.cell {
+  border-right: 1px solid var(--border-color);
+  border-bottom: 1px solid var(--border-color);
+  padding: 2.5rem;
+}
+
+/* Spaltenbreiten */
+.c-1 {
+  grid-column: span 1;
+}
+
+.c-2 {
+  grid-column: span 2;
+}
+
+.c-3 {
+  grid-column: span 3;
+}
+
+.c-4 {
+  grid-column: span 4;
+}
+
+.c-5 {
+  grid-column: span 5;
+}
+
+.c-6 {
+  grid-column: span 6;
+}
+
+.c-7 {
+  grid-column: span 7;
+}
+
+.c-8 {
+  grid-column: span 8;
+}
+
+.c-9 {
+  grid-column: span 9;
+}
+
+.c-10 {
+  grid-column: span 10;
+}
+
+.c-11 {
+  grid-column: span 11;
+}
+
+.c-12 {
+  grid-column: span 12;
+}
+
+@media (max-width: 700px) {
+  .cell {
+    grid-column: span 12 !important;
+  }
+}
+
+button,
+.btn {
+  display: inline-block;
+  font-family: "Elms Sans", sans-serif;
+  background: transparent;
+  border: 1px solid #fff;
+  color: #fff;
+  padding: 0.6rem 1.5rem;
+  font-size: 1rem;
+  text-transform: uppercase;
+  cursor: pointer;
+  letter-spacing: 0.05em;
+  transition: background 0.1s, color 0.2s;
+  margin-top: 1.5rem;
+}
+
+button:hover,
+.btn:hover {
+  background: #fff;
+  color: #141414;
+}
+
+.cell.c-12.hero {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 90vh;
+}
+
+.cell.c-12.empty {
+  height: 18vh;
+}
+
+.cell.c-12.hero img {
+  width: clamp(280px, 70vw, 850px);
+  height: auto;
+}
+
+.hero-wrapper {
+  position: relative;
+}
+
+.deco {
+  position: absolute;
+  pointer-events: none;
+  z-index: 0;
+}
+
+/* Positionen – anpassen bis es passt */
+.deco-ballot {
+  width: clamp(100px, 28vw, 250px);
+  top: -20px;
+  left: -30px;
+}
+
+.deco-letter {
+  width: clamp(180px, 30vw, 800px);
+  top: -20px;
+  right: 60px;
+  transform: rotate(8deg);
+}
+
+.deco-pen {
+  width: clamp(250px, 30vw, 400px);
+  bottom: clamp(-20%, 2vw, -60%);;
+  right: clamp(-5%, 15vw, -10%);
+  transform: rotate(-245deg);
+}
