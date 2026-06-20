@@ -140,10 +140,14 @@ body {
   overflow-x: hidden;
 }
 
-main {
+.contentWrap {
   padding: 2rem;
   max-width: 1350px;
   margin: 0 auto;
+}
+
+.pt0 {
+  padding-top: 0;
 }
 
 section {
@@ -164,7 +168,7 @@ footer {
 
 footer .logo {
   width: 300px;
-  margin: 150px auto;
+  margin: 100px auto;
 }
 
 h2 {
@@ -734,6 +738,16 @@ button:hover,
   color: var(--primary-500);
 }
 
+.parallaxFooter {
+  background-image: url('assets/images/einwurf.webp');
+  padding: 15% 10px;
+  margin: 78px 0 0;
+  background-attachment: fixed;
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: cover;
+}
+
 @media (max-width: 700px) {
   .chart-header,
   .chart-controls {
@@ -752,6 +766,18 @@ button:hover,
   #info {
     min-height: 520px;
   }
+}
+
+#map-shell {
+  position: relative;
+}
+
+.resetMap {
+  margin-top: 0;
+  position: absolute;
+  z-index: 999;
+  bottom: 0;
+  right: 0;
 }
 
 .placeholder {
