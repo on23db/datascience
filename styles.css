@@ -728,6 +728,96 @@ button:hover,
   display: block;
 }
 
+.spectrum-chart {
+  display: grid;
+  gap: 0.7rem;
+  padding: 0.95rem 1rem 1.05rem;
+  background: var(--base-900);
+  border: 1px solid var(--base-700);
+  border-radius: var(--bora-base);
+}
+
+.spectrum-header {
+  display: flex;
+  align-items: end;
+  justify-content: space-between;
+  gap: 1rem;
+}
+
+.spectrum-header h4 {
+  margin: 0;
+  color: var(--base-10);
+  font-size: clamp(1rem, 2vw, 1.18rem);
+}
+
+.spectrum-header p {
+  margin: 0;
+  color: var(--base-200);
+  font-family: var(--font-mono);
+  font-size: 0.76rem;
+  text-align: right;
+}
+
+.spectrum-stack {
+  display: grid;
+  gap: 0.35rem;
+}
+
+.spectrum-scale {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  color: var(--base-300);
+  font-family: var(--font-mono);
+  font-size: 0.68rem;
+}
+
+.spectrum-scale span:nth-child(2) {
+  text-align: center;
+}
+
+.spectrum-scale span:last-child {
+  text-align: right;
+}
+
+.spectrum-track {
+  display: flex;
+  width: 100%;
+  min-height: 3rem;
+  overflow: hidden;
+  background: color-mix(in srgb, var(--base-950) 72%, transparent);
+  border: 1px solid var(--base-700);
+}
+
+.spectrum-segment {
+  display: grid;
+  width: var(--segment-width);
+  min-width: 0;
+  place-items: center;
+  padding: 0 0.25rem;
+  background: var(--segment-color);
+  color: var(--base-950);
+  font-family: var(--font-mono);
+  font-size: clamp(0.62rem, 1.3vw, 0.78rem);
+  font-weight: 800;
+  line-height: 1.1;
+  text-align: center;
+  transition: width 0.26s ease;
+}
+
+.spectrum-segment span {
+  max-width: 100%;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.spectrum-empty {
+  margin: 0;
+  color: var(--base-200);
+  font-family: var(--font-mono);
+  font-size: 0.82rem;
+}
+
 .racing-party,
 .racing-value {
   fill: var(--base-50);
@@ -1382,6 +1472,19 @@ button:hover,
 
   .racing-chart {
     min-height: 290px;
+  }
+
+  .spectrum-header {
+    display: grid;
+    align-items: start;
+  }
+
+  .spectrum-header p {
+    text-align: left;
+  }
+
+  .spectrum-track {
+    min-height: 3.4rem;
   }
 
   .racing-timeline-wrap {

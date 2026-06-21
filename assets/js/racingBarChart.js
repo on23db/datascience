@@ -91,6 +91,13 @@
       </div>
             
       <div class="racing-chart" aria-label="Rangliste der Parteien nach Stimmenanteil"></div>
+      <div class="spectrum-chart" aria-label="Politische Spektren der beruecksichtigten Parteien">
+        <div class="spectrum-header">
+          <h4>Politisches Spektrum</h4>
+          <p id="spectrumCaption">Nur Parteien mit hinterlegter Einordnung werden einbezogen.</p>
+        </div>
+        <div class="spectrum-stack" id="spectrumStack"></div>
+      </div>
 <div class="racing-event-panel" id="racingEventPanel">
         <p class="racing-event-kicker">Historischer Kontext</p>
         <h4>Marker auf der Linie ausw&auml;hlen</h4>
@@ -125,6 +132,8 @@
   const yearLabel = container.select(".racing-year");
   const electionLabel = container.select("#racingElectionLabel");
   const turnoutLabel = container.select("#racingTurnout");
+  const spectrumStack = container.select("#spectrumStack");
+  const spectrumCaption = container.select("#spectrumCaption");
   const eventPanel = container.select("#racingEventPanel");
   const scrubber = container.select("#racingScrubber");
   const playButton = container.select("#racingPlay");
@@ -135,8 +144,9 @@
 
   Promise.all([
     d3.dsv(";", "rawData/BTW_1919-2025.csv"),
-    d3.dsv(";", "rawData/ereignisse.csv")
-  ]).then(([electionRows, eventRows]) => {
+    d3.dsv(";", "rawData/ereignisse.csv"),
+    d3.dsv(";", "rawData/partei_verteilung.csv")
+  ]).then(([electionRows, eventRows, distributionRows]) => {
     const rows = electionRows
       .filter((row) => String(row.Geschlecht).toLowerCase() === "insgesamt")
       .map((row) => {
@@ -160,6 +170,25 @@
 
     const allParties = [...new Set(rows.flatMap((row) => row.parties.map((entry) => entry.party)))];
     electionYears = rows.map((row) => row.year);
+    const partySpectrum = new Map();
+    distributionRows.forEach((row) => {
+      const party = normalizeText(row.partei);
+      const spectrum = normalizeText(row.spektrum);
+      const value = Number(String(row.wert ?? "").replace(",", "."));
+      if (!partySpectrum.has(party) && spectrum && spectrum !== "\u2014" && Number.isFinite(value)) {
+        partySpectrum.set(party, { spectrum, value });
+      }
+    });
+    const spectrumOrder = ["Linksextrem", "Links", "Links-Mitte", "Mitte", "Mitte-Rechts", "Rechts", "Rechtsextrem"];
+    const spectrumColors = {
+      Linksextrem: "#f4c7a1",
+      Links: "#f3ed9b",
+      "Links-Mitte": "#d6dda8",
+      Mitte: "#595959",
+      "Mitte-Rechts": "#d6b16a",
+      Rechts: "#f29a45",
+      Rechtsextrem: "#df983e"
+    };
 
     const events = eventRows
       .map((row) => ({
@@ -177,20 +206,21 @@
       return row?.parties.find((entry) => entry.party === party)?.value ?? 0;
     }
 
-    function getState(year) {
+    function getState(year, limit = null) {
       const before = [...rows].reverse().find((row) => row.year <= year) ?? rows[0];
       const after = rows.find((row) => row.year >= year) ?? rows[rows.length - 1];
       const span = Math.max(after.year - before.year, 0.001);
       const t = before.year === after.year ? 0 : (year - before.year) / span;
 
-      return allParties
+      const state = allParties
         .map((party) => ({
           party,
           value: d3.interpolateNumber(getPartyValue(before, party), getPartyValue(after, party))(t)
         }))
         .filter((entry) => entry.value > 0.05)
-        .sort((a, b) => d3.descending(a.value, b.value))
-        .slice(0, 9);
+        .sort((a, b) => d3.descending(a.value, b.value));
+
+      return Number.isFinite(limit) ? state.slice(0, limit) : state;
     }
 
     function nearestElection(year) {
@@ -217,7 +247,7 @@
 
     function renderBars(year) {
       width = Math.max(320, chart.node().clientWidth);
-      const data = getState(year);
+      const data = getState(year, 9);
       const rowHeight = width < 560 ? 42 : 50;
       const margin = { top: 8, right: width < 560 ? 50 : 76, bottom: 18, left: width < 560 ? 84 : 116 };
       const height = margin.top + margin.bottom + data.length * rowHeight;
@@ -281,6 +311,52 @@
             this.textContent = `${formatPercent.format(interpolator(t))} %`;
           };
         });
+    }
+
+    function renderSpectrumChart(year) {
+      const state = getState(year);
+      const grouped = d3.rollups(
+        state
+          .filter((entry) => entry.value > 0 && partySpectrum.has(entry.party))
+          .map((entry) => ({
+            ...entry,
+            spectrum: partySpectrum.get(entry.party).spectrum
+          })),
+        (entries) => d3.sum(entries, (entry) => entry.value),
+        (entry) => entry.spectrum
+      )
+        .map(([spectrum, value]) => ({ spectrum, value }))
+        .filter((entry) => entry.value > 0)
+        .sort((a, b) => spectrumOrder.indexOf(a.spectrum) - spectrumOrder.indexOf(b.spectrum));
+
+      const total = d3.sum(grouped, (entry) => entry.value);
+      if (!total) {
+        spectrumStack.html("<p class=\"spectrum-empty\">Fuer dieses Wahljahr liegen keine Spektrum-Zuordnungen vor.</p>");
+        spectrumCaption.text("Keine einordenbaren Parteien fuer dieses Wahljahr.");
+        return;
+      }
+
+      const includedParties = state
+        .filter((entry) => entry.value > 0 && partySpectrum.has(entry.party))
+        .length;
+      spectrumCaption.text(`${includedParties} einordenbare Parteien, ${formatPercent.format(total)} % Stimmenanteil abgedeckt.`);
+      spectrumStack.html(`
+        <div class="spectrum-scale" aria-hidden="true">
+          <span>0 %</span>
+          <span>50 %</span>
+          <span>100 %</span>
+        </div>
+        <div class="spectrum-track">
+          ${grouped.map((entry) => {
+            const width = entry.value / total * 100;
+            return `
+              <div class="spectrum-segment" style="--segment-width:${width}%; --segment-color:${spectrumColors[entry.spectrum] ?? "var(--base-500)"}" title="${escapeHtml(entry.spectrum)}: ${formatPercent.format(entry.value)} %">
+                <span>${escapeHtml(entry.spectrum)}</span>
+              </div>
+            `;
+          }).join("")}
+        </div>
+      `);
     }
 
     function renderTimeline() {
@@ -400,6 +476,7 @@
         ? `Wahlbeteiligung: ${formatTurnout.format(election.turnout)} %`
         : "Wahlbeteiligung: keine Angabe");
       renderBars(activeYear);
+      renderSpectrumChart(activeYear);
 
       const x = d3.scaleLinear()
         .domain([1919, 2025])
