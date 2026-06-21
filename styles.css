@@ -1018,15 +1018,15 @@ button:hover,
 }
 
 .racing-event-marker.event-politik {
-  color: var(--accent-300);
+  color: var(--gruene-300);
 }
 
 .racing-event-marker.event-wirtschaft {
-  color: var(--fdp-300);
+  color: var(--accent-300);
 }
 
 .racing-event-marker.event-gesellschaft {
-  color: var(--gruene-300);
+  color: var(--fdp-300);
 }
 
 .racing-event-marker.event-sonstige {

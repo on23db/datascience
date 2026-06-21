@@ -78,12 +78,10 @@
 
   container.html(`
     <div class="racing-shell">
-      <div class="racing-topline">
-        <div>
-          <p class="subheadline">Entwicklung</p>
-          <h3>Wahlergebnisse im Zeitverlauf</h3>
-        </div>
-        <div class="racing-year" aria-live="polite">1919</div>
+    <div class="racing-event-panel" id="racingEventPanel">
+        <p class="racing-event-kicker">Historischer Kontext</p>
+        <h4>Marker auf der Linie ausw&auml;hlen</h4>
+        <p>Oben sitzen historische Einschnitte, unten die Wahljahre. Beim Scrubben springst du gezielt von Wahlergebnis zu Wahlergebnis.</p>
       </div>
       <div class="racing-meta">
         <span id="racingElectionLabel">Wahljahr</span>
@@ -91,18 +89,11 @@
       </div>
             
       <div class="racing-chart" aria-label="Rangliste der Parteien nach Stimmenanteil"></div>
-      <div class="spectrum-chart" aria-label="Politische Spektren der beruecksichtigten Parteien">
-        <div class="spectrum-header">
-          <h4>Politisches Spektrum</h4>
+
           <p id="spectrumCaption">Nur Parteien mit hinterlegter Einordnung werden einbezogen.</p>
-        </div>
+
         <div class="spectrum-stack" id="spectrumStack"></div>
-      </div>
-<div class="racing-event-panel" id="racingEventPanel">
-        <p class="racing-event-kicker">Historischer Kontext</p>
-        <h4>Marker auf der Linie ausw&auml;hlen</h4>
-        <p>Oben sitzen historische Einschnitte, unten die Wahljahre. Beim Scrubben springst du gezielt von Wahlergebnis zu Wahlergebnis.</p>
-      </div>
+
       <div class="racing-timeline-wrap">
         <svg class="racing-timeline" role="img" aria-label="Zeitachse mit historischen Ereignissen und Wahljahren"></svg>
         <input id="racingScrubber" type="range" min="1919" max="2025" step="0.1" value="1919" aria-label="Wahljahr auswaehlen">
