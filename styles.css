@@ -800,9 +800,9 @@ button:hover,
 #racingScrubber {
   position: absolute;
   z-index: 5;
-  left: var(--timeline-left, 28px);
+  left: calc(var(--timeline-left, 28px) - 0.575rem);
   top: var(--scrubber-y, 104px);
-  width: calc(100% - var(--timeline-left, 28px) - var(--timeline-right, 28px));
+  width: calc(100% - var(--timeline-left, 28px) - var(--timeline-right, 28px) + 1.15rem);
   height: 2rem;
   transform: translateY(-50%);
   appearance: none;
