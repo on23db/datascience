@@ -1,0 +1,523 @@
+(function () {
+  const container = d3.select("#racingBarChart");
+  if (container.empty()) return;
+
+  const partyColorTokens = {
+    "CDU/CSU": "--color-cdu",
+    CDU: "--color-cdu",
+    CSU: "--color-csu",
+    SPD: "--color-spd",
+    AfD: "--color-afd",
+    FDP: "--color-fdp",
+    "Gr\u00fcne": "--color-gruene",
+    "GR\u00dcNE": "--color-gruene",
+    Linke: "--color-linke",
+    "DIE LINKE": "--color-linke",
+    KPD: "--color-linke",
+    USPD: "--color-spd",
+    NSDAP: "--color-nsdap",
+    Sonstige: "--color-partei",
+    BSW: "--accent-500"
+  };
+
+  const fallbackColors = d3.schemeTableau10;
+  const formatPercent = new Intl.NumberFormat("de-DE", {
+    minimumFractionDigits: 1,
+    maximumFractionDigits: 1
+  });
+  const formatTurnout = new Intl.NumberFormat("de-DE", {
+    minimumFractionDigits: 1,
+    maximumFractionDigits: 1
+  });
+  const eventIcon = {
+    Wahl: "bi-check2-square",
+    Politik: "bi-bank",
+    Wirtschaft: "bi-graph-down-arrow",
+    Gesellschaft: "bi-people"
+  };
+
+  let activeYear = 1919;
+  let isPlaying = false;
+  let timer = null;
+  let selectedEvent = null;
+  let width = 960;
+  let timelineWidth = 960;
+  let electionYears = [];
+
+  const normalizeText = (value) => String(value ?? "")
+    .replaceAll("Ã¤", "\u00e4")
+    .replaceAll("Ã¶", "\u00f6")
+    .replaceAll("Ã¼", "\u00fc")
+    .replaceAll("Ã„", "\u00c4")
+    .replaceAll("Ã–", "\u00d6")
+    .replaceAll("Ãœ", "\u00dc")
+    .replaceAll("ÃŸ", "\u00df")
+    .replaceAll("â€”", "\u2014")
+    .replaceAll("â€“", "\u2013")
+    .replaceAll("â†—", "\u2197");
+
+  const parseYear = (value) => {
+    const text = String(value ?? "").trim();
+    const numeric = Number.parseInt(text, 10);
+    if (text.endsWith("a")) return numeric + 0.2;
+    if (text.endsWith("b")) return numeric + 0.8;
+    return numeric;
+  };
+
+  const displayYear = (value) => {
+    const text = String(value ?? "").trim();
+    if (text.endsWith("a")) return `${Number.parseInt(text, 10)} I`;
+    if (text.endsWith("b")) return `${Number.parseInt(text, 10)} II`;
+    return text;
+  };
+
+  const toPercent = (value) => {
+    if (value === null || value === undefined || value === "") return 0;
+    return Number(String(value).replace(",", ".")) / 10;
+  };
+
+  container.html(`
+    <div class="racing-shell">
+      <div class="racing-topline">
+        <div>
+          <p class="subheadline">Entwicklung</p>
+          <h3>Wahlergebnisse im Zeitverlauf</h3>
+        </div>
+        <div class="racing-year" aria-live="polite">1919</div>
+      </div>
+      <div class="racing-meta">
+        <span id="racingElectionLabel">Wahljahr</span>
+        <span id="racingTurnout">Wahlbeteiligung: --</span>
+      </div>
+            
+      <div class="racing-chart" aria-label="Rangliste der Parteien nach Stimmenanteil"></div>
+<div class="racing-event-panel" id="racingEventPanel">
+        <p class="racing-event-kicker">Historischer Kontext</p>
+        <h4>Marker auf der Linie ausw&auml;hlen</h4>
+        <p>Oben sitzen historische Einschnitte, unten die Wahljahre. Beim Scrubben springst du gezielt von Wahlergebnis zu Wahlergebnis.</p>
+      </div>
+      <div class="racing-timeline-wrap">
+        <svg class="racing-timeline" role="img" aria-label="Zeitachse mit historischen Ereignissen und Wahljahren"></svg>
+        <input id="racingScrubber" type="range" min="1919" max="2025" step="0.1" value="1919" aria-label="Wahljahr auswaehlen">
+      </div>
+            <div class="racing-controls" aria-label="Animation steuern">
+        <button type="button" class="racing-icon-button" id="racingPlay" title="Animation starten" aria-label="Animation starten">
+            <i class="bi bi-play-fill"></i><span>Play</span>
+          </button>
+          <button type="button" class="racing-icon-button" id="racingPrevious" title="Vorherige Wahl" aria-label="Vorherige Wahl">
+            <i class="bi bi-skip-backward-fill"></i><span>Vorherige Wahl</span>
+          </button>
+          <button type="button" class="racing-icon-button" id="racingNext" title="Nächste Wahl" aria-label="Nächste Wahl">
+            <i class="bi bi-skip-forward-fill"></i><span>Nächste Wahl</span>
+          </button>
+          <button type="button" class="racing-icon-button" id="racingPause" title="Animation pausieren" aria-label="Animation pausieren">
+            <i class="bi bi-pause-fill"></i><span>Pause</span>
+          </button>
+        <button type="button" class="racing-icon-button" id="racingReset" title="Zum Anfang zuruecksetzen" aria-label="Zum Anfang zuruecksetzen">
+          <i class="bi bi-stop-fill"></i><span>Reset</span>
+        </button>
+      </div>
+    </div>
+  `);
+
+  const chart = container.select(".racing-chart");
+  const timeline = container.select(".racing-timeline");
+  const yearLabel = container.select(".racing-year");
+  const electionLabel = container.select("#racingElectionLabel");
+  const turnoutLabel = container.select("#racingTurnout");
+  const eventPanel = container.select("#racingEventPanel");
+  const scrubber = container.select("#racingScrubber");
+  const playButton = container.select("#racingPlay");
+  const previousButton = container.select("#racingPrevious");
+  const nextButton = container.select("#racingNext");
+  const pauseButton = container.select("#racingPause");
+  const resetButton = container.select("#racingReset");
+
+  Promise.all([
+    d3.dsv(";", "rawData/BTW_1919-2025.csv"),
+    d3.dsv(";", "rawData/ereignisse.csv")
+  ]).then(([electionRows, eventRows]) => {
+    const rows = electionRows
+      .filter((row) => String(row.Geschlecht).toLowerCase() === "insgesamt")
+      .map((row) => {
+        const parties = Object.keys(row)
+          .filter((key) => !["Jahr", "Geschlecht", "Wahlbeteiligung"].includes(key))
+          .map((party) => ({
+            party: normalizeText(party),
+            value: toPercent(row[party])
+          }))
+          .filter((entry) => Number.isFinite(entry.value));
+
+        return {
+          rawYear: row.Jahr,
+          year: parseYear(row.Jahr),
+          label: displayYear(row.Jahr),
+          turnout: toPercent(row.Wahlbeteiligung),
+          parties
+        };
+      })
+      .sort((a, b) => a.year - b.year);
+
+    const allParties = [...new Set(rows.flatMap((row) => row.parties.map((entry) => entry.party)))];
+    electionYears = rows.map((row) => row.year);
+
+    const events = eventRows
+      .map((row) => ({
+        year: Number(row.jahr),
+        jahr: normalizeText(row.jahr),
+        ereignis: normalizeText(row.ereignis),
+        kategorie: normalizeText(row.kategorie),
+        erklaerung: normalizeText(row.erklaerung),
+        link: row.link
+      }))
+      .filter((row) => Number.isFinite(row.year))
+      .sort((a, b) => a.year - b.year);
+
+    function getPartyValue(row, party) {
+      return row?.parties.find((entry) => entry.party === party)?.value ?? 0;
+    }
+
+    function getState(year) {
+      const before = [...rows].reverse().find((row) => row.year <= year) ?? rows[0];
+      const after = rows.find((row) => row.year >= year) ?? rows[rows.length - 1];
+      const span = Math.max(after.year - before.year, 0.001);
+      const t = before.year === after.year ? 0 : (year - before.year) / span;
+
+      return allParties
+        .map((party) => ({
+          party,
+          value: d3.interpolateNumber(getPartyValue(before, party), getPartyValue(after, party))(t)
+        }))
+        .filter((entry) => entry.value > 0.05)
+        .sort((a, b) => d3.descending(a.value, b.value))
+        .slice(0, 9);
+    }
+
+    function nearestElection(year) {
+      return d3.least(rows, (row) => Math.abs(row.year - year));
+    }
+
+    function nearestElectionIndex(year) {
+      const nearest = nearestElection(year);
+      return Math.max(0, electionYears.indexOf(nearest.year));
+    }
+
+    function goToElectionOffset(offset) {
+      pause();
+      const nextIndex = Math.max(0, Math.min(electionYears.length - 1, nearestElectionIndex(activeYear) + offset));
+      render(electionYears[nextIndex]);
+    }
+
+    function colorForParty(party) {
+      const token = partyColorTokens[party];
+      const cssColor = token ? cssVar(token).trim() : "";
+      if (cssColor) return cssColor;
+      return fallbackColors[Math.abs(allParties.indexOf(party)) % fallbackColors.length];
+    }
+
+    function renderBars(year) {
+      width = Math.max(320, chart.node().clientWidth);
+      const data = getState(year);
+      const rowHeight = width < 560 ? 42 : 50;
+      const margin = { top: 8, right: width < 560 ? 50 : 76, bottom: 18, left: width < 560 ? 84 : 116 };
+      const height = margin.top + margin.bottom + data.length * rowHeight;
+      const maxValue = Math.max(50, d3.max(data, (d) => d.value) ?? 50);
+      const x = d3.scaleLinear().domain([0, maxValue]).range([0, width - margin.left - margin.right]);
+      const y = d3.scaleBand().domain(data.map((d) => d.party)).range([margin.top, height - margin.bottom]).padding(0.28);
+
+      const svg = chart.selectAll("svg").data([null]).join("svg")
+        .attr("viewBox", `0 0 ${width} ${height}`)
+        .attr("width", "100%")
+        .attr("height", height);
+
+      const groups = svg.selectAll(".racing-row")
+        .data(data, (d) => d.party)
+        .join(
+          (enter) => {
+            const group = enter.append("g")
+              .attr("class", "racing-row")
+              .attr("transform", (d) => `translate(${margin.left},${y(d.party)})`)
+              .style("opacity", 0);
+            group.append("text")
+              .attr("class", "racing-party")
+              .attr("x", -12)
+              .attr("y", y.bandwidth() / 2)
+              .attr("text-anchor", "end")
+              .attr("dominant-baseline", "middle");
+            group.append("rect")
+              .attr("class", "racing-bar")
+              .attr("height", y.bandwidth())
+              .attr("width", 0);
+            group.append("text")
+              .attr("class", "racing-value")
+              .attr("y", y.bandwidth() / 2)
+              .attr("dominant-baseline", "middle");
+            return group;
+          },
+          (update) => update,
+          (exit) => exit.transition().duration(240).style("opacity", 0).remove()
+        );
+
+      groups.transition()
+        .duration(isPlaying ? 360 : 260)
+        .attr("transform", (d) => `translate(${margin.left},${y(d.party)})`)
+        .style("opacity", 1);
+
+      groups.select(".racing-party").text((d) => d.party);
+      groups.select(".racing-bar")
+        .attr("fill", (d) => colorForParty(d.party))
+        .transition()
+        .duration(isPlaying ? 360 : 260)
+        .attr("width", (d) => x(d.value));
+      groups.select(".racing-value")
+        .transition()
+        .duration(isPlaying ? 360 : 260)
+        .attr("x", (d) => x(d.value) + 10)
+        .tween("text", function (d) {
+          const current = Number(this.dataset.value ?? 0);
+          const interpolator = d3.interpolateNumber(current, d.value);
+          this.dataset.value = d.value;
+          return function (t) {
+            this.textContent = `${formatPercent.format(interpolator(t))} %`;
+          };
+        });
+    }
+
+    function renderTimeline() {
+      timelineWidth = Math.max(320, container.select(".racing-timeline-wrap").node().clientWidth);
+      const height = timelineWidth < 560 ? 174 : 198;
+      const margin = { left: timelineWidth < 560 ? 18 : 28, right: timelineWidth < 560 ? 18 : 28 };
+      const x = d3.scaleLinear().domain([1919, 2025]).range([margin.left, timelineWidth - margin.right]);
+      const baseline = timelineWidth < 560 ? 76 : 88;
+      const eventBaseY = baseline + 34;
+
+      container.select(".racing-timeline-wrap")
+        .style("--timeline-left", `${margin.left}px`)
+        .style("--timeline-right", `${margin.right}px`)
+        .style("--scrubber-y", `${baseline}px`);
+
+      timeline
+        .attr("viewBox", `0 0 ${timelineWidth} ${height}`)
+        .attr("width", "100%")
+        .attr("height", height);
+      timeline.selectAll("*").remove();
+
+      timeline.append("line")
+        .attr("class", "racing-axis-line")
+        .attr("x1", x(1919) - 10)
+        .attr("x2", x(2025) + (timelineWidth < 560 ? 16 : 28))
+        .attr("y1", baseline)
+        .attr("y2", baseline);
+
+      const tickYears = timelineWidth < 520
+        ? [1919, 1949, 1990, 2025]
+        : timelineWidth < 780
+          ? [1919, 1933, 1949, 1972, 1990, 2013, 2025]
+          : [1919, 1933, 1945, 1949, 1972, 1990, 2013, 2025];
+
+      timeline.selectAll(".racing-tick")
+        .data(tickYears)
+        .join("g")
+        .attr("class", "racing-tick")
+        .attr("transform", (d) => `translate(${x(d)},${baseline})`)
+        .call((g) => {
+          g.append("line").attr("y2", 10);
+          g.append("text").attr("y", 30).attr("text-anchor", "middle").text((d) => d);
+        });
+
+      timeline.selectAll(".racing-election-marker")
+        .data(rows)
+        .join("g")
+        .attr("class", (d) => `racing-election-marker ${Math.abs(d.year - activeYear) < 0.01 ? "is-active" : ""}`)
+        .attr("transform", (d) => `translate(${x(d.year)},${baseline - 22})`)
+        .call((g) => {
+          g.append("line").attr("y1", 8).attr("y2", 18);
+          g.append("circle").attr("r", 4);
+        });
+
+      const eventGroup = timeline.selectAll(".racing-event-marker")
+        .data(events)
+        .join("g")
+        .attr("class", (d) => `racing-event-marker ${categoryClass(d.kategorie)} ${selectedEvent === d ? "is-selected" : ""}`)
+        .attr("tabindex", 0)
+        .attr("role", "button")
+        .attr("aria-label", (d) => `${d.jahr}: ${d.ereignis}`)
+        .attr("transform", (d, index) => {
+          const lane = (index % 3) * (timelineWidth < 560 ? 23 : 26);
+          return `translate(${x(d.year)},${eventBaseY + lane})`;
+        })
+        .on("mouseenter focus", function (event, d) { showEventPopover(this, d); })
+        .on("mouseleave blur", () => {
+          if (!container.select(".racing-popover").classed("is-pinned")) hidePopover();
+        })
+        .on("click", function (event, d) {
+          event.stopPropagation();
+          selectEvent(d);
+          showEventPopover(this, d, true);
+        })
+        .on("keydown", (event, d) => {
+          if (event.key === "Enter" || event.key === " ") {
+            event.preventDefault();
+            selectEvent(d);
+          }
+        });
+
+      eventGroup.append("line")
+        .attr("class", "racing-event-stem")
+        .attr("y1", -8)
+        .attr("y2", (_, index) => -34 - (index % 3) * (timelineWidth < 560 ? 23 : 26));
+      eventGroup.append("rect")
+        .attr("class", "racing-event-hitbox")
+        .attr("x", timelineWidth < 560 ? -13 : -16)
+        .attr("y", timelineWidth < 560 ? -14 : -17)
+        .attr("width", timelineWidth < 560 ? 26 : 32)
+        .attr("height", timelineWidth < 560 ? 26 : 32);
+      eventGroup.append("foreignObject")
+        .attr("class", "racing-event-icon-wrap")
+        .attr("x", timelineWidth < 560 ? -13 : -16)
+        .attr("y", timelineWidth < 560 ? -14 : -17)
+        .attr("width", timelineWidth < 560 ? 26 : 32)
+        .attr("height", timelineWidth < 560 ? 26 : 32)
+        .html((d) => `
+          <div xmlns="http://www.w3.org/1999/xhtml" class="racing-event-icon">
+            <i class="bi ${eventIcon[d.kategorie] ?? "bi-pin-angle"}"></i>
+          </div>
+        `);
+
+      timeline.append("path")
+        .attr("class", "racing-playhead")
+        .attr("d", "M -11 0 L 0 -9 L 11 0 L 0 9 Z")
+        .attr("transform", `translate(${x(activeYear)},${baseline})`);
+    }
+
+    function render(year) {
+      const election = nearestElection(year);
+      activeYear = election.year;
+      scrubber.property("value", activeYear);
+      yearLabel.text(election.label);
+      electionLabel.text(`Wahl ${election.label}`);
+      turnoutLabel.text(Number.isFinite(election.turnout) && election.turnout > 0
+        ? `Wahlbeteiligung: ${formatTurnout.format(election.turnout)} %`
+        : "Wahlbeteiligung: keine Angabe");
+      renderBars(activeYear);
+
+      const x = d3.scaleLinear()
+        .domain([1919, 2025])
+        .range([timelineWidth < 560 ? 18 : 28, timelineWidth - (timelineWidth < 560 ? 18 : 28)]);
+      timeline.select(".racing-playhead")
+        .attr("transform", `translate(${x(activeYear)},${timelineWidth < 560 ? 104 : 118})`);
+      timeline.selectAll(".racing-election-marker")
+        .classed("is-active", (d) => Math.abs(d.year - activeYear) < 0.01);
+    }
+
+    function selectEvent(event) {
+      selectedEvent = event;
+      eventPanel.html(`
+        <p class="racing-event-kicker">${escapeHtml(event.kategorie)} &middot; ${escapeHtml(event.jahr)}</p>
+        <h4><i class="bi ${eventIcon[event.kategorie] ?? "bi-pin-angle"}"></i> ${escapeHtml(event.ereignis)}</h4>
+        <p>${escapeHtml(event.erklaerung)}</p>
+        <a href="${escapeHtml(event.link)}" target="_blank" rel="noopener">Quelle &ouml;ffnen <span>&#8599;</span></a>
+      `);
+      renderTimeline();
+      render(event.year);
+    }
+
+    function categoryClass(category) {
+      if (category === "Wahl") return "event-wahl";
+      if (category === "Politik") return "event-politik";
+      if (category === "Wirtschaft") return "event-wirtschaft";
+      if (category === "Gesellschaft") return "event-gesellschaft";
+      return "event-sonstige";
+    }
+
+    function showEventPopover(markerNode, event, pinned = false) {
+      const wrap = container.select(".racing-timeline-wrap").node();
+      const bounds = wrap.getBoundingClientRect();
+      const markerBounds = markerNode.getBoundingClientRect();
+      const popoverWidth = Math.min(260, bounds.width - 16);
+      const centeredX = markerBounds.left - bounds.left + markerBounds.width / 2 - popoverWidth / 2;
+      const xPos = Math.max(8, Math.min(bounds.width - popoverWidth - 8, centeredX));
+      const yPos = Math.max(8, markerBounds.bottom - bounds.top + 10);
+      const popover = container.selectAll(".racing-popover").data([event]).join("div")
+        .attr("class", `racing-popover ${pinned ? "is-pinned" : ""}`)
+        .style("left", `${xPos}px`)
+        .style("top", `${yPos}px`)
+        .style("width", `${popoverWidth}px`)
+        .html(`
+          <p>${escapeHtml(event.kategorie)} · ${escapeHtml(event.jahr)}</p>
+          <strong>${escapeHtml(event.ereignis)}</strong>
+          <span>${escapeHtml(event.erklaerung)}</span>
+        `);
+
+      if (pinned) {
+        popover.append("button")
+          .attr("type", "button")
+          .attr("class", "racing-popover-close")
+          .attr("aria-label", "Hinweis schließen")
+          .html("&times;")
+          .on("click", (clickEvent) => {
+            clickEvent.stopPropagation();
+            hidePopover();
+          });
+      }
+    }
+
+    function hidePopover() {
+      container.selectAll(".racing-popover").remove();
+    }
+
+    function start() {
+      if (timer) timer.stop();
+      isPlaying = true;
+      playButton.classed("is-active", true);
+      timer = d3.interval(() => {
+        const nextIndex = nearestElectionIndex(activeYear) + 1;
+        if (nextIndex >= electionYears.length) {
+          render(electionYears[electionYears.length - 1]);
+          pause();
+          return;
+        }
+        render(electionYears[nextIndex]);
+      }, 850);
+    }
+
+    function pause() {
+      isPlaying = false;
+      playButton.classed("is-active", false);
+      if (timer) timer.stop();
+      timer = null;
+    }
+
+    playButton.on("click", start);
+    previousButton.on("click", () => goToElectionOffset(-1));
+    nextButton.on("click", () => goToElectionOffset(1));
+    pauseButton.on("click", pause);
+    resetButton.on("click", () => {
+      pause();
+      selectedEvent = null;
+      eventPanel.html(`
+        <p class="racing-event-kicker">Historischer Kontext</p>
+        <h4>Marker auf der Linie ausw&auml;hlen</h4>
+        <p>Oben sitzen historische Einschnitte, unten die Wahljahre. Beim Scrubben springst du gezielt von Wahlergebnis zu Wahlergebnis.</p>
+      `);
+      renderTimeline();
+      render(1919);
+    });
+    scrubber.on("input", (event) => {
+      pause();
+      render(nearestElection(Number(event.currentTarget.value)).year);
+    });
+    window.addEventListener("resize", () => {
+      hidePopover();
+      renderTimeline();
+      render(activeYear);
+    });
+    document.addEventListener("click", hidePopover);
+
+    renderTimeline();
+    render(activeYear);
+  }).catch((error) => {
+    console.error(error);
+    container.html("<p class=\"map-error\">Das Racing-Bar-Chart konnte nicht geladen werden.</p>");
+  });
+})();
