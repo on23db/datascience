@@ -385,8 +385,83 @@
         </div>
       </section>
       <section class="grid">
-        <div class="cell c-12">
-          <div class="placeholder"></div>
+        <div class="cell c-8 simulation-chart-cell">
+          <div class="simulation-header">
+            <div>
+              <h3><i class="bi bi-activity"></i> Wahltrend bis 2033</h3>
+              <p>Historische Bundestagswahlergebnisse aus der CSV, fortgeschrieben als einfache Szenario-Linie.</p>
+            </div>
+            <span class="simulation-badge">2009-2033</span>
+          </div>
+          <div id="simulationChart" class="simulation-chart" role="img"
+            aria-label="Liniendiagramm mit historischen Bundestagswahlergebnissen und simulierter Fortschreibung bis 2033"></div>
+          <div class="simulation-note"><span></span> Gestrichelt = simuliertes Szenario ab 2025</div>
+          <div id="simulationLegend" class="simulation-legend" aria-label="Parteien im Diagramm"></div>
+          
+          <div class="simulation-results" aria-live="polite">
+            <div>
+              <span>Stärkste Partei 2033</span>
+              <strong id="simStrongest">-</strong>
+              <small id="simStrongestDetail">-</small>
+            </div>
+            <div>
+              <span>Größter Gewinner</span>
+              <strong id="simWinner">-</strong>
+              <small id="simWinnerDetail">-</small>
+            </div>
+          </div>
+        </div>
+        
+        <aside class="cell c-4 simulation-control-cell" aria-label="Simulationsregler">
+          <div class="simulation-controls-title">Regler</div>
+
+          <label class="simulation-control">
+            <span>Ab welchem Alter sollte man wählen?</span>
+            <small>Jüngere Wählerschaft wird im Szenario stärker gewichtet.</small>
+            <div class="simulation-slider-row">
+              <input type="range" id="simAge" min="16" max="21" step="1" value="18">
+              <output id="simAgeValue" for="simAge">18</output>
+            </div>
+            <div class="simulation-slider-labels"><span>16</span><span>21</span></div>
+          </label>
+
+          <label class="simulation-control">
+            <span>Was, wenn Frauen und Männer gleich wählen?</span>
+            <small>0% = heutige Unterschiede, 100% = vollständig angeglichen.</small>
+            <div class="simulation-slider-row">
+              <input type="range" id="simGender" min="0" max="100" step="10" value="0">
+              <output id="simGenderValue" for="simGender">0%</output>
+            </div>
+            <div class="simulation-slider-labels"><span>Heute</span><span>Gleich</span></div>
+          </label>
+
+          <label class="simulation-control">
+            <span>Was, wenn Ältere wie die Mitte wählen?</span>
+            <small>60+ nähert sich anteilig dem Wahlverhalten der 30-44-Jährigen an.</small>
+            <div class="simulation-slider-row">
+              <input type="range" id="simOlder" min="0" max="100" step="10" value="0">
+              <output id="simOlderValue" for="simOlder">0%</output>
+            </div>
+            <div class="simulation-slider-labels"><span>Heute</span><span>Voll</span></div>
+          </label>
+
+          <label class="simulation-control">
+            <span>Wie entwickelt sich die Wahlbeteiligung Junger?</span>
+            <small>18-34-Jährige relativ zur Gesamtbeteiligung.</small>
+            <div class="simulation-slider-row">
+              <input type="range" id="simYouth" min="-30" max="30" step="5" value="0">
+              <output id="simYouthValue" for="simYouth">+0%</output>
+            </div>
+            <div class="simulation-slider-labels"><span>-30%</span><span>+30%</span></div>
+          </label>
+
+          <button class="simulation-reset" id="simulationReset" type="button"><i class="bi bi-arrow-repeat"></i> Zurücksetzen</button>
+
+          
+        </aside>
+        
+        <div class="cell c-12 simulation-disclaimer">
+          <p><strong>Hinweis:</strong> Die Simulation ist keine Wahlprognose. Sie nutzt die historischen Werte aus <code>BTW_1919-2025.csv</code> und verändert eine lineare Fortschreibung über vereinfachte Szenario-Annahmen.</p>
         </div>
       </section>
 
@@ -503,6 +578,7 @@
   <script src="assets/js/chart-85d728e.js"></script>
   <script src="assets/js/chart-e702aa1.js"></script>
   <script src="assets/js/racingBarChart.js"></script>
+  <script src="assets/js/simulation.js"></script>
 </body>
 
 </html>
