@@ -413,7 +413,7 @@ console.log('racingBarChart.js loaded');
         })
         .on("mouseenter focus", function (event, d) { showEventPopover(this, d); })
         .on("mouseleave blur", () => {
-          if (!container.select(".racing-popover").classed("is-pinned")) hidePopover();
+          if (!d3.select(".racing-popover").classed("is-pinned")) hidePopover();
         })
         .on("click", function (event, d) {
           event.stopPropagation();
@@ -496,23 +496,34 @@ console.log('racingBarChart.js loaded');
     }
 
     function showEventPopover(markerNode, event, pinned = false) {
-      const wrap = container.select(".racing-timeline-wrap").node();
-      const bounds = wrap.getBoundingClientRect();
       const markerBounds = markerNode.getBoundingClientRect();
-      const popoverWidth = Math.min(260, bounds.width - 16);
-      const centeredX = markerBounds.left - bounds.left + markerBounds.width / 2 - popoverWidth / 2;
-      const xPos = Math.max(8, Math.min(bounds.width - popoverWidth - 8, centeredX));
-      const yPos = Math.max(8, markerBounds.bottom - bounds.top + 10);
-      const popover = container.selectAll(".racing-popover").data([event]).join("div")
+      const viewportWidth = document.documentElement.clientWidth;
+      const viewportHeight = window.innerHeight;
+      const popoverWidth = Math.min(260, viewportWidth - 16);
+      const centeredX = markerBounds.left + markerBounds.width / 2 - popoverWidth / 2;
+      const xPos = Math.max(8, Math.min(viewportWidth - popoverWidth - 8, centeredX));
+      const popover = d3.select("body").selectAll(".racing-popover").data([event]).join("div")
         .attr("class", `racing-popover ${pinned ? "is-pinned" : ""}`)
         .style("left", `${xPos}px`)
-        .style("top", `${yPos}px`)
+        .style("top", "0")
         .style("width", `${popoverWidth}px`)
+        .style("visibility", "hidden")
         .html(`
           <p>${escapeHtml(event.kategorie)} · ${escapeHtml(event.jahr)}</p>
           <strong>${escapeHtml(event.ereignis)}</strong>
           <span>${escapeHtml(event.erklaerung)}</span>
         `);
+
+      const popoverHeight = popover.node().offsetHeight;
+      const belowY = markerBounds.bottom + 10;
+      const aboveY = markerBounds.top - popoverHeight - 10;
+      const yPos = belowY + popoverHeight <= viewportHeight - 8
+        ? belowY
+        : Math.max(8, aboveY);
+
+      popover
+        .style("top", `${yPos}px`)
+        .style("visibility", "visible");
 
       if (pinned) {
         popover.append("button")
@@ -528,7 +539,7 @@ console.log('racingBarChart.js loaded');
     }
 
     function hidePopover() {
-      container.selectAll(".racing-popover").remove();
+      d3.selectAll(".racing-popover").remove();
     }
 
     function start() {

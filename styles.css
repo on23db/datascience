@@ -1107,7 +1107,7 @@ button:hover,
 }
 
 .racing-popover {
-  position: absolute;
+  position: fixed;
   z-index: 12;
   padding: 0.75rem 0.85rem;
   background: var(--base-950);
