@@ -228,7 +228,7 @@
   --color-linksextrem: #c93339;
   --color-links: #a84252;
   --color-linksmitte: #86516a;
-  --color-mitte: #656083;
+  --color-mitte: #6c6a79;
   --color-mitterechts: #436e9b;
   --color-rechts: #227db4;
   --color-rechtsextrem: #008ccc;
@@ -703,6 +703,10 @@ button:hover,
   overflow: hidden;
 }
 
+.racing-shell + .racing-shell {
+  margin-top: 1rem !important;
+}
+
 .racing-topline,
 .racing-meta,
 .racing-controls {
@@ -809,7 +813,6 @@ button:hover,
   background: var(--segment-color);
   color: var(--base-50);
   font-family: var(--font-base);
-  font-size: clamp(0.62rem, 1.4vw, 0.78rem);
   font-weight: 600;
   line-height: 1.1;
   text-align: center;

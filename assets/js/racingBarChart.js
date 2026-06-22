@@ -106,7 +106,9 @@ console.log('racingBarChart.js loaded');
     <i class="bi bi-stop-fill"></i><span>Reset</span>
     </button>
   </div>
-
+</div>
+    
+<div class="racing-shell">
   <div class="racing-chart" aria-label="Rangliste der Parteien nach Stimmenanteil"></div>
     
   <div class="spectrum-stack" id="spectrumStack"></div>
