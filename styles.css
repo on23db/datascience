@@ -837,6 +837,10 @@ button:hover,
   font-size: 0.82rem;
 }
 
+#racingTurnout {
+  margin-top: 0;
+}
+
 .racing-party,
 .racing-value {
   fill: var(--base-50);

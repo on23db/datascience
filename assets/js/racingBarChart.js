@@ -79,8 +79,9 @@ console.log('racingBarChart.js loaded');
 
   container.html(
 `<div id="racingEventPanel" class="racing-event-panel">
-  <p class="map-percentage" id="racingElectionLabel"></p>
   <p id="racingTurnout">Wahlbeteiligung: --</p>
+  <p class="map-percentage" id="racingElectionLabel"></p>
+  <p class="entwicklung-contextInfo" id="racingContextInfo" hidden></p>
 </div>
     
 <div class="racing-shell">
@@ -120,9 +121,9 @@ console.log('racingBarChart.js loaded');
   const yearLabel = container.select(".racing-year");
   const electionLabel = container.select("#racingElectionLabel");
   const turnoutLabel = container.select("#racingTurnout");
+  const contextInfo = container.select("#racingContextInfo");
   const spectrumStack = container.select("#spectrumStack");
   const spectrumCaption = container.select("#spectrumCaption");
-  const eventPanel = container.select("#racingEventPanel");
   const scrubber = container.select("#racingScrubber");
   const playButton = container.select("#racingPlay");
   const previousButton = container.select("#racingPrevious");
@@ -477,13 +478,11 @@ console.log('racingBarChart.js loaded');
 
     function selectEvent(event) {
       selectedEvent = event;
-      /*eventPanel.html(`
-        <p class="racing-event-kicker">${escapeHtml(event.kategorie)} &middot; ${escapeHtml(event.jahr)}</p>
-        <h4><i class="bi ${eventIcon[event.kategorie] ?? "bi-pin-angle"}"></i> ${escapeHtml(event.ereignis)}</h4>
-        <p>${escapeHtml(event.erklaerung)}</p>
+      contextInfo.property("hidden", false).html(`
+        <strong>${escapeHtml(event.ereignis)}</strong><br>
+        ${escapeHtml(event.erklaerung)}
         <a href="${escapeHtml(event.link)}" target="_blank" rel="noopener">Quelle &oumlffnen <span>&#8599;</span></a>
       `);
-      console.log(escapeHtml(event.link));*/
       renderTimeline();
       render(event.year);
     }
@@ -561,11 +560,7 @@ console.log('racingBarChart.js loaded');
     resetButton.on("click", () => {
       pause();
       selectedEvent = null;
-      eventPanel.html(`
-        <p class="racing-event-kicker">Historischer Kontext</p>
-        <h4>Marker auf der Linie ausw&auml;hlen</h4>
-        <p>Oben sitzen historische Einschnitte, unten die Wahljahre. Beim Scrubben springst du gezielt von Wahlergebnis zu Wahlergebnis.</p>
-      `);
+      contextInfo.property("hidden", true).html("");
       renderTimeline();
       render(1919);
     });
