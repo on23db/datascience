@@ -45,19 +45,28 @@
           <section class="grid">
             <div class="cell c-4">
               <h3><i class="bi bi-book"></i> Entwicklung</h3>
-              <div class="badge">[zahl]</div>
+              <div class="badge intro-stat" data-stat="afd-growth" aria-label="AfD-Zuwachs seit 2013">
+                <i class="bi bi-arrow-up-right"></i>
+                <span class="stat-value">0</span><span class="stat-unit">%</span>
+              </div>
               <p>Die AfD hat ihren Stimmenanteil seit 2013 vervierfacht. Was ist passiert?</p>
               <a class="btn" href="#entwicklung">Mehr...</a>
             </div>
             <div class="cell c-4">
               <h3><i class="bi bi-person"></i> Demografie</h3>
-              <div class="badge">[zahl]</div>
+              <div class="badge intro-stat" data-stat="age-gap" aria-label="Groesster Abstand zwischen jungen und alten Waehlern">
+                <i class="bi bi-arrows-expand"></i>
+                <span class="stat-value">0</span><span class="stat-unit"> pp</span>
+              </div>
               <p>Junge und Alte wählen heute so unterschiedlich wie nie zuvor.</p>
               <a class="btn" href="#demografie">Mehr...</a>
             </div>
             <div class="cell c-4">
               <h3><i class="bi bi-person"></i> Trends</h3>
-              <div class="badge">[zahl]</div>
+              <div class="badge intro-stat" data-stat="projection" aria-label="AfD-Projektion fuer 2033 im Basisszenario">
+                <i class="bi bi-graph-up-arrow"></i>
+                <span class="stat-value">0</span><span class="stat-unit">%</span>
+              </div>
               <p>Was wäre, wenn Deutschland anders aussähe — und anders wählen würde?</p>
               <a class="btn" href="#demografie">Mehr...</a>
             </div>
@@ -480,6 +489,7 @@
     }
   </script>
   <script src="https://cdn.jsdelivr.net/npm/d3@7"></script>
+  <script src="assets/js/introStats.js"></script>
   <script src="assets/js/utils.js"></script>
   <script src="assets/js/mapSvg.js"></script>
   <script src="assets/js/map.js"></script>
