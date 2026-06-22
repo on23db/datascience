@@ -679,6 +679,466 @@ button:hover,
   opacity: 0.78;
 }
 
+.racing-shell {
+  display: grid;
+  gap: 1rem;
+  margin: 2rem 0 1rem;
+  padding: clamp(1rem, 2vw, 1.6rem);
+  background: color-mix(in srgb, var(--base-bg) 82%, transparent);
+  border: 1px solid var(--base-700);
+  border-radius: var(--bora-base);
+  overflow: hidden;
+}
+
+.racing-topline,
+.racing-meta,
+.racing-controls {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1rem;
+}
+
+.racing-topline h3 {
+  margin: 0;
+}
+
+.racing-year {
+  min-width: 5ch;
+  color: var(--base-10);
+  font-family: var(--font-mono);
+  font-size: clamp(2.2rem, 8vw, 5.5rem);
+  font-weight: 800;
+  line-height: 0.9;
+  text-align: right;
+}
+
+.racing-meta {
+  color: var(--base-200);
+  font-family: var(--font-mono);
+  font-size: 0.85rem;
+}
+
+.racing-chart {
+  min-height: 330px;
+  overflow: hidden;
+}
+
+.racing-chart svg {
+  display: block;
+}
+
+.spectrum-chart {
+  display: grid;
+  gap: 0.7rem;
+  padding: 0.95rem 1rem 1.05rem;
+  background: var(--base-900);
+  border: 1px solid var(--base-700);
+  border-radius: var(--bora-base);
+}
+
+.spectrum-header {
+  display: flex;
+  align-items: end;
+  justify-content: space-between;
+  gap: 1rem;
+}
+
+.spectrum-header h4 {
+  margin: 0;
+  color: var(--base-10);
+  font-size: clamp(1rem, 2vw, 1.18rem);
+}
+
+.spectrum-header p {
+  margin: 0;
+  color: var(--base-200);
+  font-family: var(--font-mono);
+  font-size: 0.76rem;
+  text-align: right;
+}
+
+.spectrum-stack {
+  display: grid;
+  gap: 0.35rem;
+}
+
+.spectrum-scale {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  color: var(--base-300);
+  font-family: var(--font-mono);
+  font-size: 0.68rem;
+}
+
+.spectrum-scale span:nth-child(2) {
+  text-align: center;
+}
+
+.spectrum-scale span:last-child {
+  text-align: right;
+}
+
+.spectrum-track {
+  display: flex;
+  width: 100%;
+  min-height: 3rem;
+  overflow: hidden;
+  background: color-mix(in srgb, var(--base-950) 72%, transparent);
+  border: 1px solid var(--base-700);
+}
+
+.spectrum-segment {
+  display: grid;
+  width: var(--segment-width);
+  min-width: 0;
+  place-items: center;
+  padding: 0 0.25rem;
+  background: var(--segment-color);
+  color: var(--base-950);
+  font-family: var(--font-mono);
+  font-size: clamp(0.62rem, 1.3vw, 0.78rem);
+  font-weight: 800;
+  line-height: 1.1;
+  text-align: center;
+  transition: width 0.26s ease;
+}
+
+.spectrum-segment span {
+  max-width: 100%;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.spectrum-empty {
+  margin: 0;
+  color: var(--base-200);
+  font-family: var(--font-mono);
+  font-size: 0.82rem;
+}
+
+.racing-party,
+.racing-value {
+  fill: var(--base-50);
+  font-family: var(--font-mono);
+  font-weight: 750;
+}
+
+.racing-party {
+  font-size: clamp(0.72rem, 2vw, 0.92rem);
+}
+
+.racing-value {
+  font-size: clamp(0.7rem, 1.8vw, 0.86rem);
+}
+
+.racing-bar {
+  stroke: var(--base-10);
+  stroke-width: 1;
+}
+
+.racing-controls {
+  justify-content: center;
+  flex-wrap: wrap;
+  gap: 0.45rem;
+  margin-top: -0.2rem;
+}
+
+.racing-icon-button {
+  display: inline-flex;
+  width: 2rem;
+  height: 2rem;
+  align-items: center;
+  justify-content: center;
+  gap: 0.55rem;
+  margin-top: 0;
+  padding: 0;
+  font-size: 1rem;
+}
+
+.racing-icon-button span {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+  border: 0;
+}
+
+.racing-icon-button.is-active {
+  background: var(--base-50);
+  color: var(--base-900);
+}
+
+.racing-timeline-wrap {
+  position: relative;
+  min-height: 198px;
+  margin-top: 0;
+  width: 100%;
+}
+
+.racing-timeline {
+  display: block;
+  width: 100%;
+  overflow: visible;
+}
+
+#racingScrubber {
+  position: absolute;
+  z-index: 5;
+  left: calc(var(--timeline-left, 28px) - 0.575rem);
+  top: var(--scrubber-y, 104px);
+  width: calc(100% - var(--timeline-left, 28px) - var(--timeline-right, 28px) + 1.15rem);
+  height: 2rem;
+  transform: translateY(-50%);
+  appearance: none;
+  background: transparent;
+  cursor: ew-resize;
+}
+
+#racingScrubber:focus {
+  outline: none;
+}
+
+#racingScrubber::-webkit-slider-runnable-track {
+  height: 0.25rem;
+  background: transparent;
+}
+
+#racingScrubber::-moz-range-track {
+  height: 0.25rem;
+  background: transparent;
+}
+
+#racingScrubber::-webkit-slider-thumb {
+  appearance: none;
+  width: 1.15rem;
+  height: 1.15rem;
+  margin-top: -0.45rem;
+  background: var(--base-50);
+  border: 2px solid var(--base-950);
+  transform: rotate(45deg);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.45);
+}
+
+#racingScrubber::-moz-range-thumb {
+  width: 1.15rem;
+  height: 1.15rem;
+  background: var(--base-50);
+  border: 2px solid var(--base-950);
+  border-radius: 0;
+  transform: rotate(45deg);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.45);
+}
+
+.racing-axis-line {
+  stroke: var(--base-300);
+  stroke-width: 3;
+  stroke-linecap: round;
+  stroke-dasharray: 2 9;
+  opacity: 0.75;
+}
+
+.racing-tick line {
+  stroke: var(--base-400);
+}
+
+.racing-tick text,
+.racing-event-year {
+  fill: var(--base-200);
+  font-family: var(--font-mono);
+  font-size: 0.68rem;
+}
+
+.racing-event-marker {
+  cursor: pointer;
+  outline: none;
+}
+
+.racing-event-hitbox {
+  fill: transparent;
+  pointer-events: all;
+}
+
+.racing-election-marker {
+  pointer-events: none;
+}
+
+.racing-election-marker line {
+  stroke: var(--base-400);
+  stroke-width: 1.2;
+}
+
+.racing-election-marker circle {
+  fill: var(--base-900);
+  stroke: var(--base-200);
+  stroke-width: 1.8;
+  transform-box: fill-box;
+  transform-origin: center;
+  transition: fill 0.15s, stroke 0.15s, transform 0.15s;
+}
+
+.racing-election-marker.is-active circle {
+  fill: var(--base-50);
+  stroke: var(--base-950);
+  transform: scale(1.35);
+}
+
+.racing-event-stem {
+  stroke: currentColor;
+  stroke-width: 1;
+  stroke-dasharray: 2 5;
+  opacity: 0.42;
+}
+
+.racing-event-icon-wrap {
+  overflow: visible;
+  pointer-events: none;
+}
+
+.racing-event-icon {
+  display: grid;
+  width: 100%;
+  height: 100%;
+  place-items: center;
+  color: currentColor;
+  font-size: 1.22rem;
+  font-weight: 900;
+  pointer-events: none;
+  line-height: 1;
+  transition: color 0.15s, filter 0.15s, transform 0.15s;
+}
+
+.racing-event-marker.event-wahl {
+  color: var(--primary-300);
+}
+
+.racing-event-marker.event-politik {
+  color: var(--gruene-300);
+}
+
+.racing-event-marker.event-wirtschaft {
+  color: var(--accent-300);
+}
+
+.racing-event-marker.event-gesellschaft {
+  color: var(--fdp-300);
+}
+
+.racing-event-marker.event-sonstige {
+  color: var(--base-200);
+}
+
+.racing-event-marker:hover .racing-event-icon,
+.racing-event-marker:focus .racing-event-icon,
+.racing-event-marker.is-selected .racing-event-icon {
+  color: var(--base-10);
+  filter: drop-shadow(0 1px 2px rgba(0, 0, 0, 0.45));
+  transform: scale(1.12);
+}
+
+.racing-playhead {
+  fill: transparent;
+  stroke: transparent;
+  stroke-width: 1;
+  pointer-events: none;
+}
+
+.racing-event-panel {
+  padding: 1rem;
+  background: var(--base-900);
+  border-left: 4px solid var(--accent-600);
+  border-radius: var(--bora-base);
+}
+
+.racing-event-panel h4 {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  margin: 0 0 0.45rem;
+  color: var(--base-10);
+  font-size: clamp(1.05rem, 3vw, 1.3rem);
+}
+
+.racing-event-panel p {
+  color: var(--base-200);
+}
+
+.racing-event-panel a {
+  display: inline-flex;
+  gap: 0.35rem;
+  margin-top: 0.7rem;
+  font-family: var(--font-mono);
+  font-size: 0.85rem;
+}
+
+.racing-event-kicker {
+  margin-bottom: 0.35rem;
+  color: var(--accent-300) !important;
+  font-family: var(--font-mono);
+  font-size: 0.78rem;
+  text-transform: uppercase;
+}
+
+.racing-popover {
+  position: absolute;
+  z-index: 12;
+  padding: 0.75rem 0.85rem;
+  background: var(--base-950);
+  border: 1px solid var(--base-500);
+  border-left: 3px solid currentColor;
+  border-radius: var(--bora-base);
+  color: var(--base-50);
+  pointer-events: auto;
+  box-shadow: 0 10px 22px rgba(0, 0, 0, 0.32);
+}
+
+.racing-popover p {
+  margin: 0 0 0.25rem;
+  color: var(--accent-300);
+  font-family: var(--font-mono);
+  font-size: 0.68rem;
+  text-transform: uppercase;
+}
+
+.racing-popover strong {
+  display: block;
+  font-size: 0.9rem;
+  line-height: 1.25;
+}
+
+.racing-popover span {
+  display: block;
+  margin-top: 0.45rem;
+  color: var(--base-200);
+  font-size: 0.82rem;
+  line-height: 1.35;
+}
+
+.racing-popover-close {
+  position: absolute;
+  top: 0.25rem;
+  right: 0.25rem;
+  width: 1.35rem;
+  height: 1.35rem;
+  margin: 0;
+  padding: 0;
+  border: 0;
+  background: transparent;
+  color: var(--base-200);
+  font-size: 1.1rem;
+  line-height: 1;
+}
+
+.racing-popover-close:hover {
+  background: transparent;
+  color: var(--base-10);
+}
+
 .bar-label {
   fill: var(--base-50);
   font-family: var(--font-mono);
@@ -946,6 +1406,292 @@ button:hover,
   color: var(--base-100);
 }
 
+.simulation-chart-cell,
+.simulation-control-cell {
+  min-height: 620px;
+}
+
+.simulation-header {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 1.5rem;
+  margin-bottom: 1.5rem;
+}
+
+.simulation-header p {
+  color: var(--base-200);
+}
+
+.simulation-badge {
+  flex: 0 0 auto;
+  padding: 0.45rem 0.65rem;
+  background: var(--base-bg);
+  border: 1px solid var(--base-600);
+  color: var(--base-100);
+  font-family: var(--font-mono);
+  font-size: 0.78rem;
+  font-weight: 700;
+}
+
+.simulation-chart {
+  width: 100%;
+  min-height: 430px;
+  overflow: hidden;
+}
+
+.simulation-chart svg {
+  display: block;
+  width: 100%;
+  min-width: 680px;
+}
+
+.simulation-axis text {
+  fill: var(--base-200);
+  font-family: var(--font-mono);
+  font-size: 0.76rem;
+}
+
+.simulation-axis path,
+.simulation-axis line {
+  stroke: var(--base-600);
+}
+
+.simulation-grid line {
+  stroke: var(--base-700);
+  stroke-dasharray: 3 7;
+}
+
+.simulation-grid path {
+  stroke: transparent;
+}
+
+.simulation-line {
+  fill: none;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+}
+
+.simulation-point {
+  stroke: var(--base-900);
+  stroke-width: 1.5;
+}
+
+.simulation-cutoff {
+  stroke: var(--base-400);
+  stroke-dasharray: 4 6;
+  opacity: 0.75;
+}
+
+.simulation-cutoff-label {
+  fill: var(--base-300);
+  font-family: var(--font-mono);
+  font-size: 0.72rem;
+}
+
+.simulation-note {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.55rem;
+  margin-top: 0.5rem;
+  color: var(--base-300);
+  font-family: var(--font-mono);
+  font-size: 0.78rem;
+}
+
+.simulation-note span {
+  width: 2.1rem;
+  height: 1px;
+  border-top: 2px dashed var(--base-300);
+}
+
+.simulation-legend {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.7rem 1.1rem;
+  margin-top: 1.2rem;
+}
+
+.simulation-legend-item {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.45rem;
+  color: var(--base-100);
+  font-family: var(--font-mono);
+  font-size: 0.78rem;
+}
+
+.simulation-legend-dot {
+  width: 0.7rem;
+  height: 0.7rem;
+  border: 1px solid var(--base-50);
+}
+
+.simulation-control-cell {
+  display: flex;
+  flex-direction: column;
+  gap: 1.4rem;
+  background: color-mix(in srgb, var(--base-bg) 70%, var(--base-900));
+}
+
+.simulation-controls-title {
+  color: var(--accent-300);
+  font-family: var(--font-mono);
+  font-size: 0.82rem;
+  font-weight: 800;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+}
+
+.simulation-control {
+  display: grid;
+  gap: 0.45rem;
+}
+
+.simulation-control span {
+  color: var(--base-50);
+  font-weight: 800;
+  line-height: 1.25;
+}
+
+.simulation-control small {
+  color: var(--base-300);
+  line-height: 1.35;
+}
+
+.simulation-slider-row {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  margin-top: 0.25rem;
+}
+
+.simulation-slider-row input[type="range"] {
+  width: 100%;
+  min-width: 0;
+  height: 0.35rem;
+  appearance: none;
+  background: var(--base-700);
+  border-radius: var(--bora-base);
+  cursor: ew-resize;
+}
+
+.simulation-slider-row input[type="range"]:focus {
+  outline: 2px solid var(--primary-400);
+  outline-offset: 4px;
+}
+
+.simulation-slider-row input[type="range"]::-webkit-slider-thumb {
+  appearance: none;
+  width: 1rem;
+  height: 1rem;
+  background: var(--accent-500);
+  border: 2px solid var(--base-950);
+  border-radius: 50%;
+}
+
+.simulation-slider-row input[type="range"]::-moz-range-thumb {
+  width: 1rem;
+  height: 1rem;
+  background: var(--accent-500);
+  border: 2px solid var(--base-950);
+  border-radius: 50%;
+}
+
+.simulation-slider-row output {
+  min-width: 3.4rem;
+  color: var(--base-10);
+  font-family: var(--font-mono);
+  font-weight: 850;
+  text-align: right;
+}
+
+.simulation-slider-labels {
+  display: flex;
+  justify-content: space-between;
+  color: var(--base-400);
+  font-family: var(--font-mono);
+  font-size: 0.7rem;
+}
+
+.simulation-reset {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  width: 100%;
+  margin-top: 0.2rem;
+}
+
+.simulation-results {
+  display: flex;
+  gap: 0.75rem;
+  margin-top: 5vh;
+}
+
+.simulation-results div {
+  padding: 1rem;
+  background: var(--base-900);
+  border-left: 4px solid var(--primary-500);
+}
+
+.simulation-results span,
+.simulation-results small {
+  display: block;
+  color: var(--base-300);
+  font-family: var(--font-mono);
+  font-size: 0.72rem;
+  text-transform: uppercase;
+}
+
+.simulation-results strong {
+  display: block;
+  margin: 0.35rem 0 0.2rem;
+  color: var(--base-10);
+  font-size: clamp(1.2rem, 3vw, 1.7rem);
+  line-height: 1.1;
+}
+
+.simulation-disclaimer p {
+  max-width: 900px;
+  color: var(--base-200);
+}
+
+.simulation-tooltip {
+  position: fixed;
+  z-index: 1000;
+  min-width: 170px;
+  padding: 0.75rem 0.85rem;
+  background: var(--base-950);
+  border: 1px solid var(--base-500);
+  border-left: 4px solid var(--tooltip-color, var(--primary-500));
+  color: var(--base-50);
+  pointer-events: none;
+  box-shadow: 0 12px 24px rgba(0, 0, 0, 0.35);
+}
+
+.simulation-tooltip strong,
+.simulation-tooltip span {
+  display: block;
+}
+
+.simulation-tooltip strong {
+  margin-bottom: 0.15rem;
+}
+
+.simulation-tooltip span {
+  color: var(--base-200);
+  font-family: var(--font-mono);
+  font-size: 0.82rem;
+}
+
+.simulation-error {
+  padding: 1rem;
+  border-left: 4px solid var(--spd-500);
+  color: var(--spd-200);
+  background: var(--base-bg);
+}
+
 .sources {
   margin-top: 50px;
   color: var(--base-500);
@@ -994,11 +1740,53 @@ button:hover,
   background-size: cover;
 }
 
+@media (max-width: 980px) {
+  .simulation-chart-cell,
+  .simulation-control-cell {
+    grid-column: span 12;
+    min-height: auto;
+  }
+
+  .simulation-chart {
+    overflow-x: auto;
+  }
+}
+
 @media (max-width: 700px) {
   .chart-header,
   .chart-controls {
     display: grid;
     justify-content: stretch;
+  }
+
+  .racing-topline,
+  .racing-meta {
+    display: grid;
+  }
+
+  .racing-year {
+    text-align: left;
+  }
+
+  .racing-chart {
+    min-height: 290px;
+  }
+
+  .spectrum-header {
+    display: grid;
+    align-items: start;
+  }
+
+  .spectrum-header p {
+    text-align: left;
+  }
+
+  .spectrum-track {
+    min-height: 3.4rem;
+  }
+
+  .racing-timeline-wrap {
+    min-height: 174px;
   }
 
   .map-section,
@@ -1015,6 +1803,23 @@ button:hover,
 
   .map-controls {
     grid-template-columns: 1fr;
+  }
+
+  .simulation-header {
+    display: grid;
+  }
+
+  .simulation-badge {
+    width: max-content;
+  }
+
+  .simulation-chart {
+    overflow-x: auto;
+  }
+
+  .simulation-chart-cell,
+  .simulation-control-cell {
+    min-height: auto;
   }
 }
 
