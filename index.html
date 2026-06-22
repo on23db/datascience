@@ -173,10 +173,19 @@
         <div class="cell c-12 vote-chart-cell">
           <div class="chart-header">
             <div>
-              <h3><i class="bi bi-bar-chart-line"></i> Nach Verteilung der Pateien</h3>
-              <p>Bundestagswahl 2017, Bundesgebiet gesamt</p>
+              <h3><i class="bi bi-bar-chart-line"></i> Nach Verteilung der Parteien</h3>
+              <p id="firstVoteChartSubtitle">Erststimmen 2017, Bundesgebiet gesamt</p>
             </div>
             <div class="chart-controls" aria-label="Diagrammfilter">
+              <label>
+                Jahr
+                <select id="firstVoteYearFilter">
+                  <option value="2013">2013</option>
+                  <option value="2017" selected>2017</option>
+                  <option value="2021">2021</option>
+                  <option value="2025">2025</option>
+                </select>
+              </label>
               <label>
                 Geschlecht
                 <select id="genderFilter">
@@ -194,7 +203,7 @@
             </div>
           </div>
           <div data-chartID="85d728e" id="firstVoteChart" class="bar-chart" role="img"
-            aria-label="Balkendiagramm der Erststimmen nach Partei, filterbar nach Geschlecht und Altersgruppe"></div>
+            aria-label="Säulendiagramm der Erststimmen nach Partei, filterbar nach Jahr, Geschlecht und Altersgruppe"></div>
         </div>
       </section>
 
