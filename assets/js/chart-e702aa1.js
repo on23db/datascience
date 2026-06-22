@@ -1,3 +1,4 @@
+console.log('chart-e702aa1.js loaded');
 (() => {
   const datasets = {
     2013: "rawData/btw_2013.csv",

@@ -1,3 +1,4 @@
+console.log("map.js loaded and executed");
 const width = 591.504;
 const height = 800.504;
 
@@ -397,5 +398,3 @@ function resetZoom() {
     .duration(zoom_autoResetDurationMS)
     .call(zoom.transform, d3.zoomIdentity);
 }
-
-console.log("map.js loaded and executed");

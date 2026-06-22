@@ -77,7 +77,8 @@
   --accent-990: #181114;
 
   --color-spd: #cd3c33;
-  --color-piraten: #d06a00;
+  --color-bsw: #d06a00;
+  --color-piraten: #c28d54;
   --color-fdp: #d79900;
   --color-gruene: #138f3b;
   --color-csu: #50ad88;
@@ -86,18 +87,6 @@
   --color-partei: #808191;
   --color-nsdap: #84532c;
   --color-cdu: #d2d2d8;
-
-  /* PLEASE DON'T USE THESE VARIABLES ANYMORE
-  --afd-10: #e6ffff;
-  --afd-20: #cff7ff;
-  --afd-30: #afe9ff;
-  --afd-40: #84d4ff;
-  --afd-50: #4db4f0;
-  --afd-60: #008fd3;
-  --afd-70: #0074b4;
-  --afd-80: #00588f;
-  --afd-90: #003c68;
-  --afd-100: #002142;*/
 
   --spd-50: #fff1e6;
   --spd-100: #ffdfce;
@@ -111,17 +100,31 @@
   --spd-900: #390003;
   --spd-950: #220001;
 
-  --piraten-50: #fff6e1;
-  --piraten-100: #ffe8c8;
-  --piraten-200: #ffcea0;
-  --piraten-300: #ffb373;
-  --piraten-400: #f69744;
-  --piraten-500: #e87d11;
-  --piraten-600: #d06a00;
-  --piraten-700: #9b4500;
-  --piraten-800: #682400;
-  --piraten-900: #380600;
-  --piraten-950: #200000;
+  --bsw-50: #fff6e1;
+  --bsw-100: #ffe8c8;
+  --bsw-200: #ffcea0;
+  --bsw-300: #ffb373;
+  --bsw-400: #f69744;
+  --bsw-500: #e87d11;
+  --bsw-600: #d06a00;
+  --bsw-700: #9b4500;
+  --bsw-800: #682400;
+  --bsw-900: #380600;
+  --bsw-950: #200000;
+
+  --piraten-50: #fcfbfb;
+  --piraten-100: #f4f3f0;
+  --piraten-200: #e8e3d8;
+  --piraten-300: #dfd2bc;
+  --piraten-400: #dac19e;
+  --piraten-500: #d4ae7f;
+  --piraten-600: #c28d54;
+  --piraten-700: #996b40;
+  --piraten-800: #684b34;
+  --piraten-900: #3c2e23;
+  --piraten-950: #271f1a;
+  --piraten-970: #1e1916;
+  --piraten-990: #161412;
 
   --fdp-50: #fffae2;
   --fdp-100: #ffefc9;
@@ -183,7 +186,6 @@
   --linke-900: #310429;
   --linke-950: #1b0016;
 
-  /*dies ist die Farbe für sonstige Parteien*/
   --partei-50: #f9fafe;
   --partei-100: #edeef5;
   --partei-200: #d5d8e1;
@@ -222,6 +224,14 @@
 
   --color-male: #008e82;
   --color-female: #8c5cad;
+
+  --color-linksextrem: #c93339;
+  --color-links: #a84252;
+  --color-linksmitte: #86516a;
+  --color-mitte: #656083;
+  --color-mitterechts: #436e9b;
+  --color-rechts: #227db4;
+  --color-rechtsextrem: #008ccc;
 
   --color-link: #009fc1;
   --border-color: var(--base-700);
@@ -318,6 +328,10 @@ h3 {
   position: relative;
   margin-bottom: 1rem;
   padding-bottom: 1px;
+}
+
+p + h3 {
+  margin-top: 2rem;
 }
 
 h3::before {
@@ -682,7 +696,6 @@ button:hover,
 .racing-shell {
   display: grid;
   gap: 1rem;
-  margin: 2rem 0 1rem;
   padding: clamp(1rem, 2vw, 1.6rem);
   background: color-mix(in srgb, var(--base-bg) 82%, transparent);
   border: 1px solid var(--base-700);
@@ -785,7 +798,6 @@ button:hover,
   min-height: 3rem;
   overflow: hidden;
   background: color-mix(in srgb, var(--base-950) 72%, transparent);
-  border: 1px solid var(--base-700);
 }
 
 .spectrum-segment {
@@ -795,13 +807,17 @@ button:hover,
   place-items: center;
   padding: 0 0.25rem;
   background: var(--segment-color);
-  color: var(--base-950);
-  font-family: var(--font-mono);
-  font-size: clamp(0.62rem, 1.3vw, 0.78rem);
-  font-weight: 800;
+  color: var(--base-50);
+  font-family: var(--font-base);
+  font-size: clamp(0.62rem, 1.4vw, 0.78rem);
+  font-weight: 600;
   line-height: 1.1;
   text-align: center;
-  transition: width 0.26s ease;
+  border-left: 7px solid var(--base-bg);
+}
+
+.spectrum-segment:first-child {
+  border-left: none;
 }
 
 .spectrum-segment span {
@@ -835,7 +851,7 @@ button:hover,
 
 .racing-bar {
   stroke: var(--base-10);
-  stroke-width: 1;
+  stroke-width: 0;
 }
 
 .racing-controls {
@@ -950,8 +966,10 @@ button:hover,
 .racing-tick text,
 .racing-event-year {
   fill: var(--base-200);
+  color: var(--base-50);
   font-family: var(--font-mono);
-  font-size: 0.68rem;
+  font-size: 0.78rem;
+  font-weight: 500;
 }
 
 .racing-event-marker {
@@ -1053,6 +1071,7 @@ button:hover,
   background: var(--base-900);
   border-left: 4px solid var(--accent-600);
   border-radius: var(--bora-base);
+  margin: 1rem 0;
 }
 
 .racing-event-panel h4 {
@@ -1062,10 +1081,6 @@ button:hover,
   margin: 0 0 0.45rem;
   color: var(--base-10);
   font-size: clamp(1.05rem, 3vw, 1.3rem);
-}
-
-.racing-event-panel p {
-  color: var(--base-200);
 }
 
 .racing-event-panel a {
@@ -1344,6 +1359,14 @@ button:hover,
   border-radius: var(--bora-base);
 }
 
+#voterPyramidChart,
+#firstVoteChart,
+#Bundesrepublik_Deutschland,
+#simulationChart {
+  background: var(--base-bg);
+  border: 1px solid var(--base-700);
+}
+
 #g1923 .state {
   fill: var(--base-bg);
   stroke: var(--base-999);
@@ -1377,7 +1400,7 @@ button:hover,
 
 .map-percentage {
   margin: 0.6rem 0;
-  color: var(--base-50);
+  color: var(--base-50) !important;
   font-family: var(--font-mono);
   font-size: clamp(2rem, 5vw, 3.5rem);
   font-weight: 800;
@@ -1531,21 +1554,15 @@ button:hover,
   display: flex;
   flex-direction: column;
   gap: 1.4rem;
-  background: color-mix(in srgb, var(--base-bg) 70%, var(--base-900));
-}
-
-.simulation-controls-title {
-  color: var(--accent-300);
-  font-family: var(--font-mono);
-  font-size: 0.82rem;
-  font-weight: 800;
-  letter-spacing: 0.12em;
-  text-transform: uppercase;
+  background: var(--base-900);
 }
 
 .simulation-control {
   display: grid;
-  gap: 0.45rem;
+  gap: 0.3rem;
+  background: var(--base-bg);
+  border: 1px solid var(--base-700);
+  padding: 10px;
 }
 
 .simulation-control span {

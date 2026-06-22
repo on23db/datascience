@@ -1,3 +1,4 @@
+console.log('utils.js loaded');
 let numberFormatter = new Intl.NumberFormat("de-DE");
 let percentageFormatter = new Intl.NumberFormat("de-DE", {
   minimumFractionDigits: 2,
@@ -20,4 +21,8 @@ function cssVar(s) {
     return getComputedStyle(document.documentElement).getPropertyValue(s);
 }
 
-console.log('utils.js loaded and executed');
+
+document.querySelectorAll('.sources .entries .descr').forEach(el => {
+    el.setAttribute('title', el.textContent);
+    el.textContent = `${el.textContent.slice(0, 40)}${el.textContent.length > 40?'…':''}`;
+});

@@ -1,3 +1,4 @@
+console.log('chart-85d728e.js loaded');
 const partyColumns = ["CDU", "SPD", "DIE LINKE", "GRÜNE", "CSU", "FDP", "AfD", "Sonstige"];
 const partyColors = {
   CDU: cssVar('--color-cdu'),
@@ -119,5 +120,3 @@ d3.dsv(";", "rawData/btw_2017.csv", d3.autoType).then((rows) => {
   chartContainer.html("<p>Die Wahldaten konnten nicht geladen werden.</p>");
   console.error(error);
 });
-
-console.log('chart-85d728e.js loaded and executed');

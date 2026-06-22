@@ -1,3 +1,4 @@
+console.log('racingBarChart.js loaded');
 (function () {
   const container = d3.select("#racingBarChart");
   if (container.empty()) return;
@@ -17,7 +18,7 @@
     USPD: "--color-spd",
     NSDAP: "--color-nsdap",
     Sonstige: "--color-partei",
-    BSW: "--accent-500"
+    BSW: "--color-bsw"
   };
 
   const fallbackColors = d3.schemeTableau10;
@@ -76,47 +77,41 @@
     return Number(String(value).replace(",", ".")) / 10;
   };
 
-  container.html(`
-    <div class="racing-shell">
-    <div class="racing-event-panel" id="racingEventPanel">
-        <p class="racing-event-kicker">Historischer Kontext</p>
-        <h4>Marker auf der Linie ausw&auml;hlen</h4>
-        <p>Oben sitzen historische Einschnitte, unten die Wahljahre. Beim Scrubben springst du gezielt von Wahlergebnis zu Wahlergebnis.</p>
-      </div>
-      <div class="racing-meta">
-        <span id="racingElectionLabel">Wahljahr</span>
-        <span id="racingTurnout">Wahlbeteiligung: --</span>
-      </div>
-            
-      <div class="racing-chart" aria-label="Rangliste der Parteien nach Stimmenanteil"></div>
+  container.html(
+`<div id="racingEventPanel" class="racing-event-panel">
+  <p class="map-percentage" id="racingElectionLabel"></p>
+  <p id="racingTurnout">Wahlbeteiligung: --</p>
+</div>
+    
+<div class="racing-shell">
+  <div class="racing-timeline-wrap">
+    <svg class="racing-timeline" role="img" aria-label="Zeitachse mit historischen Ereignissen und Wahljahren"></svg>
+    <input id="racingScrubber" type="range" min="1919" max="2025" step="0.1" value="1919" aria-label="Wahljahr auswaehlen">
+  </div>
+    
+  <div class="racing-controls" aria-label="Animation steuern">
+    <button type="button" class="racing-icon-button" id="racingPrevious" title="Vorherige Wahl" aria-label="Vorherige Wahl">
+    <i class="bi bi-skip-backward-fill"></i><span>Vorherige Wahl</span>
+    </button>
+    <button type="button" class="racing-icon-button" id="racingNext" title="Nächste Wahl" aria-label="Nächste Wahl">
+    <i class="bi bi-skip-forward-fill"></i><span>Nächste Wahl</span>
+    </button>
+    <button type="button" class="racing-icon-button" id="racingPlay" title="Animation starten" aria-label="Animation starten">
+    <i class="bi bi-play-fill"></i><span>Play</span>
+    </button>
+    <button type="button" class="racing-icon-button" id="racingPause" title="Animation pausieren" aria-label="Animation pausieren">
+    <i class="bi bi-pause-fill"></i><span>Pause</span>
+    </button>
+    <button type="button" class="racing-icon-button" id="racingReset" title="Zum Anfang zuruecksetzen" aria-label="Zum Anfang zuruecksetzen">
+    <i class="bi bi-stop-fill"></i><span>Reset</span>
+    </button>
+  </div>
 
-          <p id="spectrumCaption">Nur Parteien mit hinterlegter Einordnung werden einbezogen.</p>
-
-        <div class="spectrum-stack" id="spectrumStack"></div>
-
-      <div class="racing-timeline-wrap">
-        <svg class="racing-timeline" role="img" aria-label="Zeitachse mit historischen Ereignissen und Wahljahren"></svg>
-        <input id="racingScrubber" type="range" min="1919" max="2025" step="0.1" value="1919" aria-label="Wahljahr auswaehlen">
-      </div>
-            <div class="racing-controls" aria-label="Animation steuern">
-        <button type="button" class="racing-icon-button" id="racingPlay" title="Animation starten" aria-label="Animation starten">
-            <i class="bi bi-play-fill"></i><span>Play</span>
-          </button>
-          <button type="button" class="racing-icon-button" id="racingPrevious" title="Vorherige Wahl" aria-label="Vorherige Wahl">
-            <i class="bi bi-skip-backward-fill"></i><span>Vorherige Wahl</span>
-          </button>
-          <button type="button" class="racing-icon-button" id="racingNext" title="Nächste Wahl" aria-label="Nächste Wahl">
-            <i class="bi bi-skip-forward-fill"></i><span>Nächste Wahl</span>
-          </button>
-          <button type="button" class="racing-icon-button" id="racingPause" title="Animation pausieren" aria-label="Animation pausieren">
-            <i class="bi bi-pause-fill"></i><span>Pause</span>
-          </button>
-        <button type="button" class="racing-icon-button" id="racingReset" title="Zum Anfang zuruecksetzen" aria-label="Zum Anfang zuruecksetzen">
-          <i class="bi bi-stop-fill"></i><span>Reset</span>
-        </button>
-      </div>
-    </div>
-  `);
+  <div class="racing-chart" aria-label="Rangliste der Parteien nach Stimmenanteil"></div>
+    
+  <div class="spectrum-stack" id="spectrumStack"></div>
+  <p id="spectrumCaption">Nur Parteien mit hinterlegter Einordnung werden einbezogen.</p>
+</div>`);
 
   const chart = container.select(".racing-chart");
   const timeline = container.select(".racing-timeline");
@@ -172,13 +167,13 @@
     });
     const spectrumOrder = ["Linksextrem", "Links", "Links-Mitte", "Mitte", "Mitte-Rechts", "Rechts", "Rechtsextrem"];
     const spectrumColors = {
-      Linksextrem: "#f4c7a1",
-      Links: "#f3ed9b",
-      "Links-Mitte": "#d6dda8",
-      Mitte: "#595959",
-      "Mitte-Rechts": "#d6b16a",
-      Rechts: "#f29a45",
-      Rechtsextrem: "#df983e"
+      Linksextrem: cssVar('--color-linksextrem'),
+      Links: cssVar('--color-links'),
+      "Links-Mitte": cssVar('--color-linksmitte'),
+      Mitte: cssVar('--color-mitte'),
+      "Mitte-Rechts": cssVar('--color-mitterechts'),
+      Rechts: cssVar('--color-rechts'),
+      Rechtsextrem: cssVar('--color-rechtsextrem')
     };
 
     const events = eventRows
@@ -389,16 +384,16 @@
         .attr("transform", (d) => `translate(${x(d)},${baseline})`)
         .call((g) => {
           g.append("line").attr("y2", 10);
-          g.append("text").attr("y", 30).attr("text-anchor", "middle").text((d) => d);
+          g.append("text").attr("y", -50).attr("text-anchor", "middle").text((d) => d);
         });
 
       timeline.selectAll(".racing-election-marker")
         .data(rows)
         .join("g")
         .attr("class", (d) => `racing-election-marker ${Math.abs(d.year - activeYear) < 0.01 ? "is-active" : ""}`)
-        .attr("transform", (d) => `translate(${x(d.year)},${baseline - 22})`)
+        .attr("transform", (d) => `translate(${x(d.year)},${baseline - 29})`)
         .call((g) => {
-          g.append("line").attr("y1", 8).attr("y2", 18);
+          g.append("line").attr("y1", 8).attr("y2", 20);
           g.append("circle").attr("r", 4);
         });
 
@@ -480,12 +475,13 @@
 
     function selectEvent(event) {
       selectedEvent = event;
-      eventPanel.html(`
+      /*eventPanel.html(`
         <p class="racing-event-kicker">${escapeHtml(event.kategorie)} &middot; ${escapeHtml(event.jahr)}</p>
         <h4><i class="bi ${eventIcon[event.kategorie] ?? "bi-pin-angle"}"></i> ${escapeHtml(event.ereignis)}</h4>
         <p>${escapeHtml(event.erklaerung)}</p>
-        <a href="${escapeHtml(event.link)}" target="_blank" rel="noopener">Quelle &ouml;ffnen <span>&#8599;</span></a>
+        <a href="${escapeHtml(event.link)}" target="_blank" rel="noopener">Quelle &oumlffnen <span>&#8599;</span></a>
       `);
+      console.log(escapeHtml(event.link));*/
       renderTimeline();
       render(event.year);
     }

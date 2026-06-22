@@ -1,3 +1,4 @@
+console.log('simulation.js loaded');
 (function () {
   const root = document.getElementById('simulationChart');
   if (!root || typeof d3 === 'undefined') return;
@@ -9,7 +10,7 @@
     { key: 'FDP', label: 'FDP', color: 'var(--color-fdp)' },
     { key: 'Linke', label: 'Linke', color: 'var(--color-linke)' },
     { key: 'AfD', label: 'AfD', color: 'var(--color-afd)' },
-    { key: 'BSW', label: 'BSW', color: '#bf6f46' },
+    { key: 'BSW', label: 'BSW', color: 'var(--color-bsw)' },
     { key: 'Sonstige', label: 'Sonstige', color: 'var(--color-partei)' },
   ];
   const historicalYears = [2009, 2013, 2017, 2021, 2025];
