@@ -1450,13 +1450,11 @@ button:hover,
 }
 
 .heroSub {
-  font-size: 1.25rem;
-  line-height: 2rem;
+  font-size: 1.3rem;
+  line-height: 1.6rem;
   text-align: center;
   font-weight: 400;
-  padding: 5px;
-  border-radius: var(--bora-base);
-  color: var(--primary-300);
+  padding: 20px;
 }
 
 .badge {
@@ -1509,11 +1507,13 @@ button:hover,
 
 /* Positionen – anpassen bis es passt */
 .deco-ballot {
-  width: clamp(100px, 28vw, 380px);
+  width: clamp(100px, 28vw, 450px);
   z-index: 0;
   top: 15%;
-  left: -5%;
+  left: -4%;
   transform: rotate(-6deg);
+  filter: drop-shadow(0 4px 12px rgba(0, 0, 0, 0.45));
+  filter: brightness(85%);
 }
 
 .deco-letter {
@@ -1521,12 +1521,14 @@ button:hover,
   top: -2%;
   right: -7%;
   transform: rotate(8deg);
+  filter: drop-shadow(0 4px 12px rgba(0, 0, 0, 0.45));
 }
 
 .deco-pen {
   width: clamp(250px, 30vw, 400px);
   right: -5%;
   bottom: -60%;
+  filter: drop-shadow(0 4px 12px rgba(0, 0, 0, 0.45));
   transform: rotate(-245deg);
 }
 
