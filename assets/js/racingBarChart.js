@@ -41,6 +41,7 @@ console.log('racingBarChart.js loaded');
   let isPlaying = false;
   let timer = null;
   let selectedEvent = null;
+  let popoverHideTimer = null;
   let width = 960;
   let timelineWidth = 960;
   let electionYears = [];
@@ -78,12 +79,7 @@ console.log('racingBarChart.js loaded');
   };
 
   container.html(
-`<div id="racingEventPanel" class="racing-event-panel">
-  <p id="racingTurnout">Wahlbeteiligung: --</p>
-  <p class="map-percentage" id="racingElectionLabel"></p>
-  <p class="entwicklung-contextInfo" id="racingContextInfo" hidden></p>
-</div>
-    
+`   
 <div class="racing-shell">
   <div class="racing-timeline-wrap">
     <svg class="racing-timeline" role="img" aria-label="Zeitachse mit historischen Ereignissen und Wahljahren"></svg>
@@ -350,10 +346,11 @@ console.log('racingBarChart.js loaded');
 
     function renderTimeline() {
       timelineWidth = Math.max(320, container.select(".racing-timeline-wrap").node().clientWidth);
-      const height = timelineWidth < 560 ? 174 : 198;
+      const topBand = timelineWidth < 560 ? 84 : 102;
+      const height = (timelineWidth < 560 ? 174 : 198) + topBand;
       const margin = { left: timelineWidth < 560 ? 18 : 28, right: timelineWidth < 560 ? 18 : 28 };
       const x = d3.scaleLinear().domain([1919, 2025]).range([margin.left, timelineWidth - margin.right]);
-      const baseline = timelineWidth < 560 ? 76 : 88;
+      const baseline = (timelineWidth < 560 ? 76 : 88) + topBand;
       const eventBaseY = baseline + 34;
 
       container.select(".racing-timeline-wrap")
@@ -413,7 +410,7 @@ console.log('racingBarChart.js loaded');
         })
         .on("mouseenter focus", function (event, d) { showEventPopover(this, d); })
         .on("mouseleave blur", () => {
-          if (!d3.select(".racing-popover").classed("is-pinned")) hidePopover();
+          schedulePopoverHide();
         })
         .on("click", function (event, d) {
           event.stopPropagation();
@@ -453,6 +450,72 @@ console.log('racingBarChart.js loaded');
         .attr("class", "racing-playhead")
         .attr("d", "M -11 0 L 0 -9 L 11 0 L 0 9 Z")
         .attr("transform", `translate(${x(activeYear)},${baseline})`);
+
+      const scrubberIndicator = timeline.append("g")
+        .attr("class", "racing-scrubber-indicator");
+
+      scrubberIndicator.append("line")
+        .attr("class", "racing-scrubber-line")
+        .attr("x1", 0)
+        .attr("x2", 0)
+        .attr("y1", 68)
+        .attr("y2", baseline);
+
+      scrubberIndicator.append("circle")
+        .attr("class", "racing-scrubber-endcap")
+        .attr("cx", 0)
+        .attr("cy", baseline)
+        .attr("r", 4);
+
+      scrubberIndicator.append("text")
+        .attr("class", "racing-scrubber-title")
+        .attr("text-anchor", "start")
+        .attr("x", 0)
+        .attr("y", 58);
+
+      scrubberIndicator.append("text")
+        .attr("class", "racing-scrubber-subtitle")
+        .attr("text-anchor", "start")
+        .attr("x", 0)
+        .attr("y", 26);
+
+      updateScrubberIndicator(activeYear, x, baseline, margin);
+    }
+
+    function updateScrubberIndicator(year, xScale, baseline, margin) {
+      const election = nearestElection(year);
+      const indicator = timeline.select(".racing-scrubber-indicator");
+      if (indicator.empty()) return;
+
+      const timelineWrapNode = container.select(".racing-timeline-wrap").node();
+      const scrubberNode = scrubber.node();
+      const scrubberRect = scrubberNode.getBoundingClientRect();
+      const wrapRect = timelineWrapNode.getBoundingClientRect();
+      const scrubberCenterY = scrubberRect.top - wrapRect.top + scrubberRect.height / 2;
+
+      const anchorX = Math.max(
+        margin.left + 14,
+        Math.min(timelineWidth - margin.right - 14, xScale(year))
+      );
+
+      const indicatorY = 0;
+      const connectorY = scrubberCenterY;
+
+      indicator
+        .attr("transform", `translate(${anchorX},${indicatorY})`)
+        .select(".racing-scrubber-line")
+        .attr("y1", 68)
+        .attr("y2", connectorY);
+
+      indicator.select(".racing-scrubber-endcap")
+        .attr("cy", connectorY);
+
+      indicator.select(".racing-scrubber-title")
+        .text(`Wahl ${election.label}`);
+      indicator.select(".racing-scrubber-subtitle")
+        .text(Number.isFinite(election.turnout) && election.turnout > 0
+          ? `Wahlbeteiligung: ${formatTurnout.format(election.turnout)} %`
+          : "Wahlbeteiligung: keine Angabe");
     }
 
     function render(year) {
@@ -467,9 +530,12 @@ console.log('racingBarChart.js loaded');
       renderBars(activeYear);
       renderSpectrumChart(activeYear);
 
+      const margin = { left: timelineWidth < 560 ? 18 : 28, right: timelineWidth < 560 ? 18 : 28 };
       const x = d3.scaleLinear()
         .domain([1919, 2025])
-        .range([timelineWidth < 560 ? 18 : 28, timelineWidth - (timelineWidth < 560 ? 18 : 28)]);
+        .range([margin.left, timelineWidth - margin.right]);
+      updateScrubberIndicator(activeYear, x, timelineWidth < 560 ? 76 : 88, margin);
+
       timeline.select(".racing-playhead")
         .attr("transform", `translate(${x(activeYear)},${timelineWidth < 560 ? 104 : 118})`);
       timeline.selectAll(".racing-election-marker")
@@ -502,6 +568,7 @@ console.log('racingBarChart.js loaded');
       const popoverWidth = Math.min(260, viewportWidth - 16);
       const centeredX = markerBounds.left + markerBounds.width / 2 - popoverWidth / 2;
       const xPos = Math.max(8, Math.min(viewportWidth - popoverWidth - 8, centeredX));
+      const eventLink = String(event.link ?? "").trim();
       const popover = d3.select("body").selectAll(".racing-popover").data([event]).join("div")
         .attr("class", `racing-popover ${pinned ? "is-pinned" : ""}`)
         .style("left", `${xPos}px`)
@@ -512,7 +579,12 @@ console.log('racingBarChart.js loaded');
           <p>${escapeHtml(event.kategorie)} · ${escapeHtml(event.jahr)}</p>
           <strong>${escapeHtml(event.ereignis)}</strong>
           <span>${escapeHtml(event.erklaerung)}</span>
+          ${eventLink ? `<a href="${escapeHtml(eventLink)}" target="_blank" rel="noopener">Wikipedia &#8599;</a>` : ""}
         `);
+
+      popover
+        .on("mouseenter", () => cancelPopoverHide())
+        .on("mouseleave", () => schedulePopoverHide());
 
       const popoverHeight = popover.node().offsetHeight;
       const belowY = markerBounds.bottom + 10;
@@ -538,7 +610,26 @@ console.log('racingBarChart.js loaded');
       }
     }
 
+    function cancelPopoverHide() {
+      if (popoverHideTimer) {
+        window.clearTimeout(popoverHideTimer);
+        popoverHideTimer = null;
+      }
+    }
+
+    function schedulePopoverHide() {
+      cancelPopoverHide();
+      if (d3.select(".racing-popover").classed("is-pinned")) return;
+      popoverHideTimer = window.setTimeout(() => {
+        const popover = d3.select(".racing-popover");
+        if (!popover.empty() && !popover.node().matches(":hover")) {
+          hidePopover();
+        }
+      }, 80);
+    }
+
     function hidePopover() {
+      cancelPopoverHide();
       d3.selectAll(".racing-popover").remove();
     }
 
