@@ -44,6 +44,9 @@ console.log('chart-e702aa1.js loaded');
     notation: "compact",
     maximumFractionDigits: 1
   });
+  const millionFormatter = new Intl.NumberFormat("de-DE", {
+    maximumFractionDigits: 0
+  });
 
   const yearFilter = document.getElementById("pyramidYearFilter");
   const partyFilter = document.getElementById("pyramidPartyFilter");
@@ -245,13 +248,20 @@ console.log('chart-e702aa1.js loaded');
 
   function render(data, year, party) {
     const node = container.node();
-    const width = Math.max(node.clientWidth, 720);
-    const height = 470;
-    const margin = { top: 12, right: 54, bottom: 48, left: 54 };
+    const width = Math.max(node.clientWidth, 300);
+    const height = Math.max(node.clientHeight, width < 520 ? 330 : 420);
+    const compact = width < 620;
+    const mobile = width < 460;
+    const margin = {
+      top: mobile ? 54 : 58,
+      right: mobile ? 12 : compact ? 28 : 54,
+      bottom: mobile ? 34 : 48,
+      left: mobile ? 12 : compact ? 28 : 54
+    };
     const innerWidth = width - margin.left - margin.right;
     const innerHeight = height - margin.top - margin.bottom;
     const center = innerWidth / 2;
-    const centerGap = 92;
+    const centerGap = Math.max(mobile ? 42 : 58, Math.min(mobile ? 58 : 92, innerWidth * 0.16));
     const sideWidth = (innerWidth - centerGap) / 2;
     const maxVotes = d3.max(data, (d) => Math.max(d.male, d.female)) || 1;
 
@@ -264,7 +274,8 @@ console.log('chart-e702aa1.js loaded');
     const svg = container.append("svg")
       .attr("viewBox", `0 0 ${width} ${height}`)
       .attr("width", "100%")
-      .attr("height", height);
+      .attr("height", "100%")
+      .attr("preserveAspectRatio", "xMidYMid meet");
     const g = svg.append("g").attr("transform", `translate(${margin.left},${margin.top})`);
     const y = d3.scaleBand().domain(ageLabels).range([0, innerHeight]).padding(0.15);
     const x = d3.scaleLinear().domain([0, maxVotes]).nice().range([0, sideWidth]);
@@ -313,19 +324,22 @@ console.log('chart-e702aa1.js loaded');
 
     const leftAxisScale = d3.scaleLinear().domain([maxVotes, 0]).nice().range([0, sideWidth]);
     const rightAxisScale = d3.scaleLinear().domain([0, maxVotes]).nice().range([0, sideWidth]);
+    const axisTicks = mobile ? 2 : 4;
+    const axisFormat = mobile
+      ? (value) => value >= 1000000 ? `${millionFormatter.format(value / 1000000)} Mio.` : ""
+      : (value) => compactFormatter.format(value);
     g.append("g").attr("class", "chart-axis")
       .attr("transform", `translate(0,${innerHeight})`)
-      .call(d3.axisBottom(leftAxisScale).ticks(4).tickFormat((value) => compactFormatter.format(value)));
+      .call(d3.axisBottom(leftAxisScale).ticks(axisTicks).tickFormat(axisFormat));
     g.append("g").attr("class", "chart-axis")
       .attr("transform", `translate(${center + centerGap / 2},${innerHeight})`)
-      .call(d3.axisBottom(rightAxisScale).ticks(4).tickFormat((value) => compactFormatter.format(value)));
+      .call(d3.axisBottom(rightAxisScale).ticks(axisTicks).tickFormat(axisFormat));
   }
 
   async function updateChart() {
     const year = Number(yearFilter.value);
     const party = partyFilter.value;
     subtitle.textContent = `Erststimmen ${year}, ${partyLabels[party]}, Bundesgebiet gesamt`;
-    container.html("<p>Diagramm wird geladen …</p>");
     try {
       const rows = await loadYear(year);
       const data = year === 2013 ? normalize2013(rows, party) : normalizeLong(rows, year, party);
