@@ -874,7 +874,7 @@ button:hover,
 }
 
 .racing-chart-shell {
-  grid-template-columns: minmax(0, 1fr) minmax(190px, 260px);
+  grid-template-columns: minmax(0, 1fr) minmax(240px, 320px);
   align-items: stretch;
   gap: 1rem;
   padding: 0;
@@ -897,6 +897,8 @@ button:hover,
 .racing-chart-header {
   display: grid;
   gap: 0.4rem;
+  align-content: start;
+  min-height: 4.6rem;
 }
 
 .racing-chart-header h3,
@@ -915,7 +917,7 @@ button:hover,
   grid-template-rows: auto 1fr;
   gap: 0.85rem;
   min-height: 330px;
-  padding: 1rem 0.85rem;
+  padding: clamp(1rem, 2vw, 1.6rem);
   background: var(--base-900);
   border: 1px solid var(--base-700);
   border-radius: var(--bora-base);
@@ -924,6 +926,8 @@ button:hover,
 .spectrum-header {
   display: grid;
   gap: 0.4rem;
+  align-content: start;
+  min-height: 4.6rem;
 }
 
 .spectrum-header p {

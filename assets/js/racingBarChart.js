@@ -115,7 +115,7 @@ console.log('racingBarChart.js loaded');
   </div>
   <aside class="spectrum-chart" aria-label="Politisches Spektrum nach Stimmenanteilen">
     <div class="spectrum-header">
-      <h3><i class="bi bi-columns-gap"></i> Politisches Spektrum</h3>
+      <h3><i class="bi bi-columns-gap"></i> Spektrum</h3>
       <p id="spectrumCaption">Nur Parteien mit hinterlegter Einordnung werden einbezogen.</p>
     </div>
     <div class="spectrum-stack" id="spectrumStack"></div>
@@ -532,6 +532,17 @@ console.log('racingBarChart.js loaded');
         .text(Number.isFinite(election.turnout) && election.turnout > 0
           ? `Wahlbeteiligung: ${formatTurnout.format(election.turnout)} %`
           : "Wahlbeteiligung: keine Angabe");
+
+      const titleWidth = indicator.select(".racing-scrubber-title").node()?.getComputedTextLength() ?? 0;
+      const subtitleWidth = indicator.select(".racing-scrubber-subtitle").node()?.getComputedTextLength() ?? 0;
+      const labelWidth = Math.max(titleWidth, subtitleWidth);
+      const labelPadding = 14;
+      const hasRoomRight = anchorX + labelPadding + labelWidth <= timelineWidth - margin.right;
+      const labelAnchor = hasRoomRight ? "start" : "end";
+
+      indicator.selectAll(".racing-scrubber-title, .racing-scrubber-subtitle")
+        .attr("text-anchor", labelAnchor)
+        .attr("x", 0);
     }
 
     function render(year) {
