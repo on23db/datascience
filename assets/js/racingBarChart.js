@@ -542,7 +542,7 @@ console.log('racingBarChart.js loaded');
 
       indicator.selectAll(".racing-scrubber-title, .racing-scrubber-subtitle")
         .attr("text-anchor", labelAnchor)
-        .attr("x", 0);
+        .attr("x", -3);
     }
 
     function render(year) {
