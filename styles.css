@@ -406,7 +406,8 @@ a {
   font-size: 0.85rem;
   color: var(--base-200);
   font-family: var(--font-mono);
-  margin-top: 0.5rem;
+  padding-top: 1rem;
+  padding-bottom: 1.5rem;
 }
 
 p {

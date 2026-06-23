@@ -494,8 +494,8 @@ console.log('racingBarChart.js loaded');
       const scrubberCenterY = scrubberRect.top - wrapRect.top + scrubberRect.height / 2;
 
       const anchorX = Math.max(
-        margin.left + 14,
-        Math.min(timelineWidth - margin.right - 14, xScale(year))
+        margin.left,
+        Math.min(timelineWidth - margin.right, xScale(year))
       );
 
       const indicatorY = 0;
