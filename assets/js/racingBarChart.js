@@ -105,11 +105,21 @@ console.log('racingBarChart.js loaded');
   </div>
 </div>
     
-<div class="racing-shell">
-  <div class="racing-chart" aria-label="Rangliste der Parteien nach Stimmenanteil"></div>
-    
-  <div class="spectrum-stack" id="spectrumStack"></div>
-  <p id="spectrumCaption">Nur Parteien mit hinterlegter Einordnung werden einbezogen.</p>
+<div class="racing-shell racing-chart-shell">
+  <div class="racing-main-chart">
+    <div class="racing-chart-header">
+      <h3><i class="bi bi-bar-chart-line-fill"></i> Stimmenanteile</h3>
+      <p>Stärkste Parteien im ausgewählten Wahljahr</p>
+    </div>
+    <div class="racing-chart" aria-label="Rangliste der Parteien nach Stimmenanteil"></div>
+  </div>
+  <aside class="spectrum-chart" aria-label="Politisches Spektrum nach Stimmenanteilen">
+    <div class="spectrum-header">
+      <h3><i class="bi bi-columns-gap"></i> Politisches Spektrum</h3>
+      <p id="spectrumCaption">Nur Parteien mit hinterlegter Einordnung werden einbezogen.</p>
+    </div>
+    <div class="spectrum-stack" id="spectrumStack"></div>
+  </aside>
 </div>`);
 
   const chart = container.select(".racing-chart");
@@ -307,10 +317,15 @@ console.log('racingBarChart.js loaded');
             ...entry,
             spectrum: partySpectrum.get(entry.party).spectrum
           })),
-        (entries) => d3.sum(entries, (entry) => entry.value),
+        (entries) => ({
+          value: d3.sum(entries, (entry) => entry.value),
+          parties: entries
+            .sort((a, b) => d3.descending(a.value, b.value))
+            .map((entry) => entry.party)
+        }),
         (entry) => entry.spectrum
       )
-        .map(([spectrum, value]) => ({ spectrum, value }))
+        .map(([spectrum, detail]) => ({ spectrum, ...detail }))
         .filter((entry) => entry.value > 0)
         .sort((a, b) => spectrumOrder.indexOf(a.spectrum) - spectrumOrder.indexOf(b.spectrum));
 
@@ -334,8 +349,9 @@ console.log('racingBarChart.js loaded');
         <div class="spectrum-track">
           ${grouped.map((entry) => {
             const width = entry.value / total * 100;
+            const tooltip = `${entry.spectrum}: ${formatPercent.format(entry.value)} %\nParteien: ${entry.parties.join(", ")}`;
             return `
-              <div class="spectrum-segment" style="--segment-width:${width}%; --segment-color:${spectrumColors[entry.spectrum] ?? "var(--base-500)"}" title="${escapeHtml(entry.spectrum)}: ${formatPercent.format(entry.value)} %">
+              <div class="spectrum-segment" style="--segment-width:${width}%; --segment-color:${spectrumColors[entry.spectrum] ?? "var(--base-500)"}" title="${escapeHtml(tooltip)}">
                 <span>${escapeHtml(entry.spectrum)}</span>
               </div>
             `;
