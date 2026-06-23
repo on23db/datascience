@@ -281,14 +281,14 @@ body {
   padding-top: 0;
 }
 
-/*section {
+section {
   background: var(--base-900);
-  margin-bottom: 15px;
-}*/
+}
 
 .empty {
-  height: 100px;
+  height: 10vh;
   margin-bottom: 15px;
+  background: transparent;
 }
 
 .columns {
@@ -303,10 +303,6 @@ body {
   .columns {
     column-count: 1;
   }
-}
-
-.cell.c-4 {
-  background: var(--base-900);
 }
 
 b,
@@ -326,10 +322,18 @@ footer .logo {
 }
 
 .highlight {
-  background: var(--primary-700);
-  padding: 0 0.2rem;
-  border-radius: 3px;
+  background: linear-gradient(
+    100deg,
+    transparent 0.12em,
+    var(--primary-700) 0.12em,
+    var(--primary-700) calc(100% - 0.12em),
+    transparent calc(100% - 0.12em)
+  );
+  padding: 0 0.25rem;
   font-style: italic;
+
+  box-decoration-break: clone;
+  -webkit-box-decoration-break: clone;
 }
 
 h2 {
@@ -360,7 +364,7 @@ h3 {
   position: relative;
   margin-bottom: 1.5rem;
   padding-bottom: 1px;
-  font-size: 1.6rem;
+  font-size: 1.2rem;
 }
 
 p + h3 {
