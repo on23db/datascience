@@ -6,6 +6,11 @@ console.log('chart-e702aa1.js loaded');
     2021: "rawData/btw_2021.csv",
     2025: "rawData/btw_2025.csv"
   };
+  const previousYears = {
+    2017: 2013,
+    2021: 2017,
+    2025: 2021
+  };
 
   const ageLabels = ["18–24", "25–34", "35–44", "45–59", "60–69", "70+"];
   const partyLabels = {
@@ -44,9 +49,148 @@ console.log('chart-e702aa1.js loaded');
   const partyFilter = document.getElementById("pyramidPartyFilter");
   const subtitle = document.getElementById("voterPyramidSubtitle");
   const container = d3.select("#voterPyramidChart");
+  const statElements = {
+    share: document.getElementById("demoShareStat"),
+    shareDetail: document.getElementById("demoShareDetail"),
+    age: document.getElementById("demoAgeStat"),
+    ageDetail: document.getElementById("demoAgeDetail"),
+    gender: document.getElementById("demoGenderStat"),
+    genderDetail: document.getElementById("demoGenderDetail"),
+    generation: document.getElementById("demoGenerationStat"),
+    generationDetail: document.getElementById("demoGenerationDetail")
+  };
 
   function valueForParty(row, party) {
     return partyColumns[party].reduce((sum, column) => sum + Number(row[column] || 0), 0);
+  }
+
+  function formatPercent(value, digits = 1) {
+    return `${value.toLocaleString("de-DE", {
+      minimumFractionDigits: digits,
+      maximumFractionDigits: digits
+    })} %`;
+  }
+
+  function validVotesLong(row) {
+    if (!row) return 0;
+    return Object.keys(partyColumns).reduce((sum, party) => sum + valueForParty(row, party), 0);
+  }
+
+  function valueFor2013Party(rows, party, gender, column) {
+    const genderRows = rows.filter((row) =>
+      row.Bundesland === "Deutschland" && row.Geschlecht === gender
+    );
+    if (party === "AfD") {
+      return Number(genderRows.find((row) => row.Partei === "dar. AfD")?.[column] || 0) * 1000;
+    }
+    const requestedParties = party === "CDU_CSU" ? ["CDU", "CSU"] : [partyLabels2013[party]];
+    return d3.sum(
+      genderRows.filter((row) => requestedParties.includes(row.Partei)),
+      (row) => Number(row[column] || 0) * 1000
+    );
+  }
+
+  function validVotes2013(rows, gender, column) {
+    const validParties = ["CDU", "CSU", "SPD", "FDP", "DIE LINKE", "GRÃœNE", "Sonstige"];
+    return d3.sum(
+      rows.filter((row) =>
+        row.Bundesland === "Deutschland" &&
+        row.Geschlecht === gender &&
+        validParties.includes(row.Partei)
+      ),
+      (row) => Number(row[column] || 0) * 1000
+    );
+  }
+
+  function totalsForYear(rows, year, party) {
+    if (year === 2013) {
+      const ageColumns = [
+        "Alter_18_25_1000", "Alter_25_35_1000", "Alter_35_45_1000",
+        "Alter_45_60_1000", "Alter_60_70_1000", "Alter_70plus_1000"
+      ];
+      const ageRows = ageLabels.map((age, index) => {
+        const column = ageColumns[index];
+        const male = valueFor2013Party(rows, party, "MÃ¤nner", column);
+        const female = valueFor2013Party(rows, party, "Frauen", column);
+        const totalValid = validVotes2013(rows, "Insgesamt", column);
+        return { age, male, female, partyTotal: male + female, totalValid };
+      });
+      return {
+        ageRows,
+        totalVotes: valueFor2013Party(rows, party, "Insgesamt", "Insgesamt_1000"),
+        validVotes: validVotes2013(rows, "Insgesamt", "Insgesamt_1000")
+      };
+    }
+
+    const voteKey = year === 2017 ? "Erst-/Zweitstimme" : "Stimmentyp";
+    const voteValue = year === 2017 ? 1 : "Erststimme";
+    const relevant = rows.filter((row) => row.Land === "Bund" && row[voteKey] === voteValue);
+    const maleRows = relevant.filter((row) => row.Geschlecht === "m" && row.Geburtsjahresgruppe !== "Summe");
+    const femaleRows = relevant.filter((row) => row.Geschlecht === "w" && row.Geburtsjahresgruppe !== "Summe");
+    const sumRows = relevant.filter((row) => row.Geschlecht === "Summe" && row.Geburtsjahresgruppe !== "Summe");
+    const ageRows = ageLabels.map((age, index) => {
+      const male = valueForParty(maleRows[index], party);
+      const female = valueForParty(femaleRows[index], party);
+      return {
+        age,
+        male,
+        female,
+        partyTotal: male + female,
+        totalValid: validVotesLong(sumRows[index])
+      };
+    });
+    const totalRow = relevant.find((row) => row.Geschlecht === "Summe" && row.Geburtsjahresgruppe === "Summe");
+    return {
+      ageRows,
+      totalVotes: valueForParty(totalRow, party),
+      validVotes: validVotesLong(totalRow)
+    };
+  }
+
+  async function getTrend(year, party, totalVotes) {
+    const previousYear = previousYears[year];
+    if (!previousYear) return null;
+    const previousRows = await loadYear(previousYear);
+    const previousTotals = totalsForYear(previousRows, previousYear, party);
+    return {
+      year: previousYear,
+      difference: totalVotes - previousTotals.totalVotes
+    };
+  }
+
+  function renderStats(data, rows, year, party, trend) {
+    if (!statElements.share) return;
+    const totals = totalsForYear(rows, year, party);
+    const strongestAge = totals.ageRows.reduce((winner, row) =>
+      row.partyTotal > winner.partyTotal ? row : winner,
+      totals.ageRows[0]
+    );
+    const maleVotes = d3.sum(data, (row) => row.male);
+    const femaleVotes = d3.sum(data, (row) => row.female);
+    const partyVotes = maleVotes + femaleVotes;
+    const maleShare = partyVotes ? maleVotes / partyVotes * 100 : 0;
+    const femaleShare = partyVotes ? femaleVotes / partyVotes * 100 : 0;
+    const youngShare = totals.ageRows[0].totalValid
+      ? totals.ageRows[0].partyTotal / totals.ageRows[0].totalValid * 100
+      : 0;
+    const oldestAge = totals.ageRows[totals.ageRows.length - 1];
+    const oldShare = oldestAge.totalValid ? oldestAge.partyTotal / oldestAge.totalValid * 100 : 0;
+    const generationGap = youngShare - oldShare;
+    const share = totals.validVotes ? totals.totalVotes / totals.validVotes * 100 : 0;
+    const trendText = trend
+      ? `${trend.difference >= 0 ? "+" : ""}${compactFormatter.format(Math.round(trend.difference))} Stimmen seit ${trend.year}`
+      : "Erstes Vergleichsjahr im Datensatz";
+
+    statElements.share.textContent = formatPercent(share);
+    statElements.shareDetail.textContent = `${partyLabels[party]} erreicht ${numberFormatter.format(Math.round(totals.totalVotes))} Erststimmen. ${trendText}.`;
+    statElements.age.textContent = strongestAge.age;
+    statElements.ageDetail.textContent = `${numberFormatter.format(Math.round(strongestAge.partyTotal))} Stimmen kommen aus dieser Altersgruppe.`;
+    statElements.gender.textContent = maleShare >= femaleShare
+      ? `${formatPercent(maleShare, 0)} m`
+      : `${formatPercent(femaleShare, 0)} w`;
+    statElements.genderDetail.textContent = `${formatPercent(maleShare)} der Stimmen kommen von Männern, ${formatPercent(femaleShare)} von Frauen.`;
+    statElements.generation.textContent = `${generationGap >= 0 ? "+" : ""}${formatPercent(generationGap)}`;
+    statElements.generationDetail.textContent = `18-24-Jährige liegen bei ${formatPercent(youngShare)}, 70+ bei ${formatPercent(oldShare)}.`;
   }
 
   function normalize2013(rows, party) {
@@ -186,6 +330,9 @@ console.log('chart-e702aa1.js loaded');
       const rows = await loadYear(year);
       const data = year === 2013 ? normalize2013(rows, party) : normalizeLong(rows, year, party);
       render(data, year, party);
+      const totals = totalsForYear(rows, year, party);
+      const trend = await getTrend(year, party, totals.totalVotes);
+      renderStats(data, rows, year, party, trend);
     } catch (error) {
       container.html("<p>Die Wahldaten konnten nicht geladen werden.</p>");
       console.error(error);
