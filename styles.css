@@ -281,9 +281,32 @@ body {
   padding-top: 0;
 }
 
-section {
+/*section {
   background: var(--base-900);
   margin-bottom: 15px;
+}*/
+
+.empty {
+  height: 100px;
+  margin-bottom: 15px;
+}
+
+.columns {
+  column-count: 2;
+  column-gap: 3.6rem;
+  text-align: justify;
+  hyphens: auto;
+  overflow-wrap: break-word;
+}
+
+@media (max-width: 700px) {
+  .columns {
+    column-count: 1;
+  }
+}
+
+.cell.c-4 {
+  background: var(--base-900);
 }
 
 b,
@@ -302,15 +325,22 @@ footer .logo {
   margin: 100px auto;
 }
 
+.highlight {
+  background: var(--primary-700);
+  padding: 0 0.2rem;
+  border-radius: 3px;
+  font-style: italic;
+}
+
 h2 {
   font-weight: 900;
   font-size: 2rem;
   text-transform: uppercase;
   position: relative;
-  padding-top: 4rem;
-  padding-bottom: 2px;
-  margin-bottom: 1rem;
+  padding-bottom: 4px;
+  margin-bottom: 3.5rem;
   display: inline-block;
+  width: fit-content;
 }
 
 h2::before {
@@ -320,6 +350,7 @@ h2::before {
   height: 7px;
   background: var(--accent-600);
   bottom: -7px;
+  left: 0;
   border-radius: var(--bora-base);
 }
 
@@ -327,15 +358,16 @@ h3 {
   font-weight: 800;
   text-transform: uppercase;
   position: relative;
-  margin-bottom: 1rem;
+  margin-bottom: 1.5rem;
   padding-bottom: 1px;
+  font-size: 1.6rem;
 }
 
 p + h3 {
   margin-top: 2rem;
 }
 
-h3::before {
+/*h3::before {
   content: '';
   position: absolute;
   width: 40px;
@@ -343,7 +375,7 @@ h3::before {
   background: var(--primary-600);
   bottom: -4px;
   border-radius: var(--bora-base);
-}
+}*/
 
 li {
   line-height: 1.5rem;
@@ -458,6 +490,11 @@ img {
   border-radius: var(--bora-base);
 }
 
+.intro-grid {
+  position: relative;
+  z-index: 1;
+}
+
 /*.gruendeGrid {
   display: grid;
   grid-template-columns: 1fr 1fr;
@@ -556,41 +593,43 @@ button,
   padding: 0.5rem 1.5rem;
   margin-top: 1rem;
   font-size: 0.7rem;
+  width: fit-content;
+  align-self: flex-start;
 }
 
-#intro + .grid {
-  min-height: 560px;
+.grid {
+  min-height: auto;
   align-items: stretch;
 }
 
-#intro + .grid > .cell {
+.grid > .cell {
   display: flex;
   flex-direction: column;
 }
 
-#intro + .grid > .cell.c-8 > .grid {
+.grid > .cell.c-8 > .grid {
   flex: 1;
   height: 100%;
   min-height: 100%;
   align-items: stretch;
 }
 
-#intro + .grid > .cell.c-8 > .grid > .cell {
+.grid > .cell.c-8 > .grid > .cell {
   display: grid;
   grid-template-rows: auto auto 1fr auto;
   align-content: stretch;
   min-height: 100%;
 }
 
-#intro + .grid > .cell.c-8 h3 {
+.grid > .cell.c-8 h3 {
   margin-bottom: 1.45rem;
 }
 
-#intro + .grid > .cell.c-8 p {
+.grid > .cell.c-8 p {
   margin-top: 1.2rem;
 }
 
-#intro + .grid > .cell.c-8 .btn {
+.grid > .cell.c-8 .btn {
   align-self: end;
   width: max-content;
 }
@@ -1470,7 +1509,8 @@ button:hover,
 
 /* Positionen – anpassen bis es passt */
 .deco-ballot {
-  width: clamp(100px, 28vw, 250px);
+  width: clamp(100px, 28vw, 380px);
+  z-index: 0;
   top: 15%;
   left: -5%;
   transform: rotate(-6deg);
