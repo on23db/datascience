@@ -300,6 +300,11 @@ section {
   text-align: justify;
   hyphens: auto;
   overflow-wrap: break-word;
+  margin-bottom: 2rem;
+}
+
+.columns .hint {
+  break-inside: avoid;
 }
 
 @media (max-width: 700px) {
@@ -365,8 +370,7 @@ h3 {
   font-weight: 800;
   text-transform: uppercase;
   position: relative;
-  margin-bottom: 1.5rem;
-  padding-bottom: 1px;
+  margin-bottom: 0.7rem;
   font-size: 1.2rem;
 }
 
@@ -2204,25 +2208,6 @@ button:hover,
   border-left: 4px solid var(--accent-600);
   border-radius: var(--bora-base);
   backdrop-filter: blur(4px);
-}
-
-.parallax-panel h3 {
-  margin-bottom: 1rem;
-}
-
-.parallax-panel h2 {
-  padding-top: 0;
-  margin-bottom: 1rem;
-}
-
-.parallax-panel p {
-  margin: 0;
-  color: var(--base-100);
-  line-height: 1.65;
-}
-
-.parallax-panel p + p {
-  margin-top: 1rem;
 }
 
 @media (max-width: 980px) {
