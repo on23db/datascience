@@ -531,6 +531,14 @@ button,
   border-radius: var(--bora-base);
 }
 
+.btn-outline {
+  background: transparent;
+  border: 1px solid var(--base-50);
+  color: var(--base-50);
+  border-radius: 50px;
+  
+}
+
 select {
   border-radius: var(--bora-base);
 }
