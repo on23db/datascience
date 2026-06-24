@@ -2724,11 +2724,6 @@ button:hover,
   background: var(--base-bg);
 }
 
-.resources-intro p {
-  max-width: 780px;
-  color: var(--base-200);
-}
-
 .resource-column {
   gap: 0.75rem;
   background:
