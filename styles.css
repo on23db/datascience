@@ -1765,12 +1765,101 @@ button:hover,
 }
 
 #map-shell {
+  position: relative;
   width: 100%;
   height: 100%;
   max-height: 60vh;
   min-height: 520px;
   overflow: hidden;
   background: var(--base-900);
+}
+
+.map-legend {
+  position: absolute;
+  right: 1rem;
+  bottom: 1rem;
+  z-index: 3;
+  min-width: min(360px, calc(100% - 2rem));
+  padding: 0.75rem 0.85rem;
+  background: color-mix(in srgb, var(--base-950) 80%, transparent);
+  border: 1px solid var(--base-600);
+  border-radius: var(--bora-base);
+  backdrop-filter: blur(4px);
+}
+
+.map-legend-title {
+  margin-bottom: 0.45rem;
+  color: var(--base-100);
+  font-family: var(--font-mono);
+  font-size: 0.7rem;
+  font-weight: 750;
+  text-transform: uppercase;
+}
+
+.map-gradient-legend {
+  display: grid;
+  grid-template-columns: auto minmax(120px, 1fr) auto;
+  align-items: center;
+  gap: 0.6rem;
+  color: var(--base-100);
+  font-family: var(--font-mono);
+  font-size: 0.74rem;
+}
+
+.map-gradient-legend i {
+  display: block;
+  height: 0.75rem;
+  border: 1px solid var(--base-300);
+}
+
+.map-party-legend {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.45rem 0.8rem;
+}
+
+.map-party-legend span {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.35rem;
+  color: var(--base-100);
+  font-family: var(--font-mono);
+  font-size: 0.72rem;
+}
+
+.map-party-legend i {
+  width: 0.75rem;
+  height: 0.75rem;
+  border: 1px solid var(--base-100);
+}
+
+.map-zoom-controls {
+  display: grid;
+  position: absolute;
+  right: 1rem;
+  top: 1rem;
+  z-index: 4;
+  gap: 0.35rem;
+}
+
+.map-zoom-controls button {
+  display: inline-flex;
+  width: 2.4rem;
+  height: 2.4rem;
+  align-items: center;
+  justify-content: center;
+  margin: 0;
+  padding: 0;
+  background: color-mix(in srgb, var(--base-950) 80%, transparent);
+  border: 1px solid var(--base-600);
+  color: var(--base-50);
+  font-size: 1.1rem;
+  backdrop-filter: blur(4px);
+}
+
+.map-zoom-controls button[aria-pressed="true"] {
+  background: var(--base-50);
+  color: var(--base-900);
 }
 
 #Bundesrepublik_Deutschland {
@@ -1800,6 +1889,33 @@ button:hover,
 #g1923 .state:hover {
   stroke: var(--base-999) !important;
   stroke-width: 1.5 !important;
+}
+
+#g1923 .state:focus,
+#g1923 .state:focus-visible {
+  outline: none;
+}
+
+.map-label-layer {
+  pointer-events: none;
+}
+
+.map-state-label text {
+  fill: var(--base-10);
+  font-family: var(--font-mono);
+  paint-order: stroke fill;
+  stroke: rgba(0, 0, 0, 0.72);
+  stroke-width: 3px;
+}
+
+.map-state-label-party {
+  font-size: 0.68rem;
+  font-weight: 850;
+}
+
+.map-state-label-value {
+  font-size: 0.58rem;
+  font-weight: 650;
 }
 
 #path3789 {
@@ -1837,6 +1953,42 @@ button:hover,
 
 .map-result-detail {
   margin-bottom: 0;
+}
+
+.map-popover {
+  position: fixed;
+  z-index: 12;
+  width: min(280px, calc(100vw - 16px));
+  padding: 0.75rem 0.85rem;
+  background: var(--base-950);
+  border: 1px solid var(--base-500);
+  border-left: 3px solid var(--map-popover-color, currentColor);
+  border-radius: var(--bora-base);
+  color: var(--base-50);
+  pointer-events: none;
+  box-shadow: 0 10px 22px rgba(0, 0, 0, 0.32);
+}
+
+.map-popover p {
+  margin: 0 0 0.25rem;
+  color: var(--accent-300);
+  font-family: var(--font-mono);
+  font-size: 0.68rem;
+  text-transform: uppercase;
+}
+
+.map-popover strong {
+  display: block;
+  font-size: 0.9rem;
+  line-height: 1.25;
+}
+
+.map-popover span {
+  display: block;
+  margin-top: 0.45rem;
+  color: var(--base-200);
+  font-size: 0.82rem;
+  line-height: 1.35;
 }
 
 .map-error {
@@ -2393,18 +2545,6 @@ button:hover,
   .simulation-control-cell {
     min-height: auto;
   }
-}
-
-#map-shell {
-  position: relative;
-}
-
-.resetMap {
-  margin-top: 0;
-  position: absolute;
-  z-index: 999;
-  bottom: 0;
-  right: 0;
 }
 
 .placeholder {

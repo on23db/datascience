@@ -102,7 +102,6 @@ Die Seite erhebt keinen Anspruch auf Vollständigkeit. Sie will Zusammenhänge s
       <section class="grid">
         <div class="cell c-12">
           <h2 id="entwicklung"><i class="bi bi-graph-up"></i> Entwicklung</h2>
-          <h3>Auswirkungen historischer Ereignisse</h3>
           <div class="columns">
             <p>Wer die Wahlergebnisse der letzten Jahrzehnte nebeneinanderlegt, sieht mehr als Zahlen. Krisen, Wohlstand, Unsicherheit, Wiedervereinigung, Digitalisierung. Jede Generation trifft politische Entscheidungen unter anderen Bedingungen. Die Frage ist: Hinterlassen diese Ereignisse Spuren im Wahlverhalten?</p>
             <p class="hint"><i class="bi bi-lightbulb"></i> Mache eine Reise durch die deutsche Wahlgeschichte, indem du den Slider verschiebst. Oder drücke auf ein Icon, um dir das Event in dieser Zeit genauer anzusehen.</p>
@@ -128,10 +127,12 @@ Die Seite erhebt keinen Anspruch auf Vollständigkeit. Sie will Zusammenhänge s
       <section class="grid">
         <div class="cell c-12">
         <h2 id="regionen"><i class="bi bi-geo-alt-fill"></i> Regionen</h2>
-          <h3>Wo wird was gewählt?</h3>
           <div class="columns">
-          <p>Deutschland wählt nicht als ein Land — es wählt als viele Teile. Während manche Regionen über Jahrzehnte stabil bleiben, verändern sich andere innerhalb weniger Wahlperioden grundlegend. Die Karte zeigt, wo politische Verschiebungen besonders sichtbar werden.</p>
-          <p class="hint">Klicke auf Teile der Karte, um mehr zu erfahren.</p>
+          <p>
+Deutschland wählt nicht überall gleich. Besonders zwischen Ost und West zeigen sich seit der Wiedervereinigung strukturelle Unterschiede, die bis heute messbar sind und die sich in den letzten Jahren weiter vertieft haben. <br>Während manche Bundesländer über Jahrzehnte stabile Mehrheiten zeigen, haben sich andere innerhalb weniger Wahlperioden grundlegend verändert.
+Die Karte zeigt den Zweitstimmenanteil je Bundesland. Dieser bestimmt die parlamentarische Stärke einer Partei im Bundestag und macht regionale Unterschiede im Wahlverhalten direkt sichtbar.
+</p>       <p class="hint"><i class="bi bi-lightbulb"></i> Wähle eine Partei und ein Jahr und sieh, wie sich die Stimmanteile regional verteilen. Fahre mit der Maus über ein Bundesland, um den genauen Wert zu sehen, oder blende die Werte über das <i class="bi bi-eye-fill"></i> Auge-Symbol ein.
+           </p>
           </div>
         </div>
       </section>
@@ -161,15 +162,19 @@ Die Seite erhebt keinen Anspruch auf Vollständigkeit. Sie will Zusammenhänge s
               <g id="g1923">
               </g>
             </svg>
-            <button class="resetMap" onclick="resetZoom()"><i class="bi bi-arrow-repeat"></i> Zurücksetzen</button>
+            <div id="mapLegend" class="map-legend" aria-label="Kartenlegende"></div>
+            <div class="map-zoom-controls" aria-label="Karte zoomen">
+              <button type="button" onclick="zoomInMap()" aria-label="Karte vergrößern"><i class="bi bi-zoom-in"></i></button>
+              <button type="button" onclick="zoomOutMap()" aria-label="Karte verkleinern"><i class="bi bi-zoom-out"></i></button>
+              <button type="button" onclick="resetZoom()" aria-label="Karte zurücksetzen"><i class="bi bi-arrow-repeat"></i></button>
+              <button type="button" id="mapLabelToggle" aria-pressed="false" aria-label="Labels anzeigen"><i class="bi bi-eye-slash"></i></button>
+            </div>
           </div>
         </div>
         <div class="cell c-5 map-info-cell">
           <div class="map-header">
             <div>
-              <h3>Stimmenanteil je Bundesland</h3>
-              <p>Es werden die Zweitstimmen verwendet, weil diese den bundesweiten Stimmenanteil einer Partei und damit ihre parlamentarische Stärke bestimmt.</p>
-              <p>Je dünkler die Farbe des Bundeslandes, desto höher der Stimmenanteil.</p>
+              <h3><i class="bi bi-map-fill"></i> Stimmenanteil je Bundesland</h3>
             </div>
             <div class="chart-controls map-controls" aria-label="Kartenfilter">
               <label>
@@ -185,6 +190,7 @@ Die Seite erhebt keinen Anspruch auf Vollständigkeit. Sie will Zusammenhänge s
               <label>
                 Partei
                 <select id="mapPartyFilter">
+                  <option value="ALL">Alle</option>
                   <option value="AfD" selected>AfD</option>
                   <option value="GRUENE">BÜNDNIS 90/DIE GRÜNEN</option>
                   <option value="CDU_CSU">CDU/CSU</option>
@@ -208,7 +214,6 @@ Die Seite erhebt keinen Anspruch auf Vollständigkeit. Sie will Zusammenhänge s
       <section class="grid">
         <div class="cell c-12">
         <h2 id="demografie"><i class="bi bi-person-fill"></i> Demografie</h2>          
-          <h3>Wer wählt denn genau?</h3>
           <div class="columns">
             <p>Hinter jedem Wahlergebnis stehen Menschen, mit unterschiedlichem Alter, Geschlecht und Lebensrealität. Und die Unterschiede zwischen ihnen werden größer. Wählen Junge und Alte wirklich so unterschiedlich wie wir glauben? Und was ist mit Männern und Frauen?
               Haben sich die Menschen verändert — oder nur ihre Einstellungen? Die Antwort ist komplizierter als sie klingt. Eines ist sicher: Wer heute jung ist, wählt anders als seine Eltern. Und die Lücke wird größer.</p>
@@ -328,7 +333,6 @@ Die Seite erhebt keinen Anspruch auf Vollständigkeit. Sie will Zusammenhänge s
       <section class="grid">
         <div class="cell c-12">
         <h2 id="gruende"><i class="bi bi-patch-question-fill"></i> Gründe</h2>
-          <h3>Was beeinflusst politische Entscheidungen?</h3>
           <p>Wahlergebnisse sind keine Zufälle. Hinter jedem Kreuz steckt eine Entscheidung — beeinflusst von Sorgen, Erfahrungen, Informationen. Und zunehmend auch von dem, was Algorithmen uns zeigen und was sie uns vorenthalten.</p>
         </div>
       </section>
