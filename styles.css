@@ -2465,42 +2465,86 @@ button:hover,
   background: var(--base-bg);
 }
 
-.sources {
-  margin-top: 50px;
-  color: var(--base-500);
+.resources-intro p {
+  max-width: 780px;
+  color: var(--base-200);
 }
 
-.sources .entries {
-  display: flex;
-  justify-content: center;
-  margin-top: 20px;
+.resource-column {
+  gap: 0.75rem;
+  background:
+    linear-gradient(135deg, color-mix(in srgb, var(--resource-color, var(--primary-900)) 70%, transparent), transparent 58%),
+    var(--base-900);
 }
 
-.sources .entry {
-  padding: 10px;
-  background: var(--base-950);
-  border-radius: var(--bora-base);
-  width: 200px;
-  margin: 7px;
-  overflow: hidden;
-  text-overflow: ellipsis;
-  border-left: 4px solid var(--primary-800);
+.resource-column-primary {
+  --resource-color: var(--primary-900);
 }
 
-.sources .entry .title {
-  font-weight: 700;
-  color: var(--base-400);
+.resource-column-accent {
+  --resource-color: var(--accent-950);
 }
 
-.sources .entry .descr {
+.resource-column-gruene {
+  --resource-color: var(--gruene-950);
+}
+
+.resource-kicker {
+  color: var(--base-300);
+  font-family: var(--font-mono);
+  font-size: 0.72rem;
+  font-weight: 750;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+}
+
+.resource-column h3 {
   margin-top: 0;
-  margin-bottom: 5px;
-  line-height: 1rem;
-  font-size: 0.9rem;
 }
 
-.sources .entry a {
-  color: var(--primary-500);
+.resource-link {
+  display: grid;
+  gap: 0.25rem;
+  padding: 0.75rem 0;
+  color: var(--base-50);
+  text-decoration: none;
+  border-top: 1px solid color-mix(in srgb, var(--base-200) 22%, transparent);
+}
+
+.resource-link strong {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.35rem;
+}
+
+.resource-link[href] strong::after {
+  content: "↗";
+  color: var(--accent-400);
+  font-family: var(--font-mono);
+  font-size: 0.82em;
+}
+
+.resource-link span {
+  color: var(--base-200);
+  font-size: 0.88rem;
+  line-height: 1.35;
+}
+
+.resource-link:hover strong {
+  color: var(--accent-300);
+}
+
+.resource-link-static {
+  cursor: default;
+}
+
+.footer-source-note {
+  max-width: 720px;
+  margin: 1.5rem auto 0;
+  color: var(--base-400);
+  font-family: var(--font-mono);
+  font-size: 0.78rem;
+  line-height: 1.5;
 }
 
 .parallaxFooter {
