@@ -80,6 +80,7 @@ console.log('racingBarChart.js loaded');
 
   container.html(
 `   
+<div class="cell c-12 racing-timeline-cell">
 <div class="racing-shell">
   <div class="racing-timeline-wrap">
     <svg class="racing-timeline" role="img" aria-label="Zeitachse mit historischen Ereignissen und Wahljahren"></svg>
@@ -104,8 +105,9 @@ console.log('racingBarChart.js loaded');
     </button>
   </div>
 </div>
+</div>
     
-<div class="racing-shell racing-chart-shell">
+<div class="cell c-8 racing-chart-cell">
   <div class="racing-main-chart">
     <div class="racing-chart-header">
       <h3><i class="bi bi-bar-chart-line-fill"></i> Stimmenanteile</h3>
@@ -113,14 +115,14 @@ console.log('racingBarChart.js loaded');
     </div>
     <div class="racing-chart" aria-label="Rangliste der Parteien nach Stimmenanteil"></div>
   </div>
-  <aside class="spectrum-chart" aria-label="Politisches Spektrum nach Stimmenanteilen">
+</div>
+<aside class="cell c-4 spectrum-chart" aria-label="Politisches Spektrum nach Stimmenanteilen">
     <div class="spectrum-header">
       <h3><i class="bi bi-columns-gap"></i> Spektrum</h3>
       <p id="spectrumCaption">Politische Einordnung</p>
     </div>
     <div class="spectrum-stack" id="spectrumStack"></div>
-  </aside>
-</div>`);
+  </aside>`);
 
   const chart = container.select(".racing-chart");
   const timeline = container.select(".racing-timeline");
@@ -375,6 +377,14 @@ console.log('racingBarChart.js loaded');
               </div>
             `;
           }).join("")}
+        </div>
+        <div class="spectrum-legend" aria-label="Legende politisches Spektrum">
+          ${grouped.map((entry) => `
+            <span class="spectrum-legend-item">
+              <i style="--legend-color:${spectrumColors[entry.spectrum] ?? "var(--base-500)"}"></i>
+              ${escapeHtml(entry.spectrum)}
+            </span>
+          `).join("")}
         </div>
       `);
     }
