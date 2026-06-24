@@ -2354,15 +2354,57 @@ button:hover,
 }
 
 .simulation-results {
-  display: flex;
-  gap: 0.75rem;
-  margin-top: 5vh;
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  align-items: stretch;
+  gap: 0;
+  margin-top: 0;
+  border-left: 1px solid var(--border-color);
+  border-top: 1px solid var(--border-color);
+  border-radius: var(--bora-base);
+  overflow: hidden;
 }
 
-.simulation-results div {
-  padding: 1rem;
-  background: var(--base-900);
-  border-left: 4px solid var(--primary-500);
+.simulation-results-cell {
+  padding: 0;
+}
+
+.simulation-result-card {
+  display: grid;
+  grid-template-rows: auto auto 1fr;
+  min-width: 0;
+  min-height: 8.8rem;
+  padding: 1.2rem;
+  background:
+    linear-gradient(135deg, color-mix(in srgb, var(--simulation-result-color, var(--primary-900)) 72%, transparent), transparent 58%),
+    var(--base-900);
+  border-right: 1px solid var(--border-color);
+  border-bottom: 1px solid var(--border-color);
+  border-radius: 0;
+}
+
+.simulation-result-primary {
+  --simulation-result-color: var(--primary-900);
+}
+
+.simulation-result-accent {
+  --simulation-result-color: var(--accent-950);
+}
+
+.simulation-result-afd {
+  --simulation-result-color: var(--afd-950);
+}
+
+.simulation-result-fdp {
+  --simulation-result-color: var(--fdp-950);
+}
+
+.simulation-result-gruene {
+  --simulation-result-color: var(--gruene-950);
+}
+
+.simulation-result-linke {
+  --simulation-result-color: var(--linke-950);
 }
 
 .simulation-results span,
@@ -2378,8 +2420,9 @@ button:hover,
   display: block;
   margin: 0.35rem 0 0.2rem;
   color: var(--base-10);
-  font-size: clamp(1.2rem, 3vw, 1.7rem);
+  font-size: clamp(1.05rem, 2.2vw, 1.45rem);
   line-height: 1.1;
+  overflow-wrap: anywhere;
 }
 
 .simulation-disclaimer p {
@@ -2579,6 +2622,10 @@ button:hover,
   .simulation-chart {
     overflow-x: auto;
   }
+
+  .simulation-results {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
 }
 
 @media (max-width: 700px) {
@@ -2677,6 +2724,10 @@ button:hover,
 
   .simulation-chart {
     overflow-x: auto;
+  }
+
+  .simulation-results {
+    grid-template-columns: 1fr;
   }
 
   .simulation-chart-cell,

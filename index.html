@@ -427,19 +427,6 @@ Die Karte zeigt den Zweitstimmenanteil je Bundesland. Dieser bestimmt die parlam
             aria-label="Liniendiagramm mit historischen Bundestagswahlergebnissen und simulierter Fortschreibung bis 2033"></div>
           <div class="simulation-note"><span></span> Gestrichelt = simuliertes Szenario ab 2025</div>
           <div id="simulationLegend" class="simulation-legend" aria-label="Parteien im Diagramm"></div>
-          
-          <div class="simulation-results" aria-live="polite">
-            <div>
-              <span>Stärkste Partei 2033</span>
-              <strong id="simStrongest">-</strong>
-              <small id="simStrongestDetail">-</small>
-            </div>
-            <div>
-              <span>Größter Gewinner</span>
-              <strong id="simWinner">-</strong>
-              <small id="simWinnerDetail">-</small>
-            </div>
-          </div>
         </div>
         
         <aside class="cell c-4 simulation-control-cell" aria-label="Simulationsregler">
@@ -485,6 +472,30 @@ Die Karte zeigt den Zweitstimmenanteil je Bundesland. Dieser bestimmt die parlam
 
           <button class="simulation-reset" id="simulationReset" type="button"><i class="bi bi-arrow-repeat"></i> Zurücksetzen</button>
         </aside>
+        <div class="cell c-12 simulation-results-cell">
+          <div class="simulation-results" aria-live="polite">
+            <div class="simulation-result-card simulation-result-primary">
+              <span>Stärkste Partei 2033</span>
+              <strong id="simStrongest">-</strong>
+              <small id="simStrongestDetail">-</small>
+            </div>
+            <div class="simulation-result-card simulation-result-accent">
+              <span>Größter Gewinner</span>
+              <strong id="simWinner">-</strong>
+              <small id="simWinnerDetail">-</small>
+            </div>
+            <div class="simulation-result-card simulation-result-gruene">
+              <span>Top-3 Parteien</span>
+              <strong id="simTopThree">-</strong>
+              <small id="simTopThreeDetail">-</small>
+            </div>
+            <div class="simulation-result-card simulation-result-linke">
+              <span>Szenario-Effekt</span>
+              <strong id="simEffect">-</strong>
+              <small id="simEffectDetail">-</small>
+            </div>
+          </div>
+        </div>
       </section>
 
     <section class="empty">
