@@ -1,4 +1,4 @@
-console.log("map.js loaded and executed");
+﻿console.log("map.js loaded and executed");
 const width = 591.504;
 const height = 800.504;
 
@@ -71,8 +71,10 @@ const VALID_SECOND_VOTE_COLUMNS = [
 const svg = d3.select("#Bundesrepublik_Deutschland");
 const g = d3.select("#g1923");
 const info = d3.select("#info");
+const mapLegend = d3.select("#mapLegend");
 const mapYearFilter = document.getElementById("mapYearFilter");
 const mapPartyFilter = document.getElementById("mapPartyFilter");
+const mapLabelToggle = document.getElementById("mapLabelToggle");
 
 const stateNumberToName = {};
 const stateNameToNumber = {};
@@ -94,6 +96,8 @@ const STATE_NAME_BY_ID = {
 let states;
 let selectedStateNumber = null;
 let latestMapRequest = 0;
+let mapLabelsVisible = false;
+let mapLabelLayer;
 
 const zoom = d3.zoom()
   .scaleExtent([zoom_manualMin, zoom_manualMax])
@@ -144,7 +148,15 @@ function initMap() {
     .on("click", function(event) {
       event.stopPropagation();
       selectState(this);
+      showMapPopover(this, event);
     })
+    .on("mouseenter focus", function(event) {
+      showMapPopover(this, event);
+    })
+    .on("mousemove", function(event) {
+      moveMapPopover(this, event);
+    })
+    .on("mouseleave blur", hideMapPopover)
     .on("keydown", function(event) {
       if (event.key === "Enter" || event.key === " ") {
         event.preventDefault();
@@ -158,9 +170,17 @@ function initMap() {
       return (this.dataset.originalId || this.id) === OUTLINE_PATH_ID;
     })
     .style("pointer-events", "none");
+  mapLabelLayer = g.append("g").attr("class", "map-label-layer");
 
   mapYearFilter.addEventListener("change", updateMap);
   mapPartyFilter.addEventListener("change", updateMap);
+  mapLabelToggle.addEventListener("click", () => {
+    mapLabelsVisible = !mapLabelsVisible;
+    mapLabelToggle.setAttribute("aria-pressed", String(mapLabelsVisible));
+    mapLabelToggle.setAttribute("aria-label", mapLabelsVisible ? "Labels ausblenden" : "Labels anzeigen");
+    mapLabelToggle.innerHTML = `<i class="bi ${mapLabelsVisible ? "bi-eye" : "bi-eye-slash"}"></i>`;
+    renderMapLabels();
+  });
   updateMap();
 }
 
@@ -173,13 +193,17 @@ function getStateNameFromPath(pathElement) {
 function selectState(pathElement) {
   selectedStateNumber = Number(pathElement.dataset.stateNumber);
   zoomToState(pathElement);
-  showStateInfo(selectedStateNumber);
+}
+
+function getMapMode() {
+  return mapPartyFilter.value === "ALL" ? "winner" : "party";
 }
 
 async function updateMap() {
   const requestId = ++latestMapRequest;
   const year = mapYearFilter.value;
   const partyKey = mapPartyFilter.value;
+  const mapMode = getMapMode();
 
   setFiltersDisabled(true);
   info.html('<i class="bi bi-hourglass-split"></i> Kartendaten werden geladen …');
@@ -193,6 +217,7 @@ async function updateMap() {
 
     const stateRows = rows.filter((row) => (row.Zeilentyp || row.Gebietstyp) === "Bundesland");
     const rowByState = new Map(stateRows.map((row) => [row.Gebiet, row]));
+    const stateMetadataList = [];
 
     if (rowByState.size !== 16) {
       throw new Error(`Erwartet wurden 16 Bundesländer, gefunden wurden ${rowByState.size}.`);
@@ -204,20 +229,28 @@ async function updateMap() {
       if (!row) throw new Error(`Keine Daten für ${stateName} gefunden.`);
 
       const validVotes = getFirstNumericValue(row, VALID_SECOND_VOTE_COLUMNS);
-      const partyVotes = getPartyVotes(row, partyKey, validVotes);
+      const winner = getStrongestParty(row, validVotes);
+      const activePartyKey = mapMode === "winner" ? winner.partyKey : partyKey;
+      const partyVotes = mapMode === "winner" ? winner.votes : getPartyVotes(row, partyKey, validVotes);
       const percentage = validVotes > 0 ? (partyVotes / validVotes) * 100 : 0;
-      const colorScalePercentage = globalMaximumPercentage > 0
+      const colorScalePercentage = mapMode === "winner"
+        ? 100
+        : globalMaximumPercentage > 0
         ? (percentage / globalMaximumPercentage) * 100
         : 0;
-      const colorVariable = getColorVariable(
-        MAP_PARTIES[partyKey].cssPrefix,
-        colorScalePercentage
-      );
+      const colorVariable = mapMode === "winner"
+        ? `--color-${MAP_PARTIES[activePartyKey].cssPrefix}`
+        : getColorVariable(
+          MAP_PARTIES[partyKey].cssPrefix,
+          colorScalePercentage
+        );
 
       setStateMetadata(stateName, {
         year: Number(year),
-        party: MAP_PARTIES[partyKey].label,
-        partyKey,
+        mode: mapMode,
+        party: MAP_PARTIES[activePartyKey].label,
+        partyKey: activePartyKey,
+        selectedParty: mapMode === "winner" ? "Alle" : MAP_PARTIES[partyKey].label,
         votes: partyVotes,
         validSecondVotes: validVotes,
         percentage,
@@ -227,7 +260,9 @@ async function updateMap() {
         colorVariable,
         color: cssVar(colorVariable).trim() || statesDefault_background_colorString
       });
+      stateMetadataList.push(customMetadataByNumber[stateNameToNumber[stateName]]);
     });
+    renderMapLegend(stateMetadataList);
 
     states.each(function() {
       const number = Number(this.dataset.stateNumber);
@@ -236,15 +271,11 @@ async function updateMap() {
       this.dataset.percentage = String(metadata.percentage);
       this.setAttribute(
         "aria-label",
-        `${metadata.name}: ${metadata.party}, ${metadata.percentageFormatted} im Jahr ${metadata.year}`
+        metadata.mode === "winner"
+          ? `${metadata.name}: stärkste Partei ${metadata.party}, ${metadata.percentageFormatted} im Jahr ${metadata.year}`
+          : `${metadata.name}: ${metadata.party}, ${metadata.percentageFormatted} im Jahr ${metadata.year}`
       );
-
-      let title = this.querySelector("title");
-      if (!title) {
-        title = document.createElementNS("http://www.w3.org/2000/svg", "title");
-        this.prepend(title);
-      }
-      title.textContent = `${metadata.name}: ${metadata.percentageFormatted}`;
+      this.querySelector("title")?.remove();
     });
 
     states.transition()
@@ -252,9 +283,9 @@ async function updateMap() {
       .style("fill", function() {
         return customMetadataByNumber[Number(this.dataset.stateNumber)].color;
       });
+    renderMapLabels();
 
-    if (selectedStateNumber === null) showMapHint();
-    else showStateInfo(selectedStateNumber);
+    showMapHint();
   } catch (error) {
     console.error("Kartendaten konnten nicht geladen werden:", error);
     info.html(`
@@ -311,6 +342,16 @@ function getPartyVotes(row, partyKey, validVotes) {
   );
 }
 
+function getStrongestParty(row, validVotes) {
+  return Object.keys(MAP_PARTIES)
+    .filter((partyKey) => partyKey !== "Sonstige")
+    .map((partyKey) => ({
+      partyKey,
+      votes: getPartyVotes(row, partyKey, validVotes)
+    }))
+    .sort((a, b) => d3.descending(a.votes, b.votes))[0];
+}
+
 function getFirstNumericValue(row, candidateColumns) {
   const column = candidateColumns.find((candidate) => row[candidate] !== undefined);
   if (!column || row[column] === "") return 0;
@@ -341,8 +382,74 @@ function setStateMetadata(name, metadata) {
   };
 }
 
+function getStateHoverText(metadata) {
+  const voteDetail = `${numberFormatter.format(metadata.votes)} von ${numberFormatter.format(metadata.validSecondVotes)} gültigen Zweitstimmen`;
+  if (metadata.mode === "winner") {
+    return `${metadata.name}
+Stärkste Partei: ${metadata.party}
+${metadata.percentageFormatted}
+${voteDetail}`;
+  }
+
+  return `${metadata.name}
+${metadata.party}: ${metadata.percentageFormatted}
+${voteDetail}`;
+}
+
+function showMapPopover(pathElement, event) {
+  const metadata = pathElement.customMetadata;
+  if (!metadata) return;
+
+  const popover = d3.select("body").selectAll(".map-popover").data([metadata]).join("div")
+    .attr("class", "map-popover")
+    .style("--map-popover-color", metadata.color)
+    .html(`
+      <p>${escapeHtml(metadata.mode === "winner" ? "Stärkste Partei" : metadata.selectedParty)}</p>
+      <strong>${escapeHtml(metadata.name)}</strong>
+      <span>${escapeHtml(metadata.party)} · ${escapeHtml(metadata.percentageFormatted)}</span>
+      <span>${escapeHtml(numberFormatter.format(metadata.votes))} von ${escapeHtml(numberFormatter.format(metadata.validSecondVotes))} gültigen Zweitstimmen</span>
+    `);
+
+  moveMapPopover(pathElement, event);
+}
+
+function moveMapPopover(pathElement, event) {
+  const popover = d3.select(".map-popover");
+  if (popover.empty()) return;
+
+  const viewportWidth = document.documentElement.clientWidth;
+  const viewportHeight = window.innerHeight;
+  const popoverNode = popover.node();
+  const popoverWidth = popoverNode.offsetWidth;
+  const popoverHeight = popoverNode.offsetHeight;
+  const pointerX = event?.clientX ?? pathElement.getBoundingClientRect().left;
+  const pointerY = event?.clientY ?? pathElement.getBoundingClientRect().top;
+  const xPos = Math.max(8, Math.min(viewportWidth - popoverWidth - 8, pointerX + 14));
+  const yPos = Math.max(8, Math.min(viewportHeight - popoverHeight - 8, pointerY + 14));
+
+  popover
+    .style("left", `${xPos}px`)
+    .style("top", `${yPos}px`);
+}
+
+function hideMapPopover() {
+  d3.selectAll(".map-popover").remove();
+}
+
 function showMapHint() {
-  const party = MAP_PARTIES[mapPartyFilter.value].label;
+  const mapMode = getMapMode();
+  const party = mapMode === "winner" ? "" : MAP_PARTIES[mapPartyFilter.value].label;
+  if (mapMode === "winner") {
+    info.html(`
+      <p class="map-hint"><i class="bi bi-trophy-fill"></i>
+      Die Karte zeigt die jeweils stärkste Partei pro Bundesland im Jahr
+      <strong>${escapeHtml(mapYearFilter.value)}</strong>.</p>
+      <p class="map-hint">Die Farbe entspricht der Partei, die dort den höchsten Zweitstimmenanteil erreicht.</p>
+      <p class="map-hint">Klicke auf ein Bundesland, um Partei und Anteil zu sehen.</p>
+    `);
+    return;
+  }
+
   info.html(`
     <p class="map-hint"><i class="bi bi-geo-alt-fill"></i>
     Die Karte zeigt den Anteil der gültigen Zweitstimmen für
@@ -353,26 +460,96 @@ function showMapHint() {
   `);
 }
 
-function showStateInfo(number) {
-  const custom = customMetadataByNumber[number];
-  if (!custom) return;
-
-  info.html(`
-    <article class="map-result" style="--map-result-color: ${escapeHtml(custom.color)}">
-      <h3>${escapeHtml(custom.name)}</h3>
-      <p class="map-percentage">${escapeHtml(custom.percentageFormatted)}</p>
-      <p><strong>${escapeHtml(custom.party)}</strong> · Zweitstimmen ${custom.year}</p>
-      <p class="map-result-detail">
-        ${numberFormatter.format(custom.votes)} von
-        ${numberFormatter.format(custom.validSecondVotes)} gültigen Zweitstimmen
-      </p>
-    </article>
-  `);
-}
-
 function setFiltersDisabled(disabled) {
   mapYearFilter.disabled = disabled;
   mapPartyFilter.disabled = disabled;
+  mapLabelToggle.disabled = disabled;
+}
+
+function renderMapLegend(metadataList) {
+  const mapMode = getMapMode();
+  if (mapMode === "winner") {
+    const winners = Array.from(
+      new Map(metadataList.map((metadata) => [metadata.partyKey, metadata])).values()
+    ).sort((a, b) => a.party.localeCompare(b.party, "de"));
+
+    mapLegend.html(`
+      <div class="map-legend-title">Stärkste Partei</div>
+      <div class="map-party-legend">
+        ${winners.map((winner) => `
+          <span><i style="background:${escapeHtml(winner.color)}"></i>${escapeHtml(winner.party)}</span>
+        `).join("")}
+      </div>
+    `);
+    return;
+  }
+
+  const percentages = metadataList.map((metadata) => metadata.percentage);
+  const min = Math.min(...percentages);
+  const max = Math.max(...percentages);
+  const party = metadataList[0]?.party ?? "";
+  const cssPrefix = MAP_PARTIES[mapPartyFilter.value].cssPrefix;
+  const gradientStops = [50, 200, 400, 600, 800, 950]
+    .map((shade) => cssVar(`--${cssPrefix}-${shade}`).trim())
+    .filter(Boolean)
+    .join(", ");
+
+  mapLegend.html(`
+    <div class="map-legend-title">${escapeHtml(party)}</div>
+    <div class="map-gradient-legend">
+      <span>${percentageFormatter.format(min)} %</span>
+      <i style="background: linear-gradient(90deg, ${escapeHtml(gradientStops)})"></i>
+      <span>${percentageFormatter.format(max)} %</span>
+    </div>
+  `);
+}
+
+function renderMapLabels() {
+  if (!mapLabelLayer) return;
+  if (!mapLabelsVisible) {
+    mapLabelLayer.selectAll("*").remove();
+    return;
+  }
+
+  const labelData = states.nodes()
+    .map((node) => {
+      const metadata = customMetadataByNumber[Number(node.dataset.stateNumber)];
+      if (!metadata) return null;
+      const bbox = node.getBBox();
+      return {
+        key: metadata.name,
+        x: bbox.x + bbox.width / 2,
+        y: bbox.y + bbox.height / 2,
+        party: metadata.party,
+        percentage: metadata.percentageFormatted
+      };
+    })
+    .filter(Boolean);
+
+  const labels = mapLabelLayer.selectAll("g.map-state-label")
+    .data(labelData, (d) => d.key);
+
+  labels.exit().remove();
+
+  const entered = labels.enter()
+    .append("g")
+    .attr("class", "map-state-label");
+
+  entered.append("text")
+    .attr("class", "map-state-label-party")
+    .attr("text-anchor", "middle")
+    .attr("dy", "-0.15em");
+
+  entered.append("text")
+    .attr("class", "map-state-label-value")
+    .attr("text-anchor", "middle")
+    .attr("dy", "1.05em");
+
+  const merged = entered.merge(labels)
+    .attr("transform", (d) => `translate(${d.x},${d.y})`);
+
+  merged.select(".map-state-label-party").text((d) => d.party);
+  merged.select(".map-state-label-value").text((d) => d.percentage);
 }
 
 function zoomToState(pathElement) {
@@ -397,4 +574,16 @@ function resetZoom() {
   svg.transition()
     .duration(zoom_autoResetDurationMS)
     .call(zoom.transform, d3.zoomIdentity);
+}
+
+function zoomInMap() {
+  svg.transition()
+    .duration(zoom_autoDurationMS)
+    .call(zoom.scaleBy, 1.45);
+}
+
+function zoomOutMap() {
+  svg.transition()
+    .duration(zoom_autoDurationMS)
+    .call(zoom.scaleBy, 1 / 1.45);
 }

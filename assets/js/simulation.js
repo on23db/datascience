@@ -34,6 +34,14 @@ console.log('simulation.js loaded');
     strongestDetail: document.getElementById('simStrongestDetail'),
     winner: document.getElementById('simWinner'),
     winnerDetail: document.getElementById('simWinnerDetail'),
+    rightMajority: document.getElementById('simRightMajority'),
+    rightMajorityDetail: document.getElementById('simRightMajorityDetail'),
+    lead: document.getElementById('simLead'),
+    leadDetail: document.getElementById('simLeadDetail'),
+    topThree: document.getElementById('simTopThree'),
+    topThreeDetail: document.getElementById('simTopThreeDetail'),
+    effect: document.getElementById('simEffect'),
+    effectDetail: document.getElementById('simEffectDetail'),
   };
 
   let historical = {};
@@ -171,8 +179,11 @@ console.log('simulation.js loaded');
 
   function updateResults(scenario) {
     const values2033 = scenario[2033];
-    const maxValue = d3.max(values2033);
-    const strongestIndex = values2033.indexOf(maxValue);
+    const ranked = values2033
+      .map((value, index) => ({ value, index, label: partyConfig[index].label }))
+      .sort((a, b) => d3.descending(a.value, b.value));
+    const maxValue = ranked[0].value;
+    const strongestIndex = ranked[0].index;
     const strongestDiff = maxValue - historical[2025][strongestIndex];
     resultEls.strongest.textContent = partyConfig[strongestIndex].label;
     resultEls.strongestDetail.textContent = `${maxValue.toFixed(1)}%, ${strongestDiff >= 0 ? '+' : ''}${strongestDiff.toFixed(1)} Pkt. zu 2025`;
@@ -182,6 +193,29 @@ console.log('simulation.js loaded');
     const winnerIndex = gains.indexOf(maxGain);
     resultEls.winner.textContent = partyConfig[winnerIndex].label;
     resultEls.winnerDetail.textContent = `${maxGain >= 0 ? '+' : ''}${maxGain.toFixed(1)} Punkte`;
+
+    const partyIndexByKey = Object.fromEntries(partyConfig.map((party, index) => [party.key, index]));
+    const rightMajorityKeys = ['CDU/CSU', 'FDP', 'AfD'];
+    const rightMajorityValue = rightMajorityKeys.reduce((sum, key) => sum + (values2033[partyIndexByKey[key]] ?? 0), 0);
+    if (resultEls.rightMajority && resultEls.rightMajorityDetail) {
+      resultEls.rightMajority.textContent = `${rightMajorityValue.toFixed(1)}%`;
+      resultEls.rightMajorityDetail.textContent = 'CDU/CSU + FDP + AfD';
+    }
+
+    const lead = ranked[0].value - ranked[1].value;
+    if (resultEls.lead && resultEls.leadDetail) {
+      resultEls.lead.textContent = `${lead.toFixed(1)} Pkt.`;
+      resultEls.leadDetail.textContent = `${ranked[0].label} vor ${ranked[1].label}`;
+    }
+
+    const topThreeValue = ranked.slice(0, 3).reduce((sum, entry) => sum + entry.value, 0);
+    resultEls.topThree.textContent = `${topThreeValue.toFixed(1)}%`;
+    resultEls.topThreeDetail.textContent = ranked.slice(0, 3).map(entry => entry.label).join(' + ');
+
+    const base2033 = baseProjection[2033] ?? values2033;
+    const scenarioEffect = values2033.reduce((sum, value, index) => sum + Math.abs(value - base2033[index]), 0) / 2;
+    resultEls.effect.textContent = `${scenarioEffect.toFixed(1)} Pkt.`;
+    resultEls.effectDetail.textContent = 'Abweichung vom Basisszenario';
   }
 
   function drawLegend() {

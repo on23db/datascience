@@ -1,492 +1,724 @@
 ﻿<!doctype html>
-<html id="top">
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>The Right Vote</title>
-  <link rel="stylesheet" href="styles.css">
-  <link rel="icon" href="assets/favicon_white.ico" type="image/x-icon">
-  <link rel="icon" href="assets/favicon_black.ico" type="image/x-icon" media="(prefers-color-scheme: light)">
-  <link rel="icon" href="assets/favicon_white.ico" type="image/x-icon" media="(prefers-color-scheme: dark)">
-  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.13.1/font/bootstrap-icons.min.css">
-</head>
+<html id="top" lang="de">
+  <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>The Right Vote</title>
+    <link rel="stylesheet" href="styles.css">
+    <link rel="icon" href="assets/favicon_white.ico" type="image/x-icon">
+    <link rel="icon" href="assets/favicon_black.ico" type="image/x-icon" media="(prefers-color-scheme: light)">
+    <link rel="icon" href="assets/favicon_white.ico" type="image/x-icon" media="(prefers-color-scheme: dark)">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.13.1/font/bootstrap-icons.min.css">
+  </head>
 
-<body>
-  <main>
-    <div class="contentWrap">
-      <h1 class="sr-only">The Right Vote</h1>
-      <nav>
-        <a href="#top"><img class="icon" src="assets/icon.svg" alt="Logo"></a>
-        <a class="navLink" href="#entwicklung">Entwicklung</a>
-        <a class="navLink" href="#regionen">Regionen</a>
-        <a class="navLink" href="#demografie">Demografie</a>
-        <a class="navLink" href="#gruende">Gründe</a>
-        <a class="navLink" href="#simulation">Simulation</a>
-      </nav>
+  <body>
+    <main>
+      <div class="contentWrap">
+        <h1 class="sr-only">The Right Vote</h1>
+        <nav class="site-nav" aria-label="Hauptnavigation">
+          <a class="nav-brand" href="#top" aria-label="Zur Startseite">
+            <img class="icon" src="assets/icon.svg" alt="">
+            <span>The Right Vote</span>
+          </a>
+          <button class="nav-toggle" type="button" aria-controls="nav-panel" aria-expanded="false" aria-label="Navigation öffnen">
+            <i class="bi bi-list"></i>
+          </button>
+          <div class="nav-panel" id="nav-panel">
+            <a class="navLink" href="#entwicklung">Entwicklung</a>
+            <a class="navLink" href="#regionen">Regionen</a>
+            <a class="navLink" href="#demografie">Demografie</a>
+            <a class="navLink" href="#gruende">Gründe</a>
+            <a class="navLink" href="#simulation">Simulation</a>
+            <a class="navLink navLink-secondary" href="#links">Ressourcen</a>
+          </div>
+        </nav>
 
-      <img class="deco deco-letter" src="assets/images/brief_blau.webp" alt="Wahlbrief">
-      <img class="deco deco-pen" src="assets/images/stift.webp" alt="Stift">
-      <img class="deco deco-ballot" src="assets/images/stimmzettel.webp" alt="Stimmzettel">
-      <div class="hero-wrapper">
-        <div class="hero">
-          <img class="logo" src="assets/logo_clean.svg" alt="Logo">
-          <p class="heroSub">Eine Datenreise durch Jahrzehnte deutscher Demokratie und was sie über unsere Zukunft verraten kann.</p>
+        <img class="deco deco-letter" src="assets/images/brief_blau.webp" alt="Wahlbrief">
+        <img class="deco deco-pen" src="assets/images/stift.webp" alt="Stift">
+        <img class="deco deco-ballot" src="assets/images/stimmzettel.webp" alt="Stimmzettel">
+        <div class="hero-wrapper">
+          <div class="hero">
+            <img class="logo" src="assets/logo_clean.svg" alt="Logo">
+            <p class="heroSub">Eine Datenreise durch 100 Jahre deutscher Demokratie.</p>
+          </div>
         </div>
-      </div>
-
-      <h2 id="intro">Wählen ist ein Recht.</h2>
-      <section class="grid">
+      <section class="grid intro-grid">
         <div class="cell c-4">
-          <p>Seit 1949 wählt Deutschland. Parteien kommen und gehen, Koalitionen zerbrechen, Gesichter wechseln.</p>
-          <p>Doch hinter den Wahlergebnissen steckt mehr als ein Kreuz auf einem Zettel. Die Daten zeigen: Deutschland verändert sich — politisch, demografisch, regional.</p>
+          <h2>Über 100 Jahre deutsche Wahlgeschichte</h2>
+          <p>Seit 1919 wählt Deutschland und die Wahlergebnisse zeigen eines: Politische Mehrheiten sind nie selbstverständlich. Gesellschaften verändern sich. Mit ihnen verändern sich auch die Entscheidungen an der Wahlurne.</p>
+          <p>Doch hinter den Wahlergebnissen steckt mehr als ein Kreuz auf einem Zettel. Die Daten zeigen: <span class="highlight">Deutschland verändert sich — politisch, demografisch, regional.</span></p>
           <p>Doch wer trägt diese Entwicklung, wo findet sie statt und welche Faktoren könnten dahinterstehen?</p>
+          <br><br>
+          <h4>Themengebiete erkunden</h4>
+          <div class="focus-buttons">
+            <button class="btn-outline" onclick="location.href='#entwicklung'">Wahlgeschichte</button>
+            <button class="btn-outline" onclick="location.href='#regionen'">Regionen</button>
+            <button class="btn-outline" onclick="location.href='#demografie'">Demografie</button>
+            <button class="btn-outline" onclick="location.href='#demografie'">Generationenvergleich</button>
+            <button class="btn-outline" onclick="location.href='#gruende'">Fakten</button>
+            <button class="btn-outline" onclick="location.href='#simulation'">Simulation</button>
+          </div>
         </div>
         <div class="cell c-8">
           <section class="grid">
             <div class="cell c-4">
-              <h3><i class="bi bi-book"></i> Entwicklung</h3>
-              <div class="badge">[zahl]</div>
-              <p>Die AfD hat ihren Stimmenanteil seit 2013 vervierfacht. Was ist passiert?</p>
-              <a class="btn" href="#entwicklung">Mehr...</a>
+              <div class="intro-stat" data-stat="afd-growth" aria-label="AfD-Zuwachs seit 2013">
+                <span class="stat-kicker"><i class="bi bi-arrow-up-right"></i> Zuwachs</span>
+                <strong><span class="stat-value">0</span><span class="stat-unit">%</span></strong>
+                <p>Von 4,7% bei ihrer ersten Bundestagswahl 2013 auf 20,8% im Jahr 2025 — kein anderes Land in Westeuropa erlebt einen vergleichbar schnellen Aufstieg einer rechten Partei in so kurzer Zeit.</p>
+                <a class="btn intro-source" href="#entwicklung">Quelle <i class="bi bi-arrow-up-right"></i></a>
+              </div>
             </div>
             <div class="cell c-4">
-              <h3><i class="bi bi-person"></i> Demografie</h3>
-              <div class="badge">[zahl]</div>
-              <p>Junge und Alte wählen heute so unterschiedlich wie nie zuvor.</p>
-              <a class="btn" href="#demografie">Mehr...</a>
+              <div class="intro-stat" data-stat="age-gap" aria-label="Groesster Abstand zwischen jungen und alten Waehlern">
+                <span class="stat-kicker"><i class="bi bi-arrows-expand"></i> Abstand</span>
+                <strong><span class="stat-value">0</span><span class="stat-unit"> pp</span></strong>
+                <p>31,6 Prozentpunkte trennen die unter 30-Jährigen von den über 60-Jährigen in ihrer Parteipräferenz. Das ist der größte gemessene Generationenabstand seit Beginn der repräsentativen Wahlstatistik in Deutschland.</p>
+                <a class="btn intro-source" href="#demografie">Quelle <i class="bi bi-arrow-up-right"></i></a>
+              </div>
             </div>
             <div class="cell c-4">
-              <h3><i class="bi bi-person"></i> Trends</h3>
-              <div class="badge">[zahl]</div>
-              <p>Was wäre, wenn Deutschland anders aussähe — und anders wählen würde?</p>
-              <a class="btn" href="#demografie">Mehr...</a>
+              <div class="intro-stat" data-stat="projection" aria-label="AfD-Projektion fuer 2033 im Basisszenario">
+                <span class="stat-kicker"><i class="bi bi-graph-up-arrow"></i> Projektion</span>
+                <strong><span class="stat-value">0</span><span class="stat-unit">%</span></strong>
+                <p>Wenn sich der Trend der letzten vier Wahlen linear fortsetzt, könnte die AfD 2033 rund 30% der Stimmen erhalten. Kein Schicksal — aber ein Denkanstoß. Die Simulation zeigt, welche Faktoren diesen Verlauf verändern könnten.</p>
+                <a class="btn intro-source" href="#demografie">Quelle <i class="bi bi-arrow-up-right"></i></a>
+              </div>
             </div>
           </section>
         </div>
       </section>
 
-      <h2 id="entwicklung"><i class="bi bi-book"></i> Entwicklung</h2>
+      <section class="empty">
+
+      </section>
+
       <section class="grid">
         <div class="cell c-12">
-          <h3>Auswirkungen historischer Ereignisse</h3>
-          <p>Wer die Wahlergebnisse der letzten Jahrzehnte nebeneinanderlegt, sieht mehr als Zahlen. Er sieht eine Verschiebung. Seit 1919 hat Deutschland gewählt — durch Krisen, Neuanfänge und ruhige Zeiten. Manche Muster wiederholen sich. Andere sind neu.</p>
-          <p><strong>Mache eine Reise durch die deutsche Wahlgeschichte, indem du den Slider verschiebst. Oder drücke auf ein Icon, um dir das Event in dieser Zeit genauer anzusehen.</strong></p>
-          <div id="racingBarChart"></div>
-        </div>
-      </section>
-      
-      <section class="grid">
-        <div class="cell c-6">
-          <img src="assets/images/sitze.webp" alt="Sitze im Parlament">
-        </div>
-        <div class="cell c-6">
-          <h3>Der Wandel der Zeit</h3>
-          <p>Die großen Volksparteien verlieren seit Jahren an Zustimmung. Neue Kräfte gewinnen Raum. Das Parteiensystem fragmentiert sich — ein Muster, das Deutschland aus seiner Geschichte kennt.</p>
-          <p>Ein Muster, welches damals wie heute Fragen aufwirft.</p>
-          <h3>Die Veränderung der Mitte</h3>
-          <p>Der Aufstieg einzelner Parteien ist die eine Geschichte. Die andere ist das, was in der Mitte passiert. Denn während die Ränder wachsen, schrumpft das Zentrum — und mit ihm die Fähigkeit zur stabilen Regierungsbildung.</p>
+          <!-- Projekthintergrund -->
+          <h2>Projekthintergrund</h2>
+          <p class="columns">
+            Dieses Projekt entstand im Rahmen des Moduls Data Science an der DHBW Mosbach im Sommersemester 2026. Die Aufgabe war es, ein eigenes datengestütztes Projekt zu entwickeln — <span class="highlight">Thema, Datenbasis und Umsetzung frei wählbar.</span>
+            Die Idee, politische Entwicklungen in Deutschland zu visualisieren, kam aus unserem eigenen Interesse. <br>Wir sind eine Gruppe junger Menschen, die in diesem Land leben, hier wählen und die sich fragen, wie sich unsere Gesellschaft verändert. Ein Thema, das uns persönlich beschäftigt, schien der richtige Ausgangspunkt für ein Projekt, das mehr sein soll als eine reine Studienleistung.
+            Als Datenbasis dienen ausschließlich <span class="highlight">öffentlich zugängliche Quellen</span>: Wahlergebnisse des Bundeswahlleiters, repräsentative Wahlstatistiken sowie demografische Daten des Statistischen Bundesamts. <br><br>Alle Daten wurden manuell bereinigt, strukturiert und für die Visualisierung aufbereitet.
+            Die Seite erhebt keinen Anspruch auf Vollständigkeit. Sie will Zusammenhänge sichtbar machen — nicht bewerten.
+          </p>
         </div>
       </section>
 
-      <h2 id="regionen"><i class="bi bi-geo-alt"></i> Regionen</h2>
+      <section class="empty">
+      </section>
+
       <section class="grid">
         <div class="cell c-12">
-          <h3>Wo wird was gewählt?</h3>
-          <p>Deutschland wählt nicht als ein Land — es wählt als viele Teile. Wer die Karte betrachtet, erkennt schnell: der Osten und der Westen ticken anders. Manche Regionen haben sich in den letzten Jahren dramatisch verändert. Andere sind bemerkenswert stabil geblieben. Was steckt dahinter?</p>
-          <p>Klicke auf Teile der Karte, um mehr zu erfahren.</p>
+          <!-- Entwicklung -->
+          <h2 id="entwicklung"><i class="bi bi-graph-up"></i> Entwicklung</h2>
+          <div class="columns">
+            <p>Wer die Wahlergebnisse der letzten Jahrzehnte nebeneinanderlegt, sieht mehr als Zahlen. Krisen, Wohlstand, Unsicherheit, Wiedervereinigung, Digitalisierung. Jede Generation trifft politische Entscheidungen unter anderen Bedingungen. Die Frage ist: Hinterlassen diese Ereignisse Spuren im Wahlverhalten?</p>
+            <p class="hint"><i class="bi bi-lightbulb"></i> Mache eine Reise durch die deutsche Wahlgeschichte, indem du den Slider verschiebst. Oder drücke auf ein Icon, um dir das Event in dieser Zeit genauer anzusehen.</p>
+          </div>
+          <p class="source">Quelle: Aufbereitete Bundestagswahlergebnisse und Ereignisdaten aus <code>rawData/BTW_1919-2025.csv</code>, <code>rawData/ereignisse.csv</code> und <code>rawData/partei_verteilung.csv</code>.</p>
         </div>
       </section>
 
-      <section class="grid map-section">
-        <div class="cell c-7 map-cell">
-          <div id="map-shell"><svg xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:cc="http://web.resource.org/cc/"
-              xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:svg="http://www.w3.org/2000/svg"
-              xmlns="http://www.w3.org/2000/svg" xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
-              xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape" version="1.1" id="Bundesrepublik_Deutschland"
-              width="591.504" height="800.504" viewBox="0 0 591.504 800.504" overflow="visible"
-              enable-background="new 0 0 591.504 800.504" xml:space="preserve" sodipodi:version="0.32"
-              inkscape:version="0.44.1" sodipodi:docname="Karte_Deutschland.svg" sodipodi:docbase="C:\temp">
-              <metadata id="metadata24">
-                <rdf:RDF>
-                  <cc:Work rdf:about="">
-                    <dc:format>image/svg+xml</dc:format>
-                    <dc:type rdf:resource="http://purl.org/dc/dcmitype/StillImage" />
-                  </cc:Work>
-                </rdf:RDF>
-              </metadata>
-              <sodipodi:namedview inkscape:window-height="1146" inkscape:window-width="1600" inkscape:pageshadow="2"
-                inkscape:pageopacity="0.0" guidetolerance="10.0" gridtolerance="10.0" objecttolerance="10.0"
-                borderopacity="1.0" bordercolor="#666666" pagecolor="#ffffff" id="base" inkscape:zoom="0.93940815"
-                inkscape:cx="-47.643609" inkscape:cy="481.74912" inkscape:window-x="-4" inkscape:window-y="-4"
-                inkscape:current-layer="Bundesrepublik_Deutschland" />
-              <g id="g1923">
-              </g>
-            </svg>
-            <button class="resetMap" onclick="resetZoom()"><i class="bi bi-arrow-repeat"></i> Zurücksetzen</button>
-          </div>
-        </div>
-        <div class="cell c-5 map-info-cell">
-          <div class="map-header">
-            <div>
-              <h3>Stimmenanteil je Bundesland</h3>
-              <p>Es werden die Zweitstimmen verwendet, weil diese den bundesweiten Stimmenanteil einer Partei und damit ihre parlamentarische Stärke bestimmt.</p>
-              <p>Je dünkler die Farbe des Bundeslandes, desto höher der Stimmenanteil.</p>
-            </div>
-            <div class="chart-controls map-controls" aria-label="Kartenfilter">
-              <label>
-                Jahr
-                <select id="mapYearFilter">
-                  <option value="2009">2009</option>
-                  <option value="2013">2013</option>
-                  <option value="2017">2017</option>
-                  <option value="2021">2021</option>
-                  <option value="2025" selected>2025</option>
-                </select>
-              </label>
-              <label>
-                Partei
-                <select id="mapPartyFilter">
-                  <option value="AfD" selected>AfD</option>
-                  <option value="GRUENE">BÜNDNIS 90/DIE GRÜNEN</option>
-                  <option value="CDU_CSU">CDU/CSU</option>
-                  <option value="DIE_LINKE">DIE LINKE</option>
-                  <option value="FDP">FDP</option>
-                  <option value="SPD">SPD</option>
-                  <option value="Sonstige">Sonstige</option>
-                </select>
-              </label>
-            </div>
-          </div>
-          <div id="info">
-            <i class="bi bi-hourglass-split"></i> Kartendaten werden geladen …
-          </div>
+      <section class="grid racing-section" aria-label="Entwicklung Diagramme">
+        <div id="racingBarChart"></div>
+      </section>
+
+      <section class="empty">
+      </section>
+
+      <!-- Wandel -->
+
+      <section class="parallax-section parallax-wandel" aria-label="Sitze im Parlament">
+        <div class="parallax-panel">
+          <h2>Im Wandel der Zeit</h2>
+          <p>Die großen Volksparteien verlieren seit Jahren an Zustimmung, neue Kräfte gewinnen Raum. Das Parteiensystem fragmentiert sich, <span class="highlight"> Muster, das Deutschland aus seiner Geschichte kennt.</span>
+          <br><br>Doch der Aufstieg einzelner Parteien ist nur die eine Geschichte. Die andere ist das, was in der Mitte passiert: Während die Ränder wachsen, schrumpft das Zentrum — und mit ihm die Fähigkeit zur stabilen Regierungsbildung. Ein Muster, das damals wie heute Fragen aufwirft.</p>
         </div>
       </section>
 
-      <h2 id="demografie"><i class="bi bi-person"></i> Demografie</h2>
+      <section class="empty">
+      </section>
+
       <section class="grid">
         <div class="cell c-12">
-          <h3>Wer wählt denn genau?</h3>
-          <p>Hinter jedem Wahlergebnis stehen Menschen, mit unterschiedlichem Alter, Geschlecht und Lebensrealität. Und die Unterschiede zwischen ihnen werden größer. Wählen Junge und Alte wirklich so unterschiedlich wie wir glauben? Und was ist mit Männern und Frauen?</p>
-          <p>Wähle eine Partei und ein Jahr und sieh, wer sie trägt.</p>
+          <!-- Regionen -->
+          <h2 id="regionen"><i class="bi bi-geo-alt-fill"></i> Regionen</h2>
+          <div class="columns">
+            <p>
+              Deutschland wählt nicht überall gleich. Besonders zwischen Ost und West zeigen sich seit der Wiedervereinigung strukturelle Unterschiede, die bis heute messbar sind und die sich in den letzten Jahren weiter vertieft haben. <br>Während manche Bundesländer über Jahrzehnte stabile Mehrheiten zeigen, haben sich andere innerhalb weniger Wahlperioden grundlegend verändert.
+              Die Karte zeigt den Zweitstimmenanteil je Bundesland. Dieser bestimmt die parlamentarische Stärke einer Partei im Bundestag und macht regionale Unterschiede im Wahlverhalten direkt sichtbar.
+            </p>       <p class="hint"><i class="bi bi-lightbulb"></i> Wähle oben Partei und Jahr, um die Karte zu filtern. Fahre mit der Maus über ein Bundesland für den genauen Wert — oder blende alle Werte gleichzeitig über das <i class="bi bi-eye-fill"></i>-Symbol ein.
+          </p>
         </div>
-      </section>
-      <section class="grid">
-        <div class="cell c-12 vote-chart-cell">
-          <div class="chart-header">
-            <div>
-              <h3><i class="bi bi-bar-chart-line"></i> Nach Verteilung der Parteien</h3>
-              <p id="firstVoteChartSubtitle">Erststimmen 2017, Bundesgebiet gesamt</p>
-            </div>
-            <div class="chart-controls" aria-label="Diagrammfilter">
-              <label>
-                Jahr
-                <select id="firstVoteYearFilter">
-                  <option value="2013">2013</option>
-                  <option value="2017" selected>2017</option>
-                  <option value="2021">2021</option>
-                  <option value="2025">2025</option>
-                </select>
-              </label>
-              <label>
-                Geschlecht
-                <select id="genderFilter">
-                  <option value="Summe">Alle</option>
-                  <option value="m">Männlich</option>
-                  <option value="w">Weiblich</option>
-                </select>
-              </label>
-              <label>
-                Altersgruppe
-                <select id="ageFilter">
-                  <option value="Summe">Alle</option>
-                </select>
-              </label>
-            </div>
-          </div>
-          <div data-chartID="85d728e" id="firstVoteChart" class="bar-chart" role="img"
-            aria-label="Säulendiagramm der Erststimmen nach Partei, filterbar nach Jahr, Geschlecht und Altersgruppe"></div>
-        </div>
-      </section>
+        <p class="source">Quelle: Aufbereitete Bundestagswahlergebnisse je Bundesland aus <code>rawData/btwErgebnis_2009.csv</code> bis <code>rawData/btwErgebnis_2025.csv</code>.</p>
+      </div>
+    </section>
 
-      <section class="grid">
-        <div class="cell c-12 vote-chart-cell voter-pyramid-cell">
-          <div class="chart-header">
-            <div>
-              <h3><i class="bi bi-bar-chart-line"></i> Nach Alter und Geschlecht</h3>
-              <p id="voterPyramidSubtitle">Erststimmen 2025, Bundesgebiet gesamt</p>
-            </div>
-            <div class="chart-controls" aria-label="Filter für das Alters- und Geschlechtsdiagramm">
-              <label>
-                Jahr
-                <select id="pyramidYearFilter">
-                  <option value="2013">2013</option>
-                  <option value="2017">2017</option>
-                  <option value="2021">2021</option>
-                  <option value="2025" selected>2025</option>
-                </select>
-              </label>
-              <label>
-                Partei
-                <select id="pyramidPartyFilter">
-                  <option value="CDU_CSU">CDU/CSU</option>
-                  <option value="SPD">SPD</option>
-                  <option value="GRUENE">BÜNDNIS 90/DIE GRÜNEN</option>
-                  <option value="AfD">AfD</option>
-                  <option value="FDP">FDP</option>
-                  <option value="DIE_LINKE">DIE LINKE</option>
-                  <option value="Sonstige">Sonstige</option>
-                </select>
-              </label>
-            </div>
-          </div>
-          <div class="pyramid-legend" aria-hidden="true">
-            <span><i class="legend-swatch legend-male"></i> <i class="bi bi-gender-male"></i> Männlich</span>
-            <span><i class="legend-swatch legend-female"></i> <i class="bi bi-gender-female"></i> Weiblich</span>
-          </div>
-          <div data-chartID="e702aa1" id="voterPyramidChart" class="bar-chart voter-pyramid" role="img"
-            aria-label="Gespiegeltes Balkendiagramm der Erststimmen nach Altersgruppe und Geschlecht, filterbar nach Jahr und Partei"></div>
-        </div>
-      </section>
+    <!-- Regionen Karte -->
 
-      <section class="grid">
-        <div class="cell c-3">
-          <div class="placeholder"></div>
+    <section class="grid map-section">
+      <div class="cell c-7 map-cell">
+        <div id="map-shell"><svg xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:cc="http://web.resource.org/cc/"
+          xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:svg="http://www.w3.org/2000/svg"
+          xmlns="http://www.w3.org/2000/svg" xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
+          xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape" version="1.1" id="Bundesrepublik_Deutschland"
+          width="591.504" height="800.504" viewBox="0 0 591.504 800.504" overflow="visible"
+          enable-background="new 0 0 591.504 800.504" xml:space="preserve" sodipodi:version="0.32"
+          inkscape:version="0.44.1" sodipodi:docname="Karte_Deutschland.svg" sodipodi:docbase="C:\temp">
+          <metadata id="metadata24">
+            <rdf:RDF>
+              <cc:Work rdf:about="">
+                <dc:format>image/svg+xml</dc:format>
+                <dc:type rdf:resource="http://purl.org/dc/dcmitype/StillImage" />
+              </cc:Work>
+            </rdf:RDF>
+          </metadata>
+          <sodipodi:namedview inkscape:window-height="1146" inkscape:window-width="1600" inkscape:pageshadow="2"
+          inkscape:pageopacity="0.0" guidetolerance="10.0" gridtolerance="10.0" objecttolerance="10.0"
+          borderopacity="1.0" bordercolor="#666666" pagecolor="#ffffff" id="base" inkscape:zoom="0.93940815"
+          inkscape:cx="-47.643609" inkscape:cy="481.74912" inkscape:window-x="-4" inkscape:window-y="-4"
+          inkscape:current-layer="Bundesrepublik_Deutschland" />
+          <g id="g1923">
+          </g>
+        </svg>
+        <div id="mapLegend" class="map-legend" aria-label="Kartenlegende"></div>
+        <div class="map-zoom-controls" aria-label="Karte zoomen">
+          <button type="button" onclick="zoomInMap()" aria-label="Karte vergrößern"><i class="bi bi-zoom-in"></i></button>
+          <button type="button" onclick="zoomOutMap()" aria-label="Karte verkleinern"><i class="bi bi-zoom-out"></i></button>
+          <button type="button" onclick="resetZoom()" aria-label="Karte zurücksetzen"><i class="bi bi-arrow-repeat"></i></button>
+          <button type="button" id="mapLabelToggle" aria-pressed="false" aria-label="Labels anzeigen"><i class="bi bi-eye-slash"></i></button>
         </div>
-        <div class="cell c-3">
-          <div class="placeholder"></div>
-        </div>
-        <div class="cell c-3">
-          <div class="placeholder"></div>
-        </div>
-        <div class="cell c-3">
-          <div class="placeholder"></div>
-        </div>
-      </section>
-      <section class="grid">
-        <div class="cell c-12">
-          <p>Haben sich die Menschen verändert — oder nur ihre Einstellungen? Die Antwort ist komplizierter als sie klingt. Eines ist sicher: Wer heute jung ist, wählt anders als seine Eltern. Und die Lücke wird größer.</p>
-        </div>
-      </section>
-
-      <h2 id="gruende"><i class="bi bi-patch-question"></i> Was sind die Fakten?</h2>
-      <section class="grid">
-        <div class="cell c-12">
-          <h3>Was sind die Fakten?</h3>
-          <p>Wahlergebnisse sind keine Zufälle. Hinter jedem Kreuz steckt eine Entscheidung — beeinflusst von Sorgen, Erfahrungen, Informationen. Und zunehmend auch von dem, was Algorithmen uns zeigen und was sie uns vorenthalten.</p>
-        </div>
-      </section>
-
-      <!-- Alternative Darstellung -->
-      <section class="grid">
-        <div class="cell c-6">
-          <h3>Fakt #1 – wirtschaftliche Lage</h3>
-          <p>Menschen in Regionen mit geringen wirtschaftlichen Perspektiven wählen häufiger Protestparteien — unabhängig von ihrer persönlichen Lage. Es ist nicht die eigene Not, sondern das Gefühl, dass das System für andere funktioniert. Nur nicht für einen selbst.</p>
-        </div>
-        <div class="cell c-6">
-          <h3>Fakt #2 – Vertrauen</h3>
-          <p>Vertrauen in Institutionen ist einer der stärksten Faktoren für politische Stabilität. Wer Parlamenten, Medien oder Regierungen misstraut, sucht Alternativen. Dieses Vertrauen hat in Deutschland in den letzten Jahren messbar abgenommen.</p>
-        </div>
-        <div class="cell c-6">
-          <h3>Fakt #3 – Social Media</h3>
-          <p>Wer politische Informationen hauptsächlich über soziale Medien bezieht, begegnet häufiger extremen Positionen — nicht weil er sie sucht, sondern weil Algorithmen emotionale Inhalte bevorzugen. Empörung funktioniert. Nuancen nicht.</p>
-        </div>
-        <div class="cell c-6">
-          <h3>Fakt #4 – Wahlbeteiligung</h3>
-          <p>Niedrige Wahlbeteiligung und starke Ergebnisse für Protestparteien korrelieren regional. Wo Menschen das Gefühl haben, ihre Stimme zählt ohnehin nicht, gewinnen Parteien, die genau dieses Gefühl ansprechen.</p>
-        </div>
-      </section>
-
-      <h2 id="simulation"><i class="bi bi-search"></i> Simulation</h2>
-      <section class="grid">
-        <div class="cell c-12">
-          <h3>Deutschland 2033? Wie könnte die Zukunft aussehen?</h3>
-          <p>Die Daten der letzten Jahrzehnte zeigen eine Richtung. Keine Gewissheit — aber eine Tendenz. Und die wirft Fragen auf, die wir uns stellen sollten, bevor andere sie für uns beantworten.</p>
-          <p>Die durchgezogenen Linien zeigen die realen Wahlergebnisse. Die gestrichelten Linien zeigen, wohin der Trend führt — wenn sich nichts ändert. Aber Trends sind kein Schicksal. Was wäre, wenn sich etwas verändert?</p>
-          <p>Dreh an den Reglern und sieh selbst.</p>
-        </div>
-      </section>
-      <section class="grid">
-        <div class="cell c-8 simulation-chart-cell">
-          <div class="simulation-header">
-            <div>
-              <h3><i class="bi bi-activity"></i> Wahltrend 2009 – 2033</h3>
-              <p>Diese Darstellung zeigt historische Bundestagswahlergebnisse, welche ebenfalls eine mögliche Entwicklung der politischen Lage anhand einiger Faktoren zeigt.</p>
-          <p>Dies ist keine Wahlprognose. Sie nutzt Werte aus vergangenen Wahlen und verändert eine lineare Fortschreibung über vereinfachte Szenario-Annahmen.</p>
-            </div>
-          </div>
-          <div id="simulationChart" class="simulation-chart" role="img"
-            aria-label="Liniendiagramm mit historischen Bundestagswahlergebnissen und simulierter Fortschreibung bis 2033"></div>
-          <div class="simulation-note"><span></span> Gestrichelt = simuliertes Szenario ab 2025</div>
-          <div id="simulationLegend" class="simulation-legend" aria-label="Parteien im Diagramm"></div>
-          
-          <div class="simulation-results" aria-live="polite">
-            <div>
-              <span>Stärkste Partei 2033</span>
-              <strong id="simStrongest">-</strong>
-              <small id="simStrongestDetail">-</small>
-            </div>
-            <div>
-              <span>Größter Gewinner</span>
-              <strong id="simWinner">-</strong>
-              <small id="simWinnerDetail">-</small>
-            </div>
-          </div>
-        </div>
-        
-        <aside class="cell c-4 simulation-control-cell" aria-label="Simulationsregler">
-          <label class="simulation-control">
-            <span>Ab welchem Alter sollte man wählen?</span>
-            <div class="simulation-slider-row">
-              <input type="range" id="simAge" min="16" max="21" step="1" value="18">
-              <output id="simAgeValue" for="simAge">18</output>
-            </div>
-            <div class="simulation-slider-labels"><span>16</span><span>21</span></div>
-            <small>Jüngere Wählerschaft wird im Szenario stärker gewichtet.</small>
-          </label>
-
-          <label class="simulation-control">
-            <span>Was, wenn Frauen und Männer gleich wählen?</span>
-            <div class="simulation-slider-row">
-              <input type="range" id="simGender" min="0" max="100" step="10" value="0">
-              <output id="simGenderValue" for="simGender">0%</output>
-            </div>
-            <div class="simulation-slider-labels"><span>Heute</span><span>Gleich</span></div>
-            <small>0% = heutige Unterschiede, 100% = vollständig angeglichen.</small>
-          </label>
-
-          <label class="simulation-control">
-            <span>Was, wenn Ältere wie die Mitte wählen?</span>
-            <div class="simulation-slider-row">
-              <input type="range" id="simOlder" min="0" max="100" step="10" value="0">
-              <output id="simOlderValue" for="simOlder">0%</output>
-            </div>
-            <div class="simulation-slider-labels"><span>Heute</span><span>Voll</span></div>
-            <small>60+ nähert sich anteilig dem Wahlverhalten der 30-44-Jährigen an.</small>
-          </label>
-
-          <label class="simulation-control">
-            <span>Wie entwickelt sich die Wahlbeteiligung Junger?</span>
-            <div class="simulation-slider-row">
-              <input type="range" id="simYouth" min="-30" max="30" step="5" value="0">
-              <output id="simYouthValue" for="simYouth">+0%</output>
-            </div>
-            <div class="simulation-slider-labels"><span>-30%</span><span>+30%</span></div>
-            <small>18-34-Jährige relativ zur Gesamtbeteiligung.</small>
-          </label>
-
-          <button class="simulation-reset" id="simulationReset" type="button"><i class="bi bi-arrow-repeat"></i> Zurücksetzen</button>
-        </aside>
-      </section>
-
-      <h2 id="links"><i class="bi bi-boxes"></i> Weiterführende Links</h2>
-      <section class="grid">
-        <div class="cell c-6">
-          <h3>Ihr wollt mehr?</h3>
-          <p>Es gibt unmengen an Informationen, Daten, Podcasts, Studien und weiteres Material im Web. Schaut gerne mal
-            rein, wenn ihr euch noch mehr informieren wollt. <strong>Hinweis:</strong> Dies sind <strong>externe
-              Links</strong> und gehören daher nicht zu unserer Seite. Das sind lediglich Links, die wir interessant
-            fanden und an euch weitergeben wollen.</p>
-        </div>
-        <div class="cell c-6">
-          <ul>
-            <li>
-              <a href="#">Link</a>
-            </li>
-            <li>
-              <a href="#">Podcast</a>
-            </li>
-            <li>
-              <a href="#">Wal-O-Mat</a>
-            </li>
-            <li>
-              <a href="#">Studien</a>
-            </li>
-            <li>
-              <a href="#">Link</a>
-            </li>
-          </ul>
-        </div>
-      </section>
-    </div>
-
-    <div class="parallaxFooter">
-      <div class="contentWrap">
-        <section>
-          <div class="breaker accent">
-            <h2>Diese Daten zeigen keine Katastrophe.</h2>
-            <p>Sie zeigen eine Verschiebung — langsam, messbar, real. Eine Demokratie ist nicht gefährdet, weil eine Partei an Stimmen zulegt.<br>
-              <strong>Sie ist gefährdet, wenn Menschen aufhören zu glauben, dass ihre Stimme zählt.</strong> Und wenn Algorithmen schneller entscheiden als Argumente.</p>
-            <p><strong>Den jeder hat selbst die Möglichkeit, eine Entscheidung zu treffen.</strong></p>
-          </div>
-        </section>
       </div>
     </div>
-
-    <div class="contentWrap">
-      <img class="bg-icon" src="assets/icon.svg">
-
-      <footer>
-        <img class="logo" src="assets/logo_clean.svg" alt="Logo">
-        <p>Ein Projekt von Studenten der DHBW Mosbach <span style="color: var(--accent-600)"><i class="bi bi-asterisk"></i></span> Juni 2026<br></p>
-
-        <div class="sources">
-          <p>Für dieses Projekt wurden unter anderem die folgenden Quellen verwendet</p>
-          <div class="entries">
-            <div class="entry">
-              <p class="title">Coole Quelle</p>
-              <p class="descr">Die Auswirkungen von Social Media auf die politische Lage</p>
-              <a href="#"><span>↗</span> Aufrufen</a>
-            </div>
-            <div class="entry">
-              <p class="title">Coole Quelle</p>
-              <p class="descr">Die Auswirkungen von Social Media auf die politische Lage</p>
-              <a href="#"><span>↗</span> Aufrufen</a>
-            </div>
-            <div class="entry">
-              <p class="title">Coole Quelle</p>
-              <p class="descr">Die Auswirkungen von Social Media auf die politische Lage</p>
-              <a href="#"><span>↗</span> Aufrufen</a>
-            </div>
-          </div>
+    <div class="cell c-5 map-info-cell">
+      <div class="map-header">
+        <div>
+          <h3><i class="bi bi-map-fill"></i> Stimmenanteil je Bundesland</h3>
         </div>
-      </footer>
+        <div class="chart-controls map-controls" aria-label="Kartenfilter">
+          <label>
+            Jahr
+            <select id="mapYearFilter">
+              <option value="2009">2009</option>
+              <option value="2013">2013</option>
+              <option value="2017">2017</option>
+              <option value="2021">2021</option>
+              <option value="2025" selected>2025</option>
+            </select>
+          </label>
+          <label>
+            Partei
+            <select id="mapPartyFilter">
+              <option value="ALL">Alle</option>
+              <option value="AfD" selected>AfD</option>
+              <option value="GRUENE">BÜNDNIS 90/DIE GRÜNEN</option>
+              <option value="CDU_CSU">CDU/CSU</option>
+              <option value="DIE_LINKE">DIE LINKE</option>
+              <option value="FDP">FDP</option>
+              <option value="SPD">SPD</option>
+              <option value="Sonstige">Sonstige</option>
+            </select>
+          </label>
+        </div>
+      </div>
+      <div id="info">
+        <i class="bi bi-hourglass-split"></i> Kartendaten werden geladen …
+      </div>
     </div>
-  </main>
-  <script>
-    if (window.location.protocol === 'file:') {
-      document.body.innerHTML = `
-      <main>
-        <section class="grid">
-          <div class="cell c-12">
-            <h2 style="padding-top:0">Fehlender Server</h2>
-            <p>Diese Seite wurde direkt aus einer Datei geöffnet (Datei-Protokoll <code>file://</code>). Dies verhindert unter anderem <code>fetch()</code>-Anweisungen im Browser. Das bewirkt, dass einige Diagramme nicht geladen oder falsch angezeigt werden. Starte die Seite über einen Server, um alle Funktionen korrekt angezeigt zu bekommen. Aus Sicherheitsgründen wird diese Seiten daher nicht angezeigt.</p>
-          </div>
-          <div class="cell c-2">
-            <img class="logo" src="assets/logo_clean.svg" alt="Logo">
-          </div>
-          <div class="cell c-10">
-            <ul>
-              <li><a href="https://corvinbreyer.github.io/datascience/" target="_blank">Seite stattdessen per GitHub Pages aufrufen</a></li>
-              <li><a href="https://developer.mozilla.org/de/docs/Learn_web_development/Howto/Tools_and_setup/set_up_a_local_testing_server" target="_blank">Seite per lokalem Server anzeigen</a></li>
-            </ul>
-          </div>
-        </section>
-        <footer>
-          <p>Ein Projekt von Studenten der DHBW Mosbach <span style="color: var(--accent-600)"><i
-                class="bi bi-asterisk"></i></span> Juni 2026<br></p>
-        </footer>
-      <main>`;
-    }
-  </script>
-  <script src="https://cdn.jsdelivr.net/npm/d3@7"></script>
-  <script src="assets/js/utils.js"></script>
-  <script src="assets/js/mapSvg.js"></script>
-  <script src="assets/js/map.js"></script>
-  <script src="assets/js/chart-85d728e.js"></script>
-  <script src="assets/js/chart-e702aa1.js"></script>
-  <script src="assets/js/racingBarChart.js"></script>
-  <script src="assets/js/simulation.js"></script>
+  </section>
+
+  <section class="empty">
+  </section>
+
+  <section class="grid">
+    <div class="cell c-12">
+      <!-- Demografie -->
+      <h2 id="demografie"><i class="bi bi-person-fill"></i> Demografie</h2>
+      <div class="columns">
+        <p>Hinter jedem Wahlergebnis stehen Menschen, mit unterschiedlichem Alter, Geschlecht und Lebensrealität. Und die Unterschiede zwischen ihnen werden größer. Wählen Junge und Alte wirklich so unterschiedlich wie wir glauben? Und was ist mit Männern und Frauen?
+        Haben sich die Menschen verändert — oder nur ihre Einstellungen? Die Antwort ist komplizierter als sie klingt. Eines ist sicher: Wer heute jung ist, wählt anders als seine Eltern. Und die Lücke wird größer.</p>
+        <p class="hint"><i class="bi bi-lightbulb"></i> Wähle eine Partei und ein Jahr, um zu sehen wie sich das Wahlverhalten nach Alter und Geschlecht verteilt. Die Kacheln berechnen sich automatisch mit.
+        </p>
+      </div>
+      <p class="source">Quelle: Repräsentative Wahlstatistik, aufbereitet in <code>rawData/btw_2013.csv</code>, <code>rawData/btw_2017.csv</code>, <code>rawData/btw_2021.csv</code> und <code>rawData/btw_2025.csv</code>.</p>
+    </div>
+  </section>
+  <section class="grid">
+    <div class="cell c-12 vote-chart-cell">
+      <div class="chart-header">
+        <div>
+          <h3><i class="bi bi-bar-chart-line-fill"></i> Nach Verteilung der Parteien</h3>
+          <p id="firstVoteChartSubtitle">Erststimmen 2017, Bundesgebiet gesamt</p>
+        </div>
+        <div class="chart-controls" aria-label="Diagrammfilter">
+          <label>
+            Jahr
+            <select id="firstVoteYearFilter">
+              <option value="2013">2013</option>
+              <option value="2017" selected>2017</option>
+              <option value="2021">2021</option>
+              <option value="2025">2025</option>
+            </select>
+          </label>
+          <label>
+            Geschlecht
+            <select id="genderFilter">
+              <option value="Summe">Alle</option>
+              <option value="m">Männlich</option>
+              <option value="w">Weiblich</option>
+            </select>
+          </label>
+          <label>
+            Altersgruppe
+            <select id="ageFilter">
+              <option value="Summe">Alle</option>
+            </select>
+          </label>
+        </div>
+      </div>
+      <div data-chartID="85d728e" id="firstVoteChart" class="bar-chart" role="img"
+    aria-label="Säulendiagramm der Erststimmen nach Partei, filterbar nach Jahr, Geschlecht und Altersgruppe"></div>
+  </div>
+</section>
+      <section class="grid">
+<div class="cell c-12 vote-chart-cell voter-pyramid-cell">
+  <div class="chart-header">
+    <div>
+      <h3><i class="bi bi-bar-chart-steps"></i> Nach Alter und Geschlecht</h3>
+      <p id="voterPyramidSubtitle">Erststimmen 2025, Bundesgebiet gesamt</p>
+    </div>
+    <div class="chart-controls" aria-label="Filter für das Alters- und Geschlechtsdiagramm">
+      <label>
+        Jahr
+        <select id="pyramidYearFilter">
+          <option value="2013">2013</option>
+          <option value="2017">2017</option>
+          <option value="2021">2021</option>
+          <option value="2025" selected>2025</option>
+        </select>
+      </label>
+      <label>
+        Partei
+        <select id="pyramidPartyFilter">
+          <option value="CDU_CSU">CDU/CSU</option>
+          <option value="SPD">SPD</option>
+          <option value="GRUENE">BÜNDNIS 90/DIE GRÜNEN</option>
+          <option value="AfD">AfD</option>
+          <option value="FDP">FDP</option>
+          <option value="DIE_LINKE">DIE LINKE</option>
+          <option value="Sonstige">Sonstige</option>
+        </select>
+      </label>
+    </div>
+  </div>
+  <div class="pyramid-content">
+    <div class="pyramid-chart-wrap">
+      <div class="pyramid-legend" aria-hidden="true">
+        <span><i class="legend-swatch legend-male"></i> <i class="bi bi-gender-male"></i> Männlich</span>
+        <span><i class="legend-swatch legend-female"></i> <i class="bi bi-gender-female"></i> Weiblich</span>
+      </div>
+      <div data-chartID="e702aa1" id="voterPyramidChart" class="bar-chart voter-pyramid" role="img"
+    aria-label="Gespiegeltes Balkendiagramm der Erststimmen nach Altersgruppe und Geschlecht, filterbar nach Jahr und Partei"></div>
+  </div>
+  <div class="pyramid-stat-list" aria-label="Kennzahlen zum Alters- und Geschlechtsdiagramm">
+    <div class="demographic-stat-card">
+      <span class="stat-kicker">Anteil</span>
+      <strong id="demoShareStat">-</strong>
+      <p id="demoShareDetail">Wird geladen ...</p>
+    </div>
+    <div class="demographic-stat-card">
+      <span class="stat-kicker">Stärkste Gruppe</span>
+      <strong id="demoAgeStat">-</strong>
+      <p id="demoAgeDetail">Wird geladen ...</p>
+    </div>
+    <div class="demographic-stat-card">
+      <span class="stat-kicker">Gender-Split</span>
+      <strong id="demoGenderStat">-</strong>
+      <p id="demoGenderDetail">Wird geladen ...</p>
+    </div>
+    <div class="demographic-stat-card">
+      <span class="stat-kicker">Generationenlücke</span>
+      <strong id="demoGenerationStat">-</strong>
+      <p id="demoGenerationDetail">Wird geladen ...</p>
+    </div>
+  </div>
+</div>
+</div>
+</section>
+
+<section class="empty">
+</section>
+
+<section class="grid">
+  <div class="cell c-12">
+    <!-- Gründe -->
+    <h2 id="gruende"><i class="bi bi-patch-question-fill"></i> Gründe</h2>
+    <p>Wahlergebnisse sind keine Zufälle. Hinter jedem Kreuz steckt eine Entscheidung, beeinflusst von Sorgen, Erfahrungen, Informationen und zunehmend auch von dem, was Algorithmen uns zeigen und was sie uns vorenthalten.</p>
+  </div>
+</section>
+      <section class="grid reasons-grid">
+<div class="cell c-6">
+  <article class="reason-fact reason-fact-afd">
+    <div class="reason-percent"><span class="reason-value">34,5</span><small>%</small></div>
+    <div class="reason-content">
+      <h3>Fakt #1 - wirtschaftliche Lage</h3>
+      <p>Im Politbarometer-Block zur Wirtschaft bewerteten 34,5&nbsp;% der gültigen Antworten die eigene wirtschaftliche Lage als schlecht. Gleichzeitig sahen 67,7&nbsp;% die Wirtschaft in Deutschland eher abwärts gehen. Bei sozialer Gerechtigkeit wurde die SPD am häufigsten genannt: 1.838 von 5.721 gültigen Antworten sahen sie hier vorn.</p>
+      <p class="source">Quelle: Politbarometer-2024, <code>V20</code> / <code>v170</code>, n=18.342; <code>V22</code> / <code>v172</code>, n=18.171; <code>V23</code> / <code>v76</code>, n=5.721.</p>
+    </div>
+  </article>
+</div>
+<div class="cell c-6">
+  <article class="reason-fact reason-fact-bsw">
+    <div class="reason-percent"><span class="reason-value">27,8</span><small>%</small></div>
+    <div class="reason-content">
+      <h3>Fakt #2 - wichtigste Probleme</h3>
+      <p>Bei den offenen Problemnennungen wurde „Flüchtlinge, Ausländer, Zuwanderung, Integration und Asyl" am häufigsten genannt: 6.316 von 22.740 gültigen Fällen. Danach folgte die Wirtschaftslage mit 4.822 Nennungen.</p>
+      <p class="source">Quelle: Politbarometer-2024, <code>V1A</code> / <code>v4</code> und <code>V1B</code> / <code>v5</code>, zusammengefasst ohne Doppelzählung pro Person.</p>
+    </div>
+  </article>
+</div>
+<div class="cell c-6">
+  <article class="reason-fact reason-fact-gruene">
+    <div class="reason-percent"><span class="reason-value">81,9</span><small>%</small></div>
+    <div class="reason-content">
+      <h3>Fakt #3 - AfD als Risiko</h3>
+      <p>Im Politbarometer-Block zur AfD sahen 81,9&nbsp;% der gültigen Antworten in der AfD eine Gefahr für die Demokratie in Deutschland. Im selben Fragenblock ging es auch um ein mögliches AfD-Verbot, Demonstrationen gegen rechtsextreme Parteien und die vermutete Wirkung dieser Demonstrationen auf die AfD.</p>
+      <p class="source">Quelle: Politbarometer-2024, Screenshot-Frage <code>V21</code> / Datensatzspalte <code>v82</code>, n=1.400.</p>
+    </div>
+  </article>
+</div>
+<div class="cell c-6">
+  <article class="reason-fact reason-fact-accent">
+    <div class="reason-percent"><span class="reason-value">81,6</span><small>%</small></div>
+    <div class="reason-content">
+      <h3>Fakt #4 - Informationen</h3>
+      <p>Die Mediennutzung ist in der Rolling-Cross-Section stark ungleich verteilt: In der Medienbatterie liegt der Anteil häufiger Nutzung je nach Kanal zwischen 1,9&nbsp;% und 81,6&nbsp;%. Politische Information kommt deshalb nicht über einen gemeinsamen öffentlichen Raum bei allen an, sondern über sehr unterschiedliche Kanäle.</p>
+      <p class="source">Quelle: Politbarometer-2024 / GLES Rolling Cross-Section 2025, Variablen <code>v23_1</code>-<code>v23_7</code>, n=1.374-1.410.</p>
+    </div>
+  </article>
+</div>
+<div class="cell c-6">
+  <article class="reason-fact reason-fact-fdp">
+    <div class="reason-percent"><span class="reason-value">77,3</span><small>%</small></div>
+    <div class="reason-content">
+      <h3>Fakt #5 - Vertrauen stabilisiert</h3>
+      <p>In der GLES Wahlstudie 2025 ordneten sich 77,3&nbsp;% der Befragten bei der Demokratiezufriedenheit auf den beiden positiven Antwortstufen ein. Gleichzeitig bleibt fast ein Viertel nicht klar zufrieden. Genau diese Gruppe ist politisch interessant, weil Unzufriedenheit die Offenheit für Alternativen und Protestangebote erhöhen kann.</p>
+      <p class="source">Quelle: GLES Wahlstudie 2025, Variable <code>pre030</code>, n=8.547.</p>
+    </div>
+  </article>
+</div>
+<div class="cell c-6">
+  <article class="reason-fact reason-fact-linke">
+    <div class="reason-percent"><span class="reason-value">47,4</span><small>%</small></div>
+    <div class="reason-content">
+      <h3>Fakt #6 - Interesse</h3>
+      <p>In der GLES Wahlstudie 2025 beschrieben sich 47,4&nbsp;% der Befragten als politisch stark interessiert. 12,2&nbsp;% lagen auf den beiden niedrigsten Stufen. Wer Politik kaum verfolgt, entscheidet unter anderen Bedingungen: weniger Routine, weniger Vergleich, mehr Abhängigkeit von wenigen Eindrücken.</p>
+      <p class="source">Quelle: GLES Wahlstudie 2025, Variable <code>pre005</code>, n=8.555.</p>
+    </div>
+  </article>
+</div>
+</section>
+
+<section class="empty">
+</section>
+
+<section class="grid">
+  <div class="cell c-12">
+    <!-- Simulation -->
+    <h2 id="simulation"><i class="bi bi-search"></i> Simulation</h2>
+    <div class="columns">
+      <p><span class="highlight">Deutschland 2033?</span> Wie könnte die Zukunft aussehen? Die Daten der letzten Jahrzehnte zeigen eine Richtung. Keine Gewissheit, aber eine Tendenz und die wirft Fragen auf, die wir uns stellen sollten, bevor andere sie für uns beantworten.</span><br>
+      Die durchgezogenen Linien zeigen die realen Wahlergebnisse. Die gestrichelten Linien zeigen, wohin der Trend führt, wenn sich nichts ändert. <span class="highlight">Aber Trends sind kein Schicksal.</span> Was wäre, wenn sich etwas verändert?
+      <p class="hint"><i class="bi bi-lightbulb"></i> Verändere die Regler und sieh, wie sich das simulierte Ergebnis für 2033 verschiebt. Die Kacheln darunter aktualisieren sich live.
+      </p>
+    </div>
+    <p class="source">Quelle: Historische Bundestagswahlergebnisse aus <code>rawData/BTW_1919-2025.csv</code>; die Projektion ist eine vereinfachte lineare Fortschreibung mit Szenario-Annahmen.</p>
+  </div>
+</section>
+<section class="grid">
+  <div class="cell c-8 simulation-chart-cell">
+    <div class="simulation-header">
+      <div>
+        <h3><i class="bi bi-activity"></i> Wahltrend 2009 – 2033</h3>
+        <p>Diese Darstellung zeigt historische Bundestagswahlergebnisse, welche ebenfalls eine mögliche Entwicklung der politischen Lage anhand einiger Faktoren zeigt.</p>
+        <p>Dies ist keine Wahlprognose. Sie nutzt Werte aus vergangenen Wahlen und verändert eine lineare Fortschreibung über vereinfachte Szenario-Annahmen.</p>
+      </div>
+    </div>
+    <div id="simulationChart" class="simulation-chart" role="img"
+  aria-label="Liniendiagramm mit historischen Bundestagswahlergebnissen und simulierter Fortschreibung bis 2033"></div>
+  <div class="simulation-note"><span></span> Gestrichelt = simuliertes Szenario ab 2025</div>
+  <div id="simulationLegend" class="simulation-legend" aria-label="Parteien im Diagramm"></div>
+</div>
+
+<aside class="cell c-4 simulation-control-cell" aria-label="Simulationsregler">
+  <label class="simulation-control">
+    <span>Ab welchem Alter sollte man wählen?</span>
+    <div class="simulation-slider-row">
+      <input type="range" id="simAge" min="16" max="21" step="1" value="18">
+      <output id="simAgeValue" for="simAge">18</output>
+    </div>
+    <div class="simulation-slider-labels"><span>16</span><span>21</span></div>
+    <small>Jüngere Wählerschaft wird im Szenario stärker gewichtet.</small>
+  </label>
+
+  <label class="simulation-control">
+    <span>Was, wenn Frauen und Männer gleich wählen?</span>
+    <div class="simulation-slider-row">
+      <input type="range" id="simGender" min="0" max="100" step="10" value="0">
+      <output id="simGenderValue" for="simGender">0%</output>
+    </div>
+    <div class="simulation-slider-labels"><span>Heute</span><span>Gleich</span></div>
+    <small>0% = heutige Unterschiede, 100% = vollständig angeglichen.</small>
+  </label>
+
+  <label class="simulation-control">
+    <span>Was, wenn Ältere wie die Mitte wählen?</span>
+    <div class="simulation-slider-row">
+      <input type="range" id="simOlder" min="0" max="100" step="10" value="0">
+      <output id="simOlderValue" for="simOlder">0%</output>
+    </div>
+    <div class="simulation-slider-labels"><span>Heute</span><span>Voll</span></div>
+    <small>60+ nähert sich anteilig dem Wahlverhalten der 30-44-Jährigen an.</small>
+  </label>
+
+  <label class="simulation-control">
+    <span>Wie entwickelt sich die Wahlbeteiligung Junger?</span>
+    <div class="simulation-slider-row">
+      <input type="range" id="simYouth" min="-30" max="30" step="5" value="0">
+      <output id="simYouthValue" for="simYouth">+0%</output>
+    </div>
+    <div class="simulation-slider-labels"><span>-30%</span><span>+30%</span></div>
+    <small>18-34-Jährige relativ zur Gesamtbeteiligung.</small>
+  </label>
+
+  <button class="simulation-reset" id="simulationReset" type="button"><i class="bi bi-arrow-repeat"></i> Zurücksetzen</button>
+</aside>
+<div class="cell c-12 simulation-results-cell">
+  <div class="simulation-results" aria-live="polite">
+    <div class="simulation-result-card simulation-result-primary">
+      <span>Stärkste Partei 2033</span>
+      <strong id="simStrongest">-</strong>
+      <small id="simStrongestDetail">-</small>
+    </div>
+    <div class="simulation-result-card simulation-result-accent">
+      <span>Größter Gewinner</span>
+      <strong id="simWinner">-</strong>
+      <small id="simWinnerDetail">-</small>
+    </div>
+    <div class="simulation-result-card simulation-result-gruene">
+      <span>Top-3 Parteien</span>
+      <strong id="simTopThree">-</strong>
+      <small id="simTopThreeDetail">-</small>
+    </div>
+    <div class="simulation-result-card simulation-result-linke">
+      <span>Szenario-Effekt</span>
+      <strong id="simEffect">-</strong>
+      <small id="simEffectDetail">-</small>
+    </div>
+  </div>
+</div>
+</section>
+
+<section class="empty">
+</section>
+
+<section class="grid">
+  <div class="cell c-12 resources-intro">
+    <!-- Ressourcen -->
+    <h2 id="links"><i class="bi bi-link-45deg"></i> Ressourcen</h2>
+    <p>Diese Sammlung zeigt, womit wir gearbeitet haben und welche externen Ressourcen zusätzliche Einblicke geben: Rohdaten, Wahlarchive, Studien, ein Podcast und Werkzeuge zur politischen Orientierung.</p>
+  </div>
+  <div class="cell c-4 resource-column resource-column-accent">
+    <span class="resource-kicker">Einordnung</span>
+    <h3>Hören & Nachlesen</h3>
+    <a class="resource-link" href="https://podcasts.apple.com/de/podcast/unzufrieden-warum-so-viele-die-afd-w%C3%A4hlen/id828868503?i=1000771341376" target="_blank" rel="noopener">
+      <strong>Unzufrieden - Warum so viele die AfD wählen</strong>
+      <span>Podcast mit Detlef Pollack, Soziologe an der Universität Münster</span>
+    </a>
+    <a class="resource-link" href="https://de.wikipedia.org/wiki/Wikipedia:Hauptseite" target="_blank" rel="noopener">
+      <strong>Wikipedia</strong>
+      <span>Überblicksartikel, Begriffe und historische Einordnung</span>
+    </a>
+    <a class="resource-link" href="https://www.wahl-o-mat.de/" target="_blank" rel="noopener">
+      <strong>Wahl-O-Mat</strong>
+      <span>Orientierung zu Positionen von Parteien und politischen Thesen</span>
+    </a>
+  </div>
+  <div class="cell c-4 resource-column resource-column-primary">
+    <span class="resource-kicker">Wahldaten</span>
+    <h3>Archive & amtliche Quellen</h3>
+    <a class="resource-link" href="https://www.bundeswahlleiterin.de/" target="_blank" rel="noopener">
+      <strong>Bundeswahlleiterin</strong>
+      <span>Amtliche Bundestagswahlergebnisse und Tabellen</span>
+    </a>
+    <a class="resource-link" href="https://www.bundeswahlleiterin.de/dam/jcr/397735e3-0585-46f6-a0b5-2c60c5b83de6/btw_ab49_gesamt.pdf" target="_blank" rel="noopener">
+      <strong>Bundestagswahlen ab 1949</strong>
+      <span>Gesamttabellen der Bundeswahlleiterin</span>
+    </a>
+    <a class="resource-link" href="https://www.bundestag.de/resource/blob/190456/reichstagswahlergebnisse.pdf" target="_blank" rel="noopener">
+      <strong>Reichstagswahlergebnisse</strong>
+      <span>Historische Ergebnisse als PDF des Bundestags</span>
+    </a>
+    <a class="resource-link" href="https://www.tagesschau.de/wahl/archiv/1983-03-06-BT-DE/index.shtml" target="_blank" rel="noopener">
+      <strong>Tagesschau Wahlarchiv 1983</strong>
+      <span>Historische Wahlansicht und Kontext</span>
+    </a>
+    <a class="resource-link" href="https://www.destatis.de/DE/Themen/Staat/Wahlen/_inhalt.html" target="_blank" rel="noopener">
+      <strong>Statistisches Bundesamt</strong>
+      <span>Wahlstatistik und demografische Begleitdaten</span>
+    </a>
+  </div>
+  <div class="cell c-4 resource-column resource-column-gruene">
+    <span class="resource-kicker">Studien</span>
+    <h3>Umfragen & Datensätze</h3>
+    <a class="resource-link" href="https://www.gesis.org/" target="_blank" rel="noopener">
+      <strong>GESIS</strong>
+      <span>Forschungsdaten, GLES und Deutschland-Monitor</span>
+    </a>
+    <div class="resource-link resource-link-static" href="https://deutschland-monitor.info/2024" target="_blank" rel="noopener">
+      <strong>Deutschland Monitor 2024</strong>
+      <span>GESIS ZA8920</span>
+    </div>
+    <div class="resource-link resource-link-static" href="https://www.gesis.org/gles/bundestagswahl-2025" target="_blank" rel="noopener">
+      <strong>GLES Wahlstudie 2025</strong>
+      <span>Vor- und Nachwahl-Panelstudie, German Longitudinal Election Study</span>
+    </div>
+    <div class="resource-link resource-link-static" href="https://search.gesis.org/research_data/ZA10100" target="_blank" rel="noopener">
+      <strong>GLES Rolling Cross-Section 2024</strong>
+      <span>Bundestagswahl 2024, German Longitudinal Election Study</span>
+    </div>
+    <div class="resource-link resource-link-static" href="https://search.gesis.org/research_data/ZA8974" target="_blank" rel="noopener">
+      <strong>GESIS Politbarometer 2024</strong>
+      <span>Politische Einstellungen und Einstellungen zur Demokratie</span>
+    </div>
+  </div>
+</section>
+</div>
+
+<!-- Abschluss -->
+
+<div class="parallax-section parallaxFooter">
+  <div class="parallax-panel parallax-footer-panel">
+    <h2>Diese Daten zeigen keine Katastrophe.</h2>
+    <p>Sie zeigen eine Verschiebung — langsam, messbar, real. Eine Demokratie ist nicht gefährdet, weil eine Partei an Stimmen zulegt.<br>
+      <p>Sie ist gefährdet, wenn Menschen aufhören zu glauben, dass ihre Stimme zählt. Und wenn Algorithmen schneller entscheiden als Argumente.</p>
+    </p><p><span class="highlight">Den jeder hat selbst die Möglichkeit, eine Entscheidung zu treffen.</span></p>
+  </div>
+</div>
+
+<div class="contentWrap">
+  <img class="bg-icon" src="assets/icon.svg">
+
+  <!-- Footer -->
+
+  <footer>
+    <img class="logo" src="assets/logo_clean.svg" alt="Logo">
+    <p>Ein Projekt von Studenten der DHBW Mosbach <span style="color: var(--accent-600)"><i class="bi bi-asterisk"></i></span> Juni 2026<br></p>
+
+    <p class="footer-source-note">Dieses Projekt dient ausschließlich Bildungs- und Informationszwecken.</p>
+  </footer>
+</div>
+</main>
+<script>
+  if (window.location.protocol === 'file:') {
+  document.body.innerHTML = `
+  <main>
+  <section class="grid">
+  <div class="cell c-12">
+  <h2 style="padding-top:0">Fehlender Server</h2>
+  <p>Diese Seite wurde direkt aus einer Datei geöffnet (Datei-Protokoll <code>file://</code>). Dies verhindert unter anderem <code>fetch()</code>-Anweisungen im Browser. Das bewirkt, dass einige Diagramme nicht geladen oder falsch angezeigt werden. Starte die Seite über einen Server, um alle Funktionen korrekt angezeigt zu bekommen. Aus Sicherheitsgründen wird diese Seiten daher nicht angezeigt.</p>
+  </div>
+  <div class="cell c-2">
+  <img class="logo" src="assets/logo_clean.svg" alt="Logo">
+  </div>
+  <div class="cell c-10">
+  <ul>
+  <li><a href="https://corvinbreyer.github.io/datascience/" target="_blank">Seite stattdessen per GitHub Pages aufrufen</a></li>
+  <li><a href="https://developer.mozilla.org/de/docs/Learn_web_development/Howto/Tools_and_setup/set_up_a_local_testing_server" target="_blank">Seite per lokalem Server anzeigen</a></li>
+  </ul>
+  </div>
+  </section>
+  <footer>
+  <p>Ein Projekt von Studenten der DHBW Mosbach <span style="color: var(--accent-600)"><i
+  class="bi bi-asterisk"></i></span> Juni 2026<br></p>
+  </footer>
+  <main>`;
+  }
+</script>
+<script>
+  const siteNav = document.querySelector('.site-nav');
+  const navToggle = document.querySelector('.nav-toggle');
+  let lastScrollY = window.scrollY;
+  const scrollThreshold = 8;
+
+  function syncNavToGrid() {
+  const gridFrame = document.querySelector('.contentWrap > .grid');
+
+  if (!siteNav || !gridFrame) {
+  return;
+  }
+
+  const gridRect = gridFrame.getBoundingClientRect();
+  siteNav.style.setProperty('--site-nav-left', `${gridRect.left}px`);
+  siteNav.style.setProperty('--site-nav-width', `${gridRect.width}px`);
+  siteNav.style.setProperty('--site-nav-align', 'translateX(0)');
+  }
+
+  function closeMobileNav() {
+  if (!siteNav || !navToggle) {
+  return;
+  }
+
+  siteNav.classList.remove('nav-open');
+  navToggle.setAttribute('aria-expanded', 'false');
+  }
+
+  function updateNavVisibility() {
+  const currentScrollY = window.scrollY;
+  const scrollDelta = currentScrollY - lastScrollY;
+
+  if (Math.abs(scrollDelta) < scrollThreshold) {
+  return;
+  }
+
+  const scrollingDown = scrollDelta > 0;
+  const nearTop = currentScrollY < 80;
+  const menuOpen = siteNav?.classList.contains('nav-open');
+
+  if (siteNav) {
+  siteNav.classList.toggle('nav-hidden', scrollingDown && !nearTop && !menuOpen);
+  }
+
+  lastScrollY = currentScrollY;
+  }
+
+  window.addEventListener('scroll', updateNavVisibility, { passive: true });
+  window.addEventListener('resize', syncNavToGrid);
+  window.addEventListener('orientationchange', syncNavToGrid);
+  window.addEventListener('load', syncNavToGrid);
+  syncNavToGrid();
+
+  navToggle?.addEventListener('click', () => {
+  const isOpen = siteNav?.classList.toggle('nav-open');
+  navToggle.setAttribute('aria-expanded', isOpen ? 'true' : 'false');
+  siteNav?.classList.remove('nav-hidden');
+  });
+
+  document.querySelectorAll('.site-nav .navLink').forEach((link) => {
+  link.addEventListener('click', closeMobileNav);
+  });
+</script>
+<script src="https://cdn.jsdelivr.net/npm/d3@7"></script>
+<script src="assets/js/introStats.js"></script>
+<script src="assets/js/utils.js"></script>
+<script src="assets/js/mapSvg.js"></script>
+<script src="assets/js/map.js"></script>
+<script src="assets/js/chart-85d728e.js"></script>
+<script src="assets/js/chart-e702aa1.js"></script>
+<script src="assets/js/racingBarChart.js"></script>
+<script src="assets/js/simulation.js"></script>
 </body>
 
 </html>
