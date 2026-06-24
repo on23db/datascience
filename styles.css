@@ -349,8 +349,8 @@ h2 {
   font-size: 2rem;
   text-transform: uppercase;
   position: relative;
-  padding-bottom: 4px;
-  margin-bottom: 3.5rem;
+  padding-bottom: 3px;
+  margin-bottom: 2.5rem;
   display: inline-block;
   width: fit-content;
 }
@@ -1547,6 +1547,131 @@ button:hover,
   color: var(--base-300);
   font-family: var(--font-mono);
   font-size: 0.72rem;
+}
+
+.reasons-grid .cell {
+  display: flex;
+  padding: 0;
+}
+
+.reason-fact {
+  display: grid;
+  grid-template-columns: minmax(150px, 0.42fr) minmax(0, 1fr);
+  gap: clamp(1.35rem, 2.6vw, 2rem);
+  align-content: start;
+  width: 100%;
+  height: 100%;
+  min-height: 100%;
+  padding: 2.5rem;
+  background:
+    linear-gradient(135deg, color-mix(in srgb, var(--reason-color, var(--primary-900)) 74%, transparent), transparent 62%),
+    var(--base-900);
+  border: 0;
+  border-radius: var(--bora-base);
+  color: var(--base-50);
+}
+
+.reason-fact-primary {
+  --reason-color: var(--primary-900);
+}
+
+.reason-fact-accent {
+  --reason-color: var(--accent-950);
+}
+
+.reason-fact-afd {
+  --reason-color: var(--afd-950);
+}
+
+.reason-fact-fdp {
+  --reason-color: var(--fdp-950);
+}
+
+.reason-fact-bsw {
+  --reason-color: var(--bsw-950);
+}
+
+.reason-fact-gruene {
+  --reason-color: var(--gruene-950);
+}
+
+.reason-fact-linke {
+  --reason-color: var(--linke-950);
+}
+
+.reason-percent {
+  display: flex;
+  align-items: baseline;
+  gap: 0.22rem;
+  align-self: start;
+  color: var(--base-10);
+  font-family: var(--font-mono);
+  font-weight: 850;
+  line-height: 1;
+  letter-spacing: 0;
+  white-space: nowrap;
+}
+
+.reason-percent span {
+  display: inline-block;
+  font-size: clamp(1.9rem, 3.6vw, 3.35rem);
+  font-variant-numeric: tabular-nums;
+}
+
+.reason-percent small {
+  display: inline-block;
+  margin-top: 0;
+  color: var(--base-200);
+  font-size: clamp(0.95rem, 1.35vw, 1.25rem);
+  font-weight: 760;
+}
+
+.reason-content h3 {
+  margin-top: 0;
+}
+
+.reason-content p {
+  color: var(--base-100);
+}
+
+.reason-content .source {
+  margin-top: 0.75rem;
+  margin-bottom: 0;
+  padding: 0.55rem 0.7rem;
+  background: transparent;
+  border: 1px solid color-mix(in srgb, var(--base-200) 20%, transparent);
+  border-radius: 5px;
+  color: var(--base-200);
+  line-height: 1.35;
+  font-size: 0.78rem;
+}
+
+.reason-content .source code {
+  color: var(--base-50);
+}
+
+@media (max-width: 700px) {
+  .reasons-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .reasons-grid .cell {
+    grid-column: 1 / -1 !important;
+  }
+
+  .reason-fact {
+    grid-template-columns: 1fr;
+  }
+
+  .reason-percent {
+    display: flex;
+    align-items: baseline;
+    gap: 0.35rem;
+  }
+
+  .reason-percent small {
+    margin-top: 0;
+  }
 }
 
 .cell.c-12.hero {
