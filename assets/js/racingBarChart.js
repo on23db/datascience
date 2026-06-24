@@ -116,7 +116,7 @@ console.log('racingBarChart.js loaded');
   <aside class="spectrum-chart" aria-label="Politisches Spektrum nach Stimmenanteilen">
     <div class="spectrum-header">
       <h3><i class="bi bi-columns-gap"></i> Spektrum</h3>
-      <p id="spectrumCaption">Nur Parteien mit hinterlegter Einordnung werden einbezogen.</p>
+      <p id="spectrumCaption">Politische Einordnung</p>
     </div>
     <div class="spectrum-stack" id="spectrumStack"></div>
   </aside>
@@ -244,16 +244,38 @@ console.log('racingBarChart.js loaded');
       width = Math.max(320, chart.node().clientWidth);
       const data = getState(year, 9);
       const rowHeight = width < 560 ? 42 : 50;
-      const margin = { top: 8, right: width < 560 ? 50 : 76, bottom: 18, left: width < 560 ? 84 : 116 };
+      const margin = { top: 8, right: width < 560 ? 50 : 76, bottom: 42, left: width < 560 ? 84 : 116 };
       const height = margin.top + margin.bottom + data.length * rowHeight;
-      const maxValue = Math.max(50, d3.max(data, (d) => d.value) ?? 50);
-      const x = d3.scaleLinear().domain([0, maxValue]).range([0, width - margin.left - margin.right]);
-      const y = d3.scaleBand().domain(data.map((d) => d.party)).range([margin.top, height - margin.bottom]).padding(0.28);
+      const x = d3.scaleLinear().domain([0, 100]).range([0, width - margin.left - margin.right]);
+      const plotBottom = height - margin.bottom;
+      const y = d3.scaleBand().domain(data.map((d) => d.party)).range([margin.top, plotBottom]).padding(0.28);
 
       const svg = chart.selectAll("svg").data([null]).join("svg")
         .attr("viewBox", `0 0 ${width} ${height}`)
         .attr("width", "100%")
         .attr("height", height);
+
+      const gridTicks = [0, 25, 50, 75, 100];
+      svg.selectAll(".racing-grid-line")
+        .data(gridTicks)
+        .join("line")
+        .attr("class", "racing-grid-line")
+        .attr("x1", (d) => margin.left + x(d))
+        .attr("x2", (d) => margin.left + x(d))
+        .attr("y1", margin.top)
+        .attr("y2", plotBottom);
+
+      svg.selectAll(".racing-percent-axis")
+        .data([null])
+        .join("g")
+        .attr("class", "racing-percent-axis chart-axis")
+        .attr("transform", `translate(${margin.left},${plotBottom})`)
+        .call(
+          d3.axisBottom(x)
+            .tickValues(gridTicks)
+            .tickSize(9)
+            .tickFormat((d) => `${d}%`)
+        );
 
       const groups = svg.selectAll(".racing-row")
         .data(data, (d) => d.party)
@@ -332,14 +354,11 @@ console.log('racingBarChart.js loaded');
       const total = d3.sum(grouped, (entry) => entry.value);
       if (!total) {
         spectrumStack.html("<p class=\"spectrum-empty\">Fuer dieses Wahljahr liegen keine Spektrum-Zuordnungen vor.</p>");
-        spectrumCaption.text("Keine einordenbaren Parteien fuer dieses Wahljahr.");
+        spectrumCaption.text("Politische Einordnung");
         return;
       }
 
-      const includedParties = state
-        .filter((entry) => entry.value > 0 && partySpectrum.has(entry.party))
-        .length;
-      spectrumCaption.text(`${includedParties} einordenbare Parteien, ${formatPercent.format(total)} % Stimmenanteil abgedeckt.`);
+      spectrumCaption.text("Politische Einordnung");
       spectrumStack.html(`
         <div class="spectrum-scale" aria-hidden="true">
           <span>0 %</span>

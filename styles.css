@@ -877,6 +877,25 @@ button:hover,
   display: block;
 }
 
+.racing-grid-line {
+  stroke: var(--base-700);
+  stroke-dasharray: 4 8;
+  stroke-width: 1;
+  opacity: 0.9;
+}
+
+.racing-percent-axis text {
+  fill: var(--base-100);
+  font-family: var(--font-mono);
+  font-size: clamp(0.68rem, 1.8vw, 0.82rem);
+  font-weight: 650;
+}
+
+.racing-percent-axis path,
+.racing-percent-axis line {
+  stroke: var(--base-500);
+}
+
 .racing-chart-shell {
   grid-template-columns: minmax(0, 1fr) minmax(240px, 320px);
   align-items: stretch;
@@ -932,12 +951,6 @@ button:hover,
   gap: 0.4rem;
   align-content: start;
   min-height: 4.6rem;
-}
-
-.spectrum-header p {
-  font-family: var(--font-mono);
-  font-size: 0.64rem;
-  line-height: 1.25;
 }
 
 .spectrum-stack {

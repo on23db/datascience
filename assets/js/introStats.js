@@ -1,6 +1,7 @@
 (function () {
   const statEls = Array.from(document.querySelectorAll('.intro-stat'));
-  if (!statEls.length || typeof d3 === 'undefined') return;
+  const reasonEls = Array.from(document.querySelectorAll('.reason-fact'));
+  if ((!statEls.length && !reasonEls.length) || typeof d3 === 'undefined') return;
 
   const valueFormatters = {
     'afd-growth': (value) => Math.round(value).toLocaleString('de-DE'),
@@ -73,6 +74,67 @@
     requestAnimationFrame(frame);
   }
 
+  function animateReasonStat(el) {
+    const valueEl = el.querySelector('.reason-value');
+    if (!valueEl) return;
+
+    const target = Number(el.dataset.targetValue);
+    if (!Number.isFinite(target)) return;
+
+    const formatter = (value) => value.toLocaleString('de-DE', {
+      minimumFractionDigits: 1,
+      maximumFractionDigits: 1
+    });
+    const duration = 1200;
+    const start = performance.now();
+
+    function frame(now) {
+      const progress = Math.min(1, (now - start) / duration);
+      const eased = 1 - Math.pow(1 - progress, 3);
+      valueEl.textContent = formatter(target * eased);
+
+      if (progress < 1) {
+        requestAnimationFrame(frame);
+      } else {
+        valueEl.textContent = formatter(target);
+      }
+    }
+
+    valueEl.textContent = formatter(0);
+    requestAnimationFrame(frame);
+  }
+
+  function revealReasonStats() {
+    if (!reasonEls.length) return;
+
+    reasonEls.forEach((el) => {
+      const valueEl = el.querySelector('.reason-value');
+      const target = Number(valueEl?.textContent.trim().replace(',', '.'));
+      if (Number.isFinite(target)) {
+        el.dataset.targetValue = String(target);
+      }
+    });
+
+    const startAnimations = (entries, observer) => {
+      entries.forEach((entry) => {
+        if (!entry.isIntersecting) return;
+
+        const el = entry.target;
+        if (el.dataset.animated === 'true') return;
+
+        el.dataset.animated = 'true';
+        animateReasonStat(el);
+        observer.unobserve(el);
+      });
+    };
+
+    const observer = new IntersectionObserver(startAnimations, {
+      rootMargin: '0px 0px 180px 0px',
+      threshold: 0.15
+    });
+    reasonEls.forEach((el) => observer.observe(el));
+  }
+
   function revealStats(stats) {
     const startAnimations = (entries, observer) => {
       entries.forEach((entry) => {
@@ -102,4 +164,6 @@
         valueEl.textContent = '0';
       });
     });
+
+  revealReasonStats();
 })();
