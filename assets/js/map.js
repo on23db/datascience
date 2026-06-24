@@ -148,6 +148,7 @@ function initMap() {
     .on("click", function(event) {
       event.stopPropagation();
       selectState(this);
+      showMapPopover(this, event);
     })
     .on("mouseenter focus", function(event) {
       showMapPopover(this, event);

@@ -263,6 +263,7 @@ html {
   hyphens: auto;
   overflow-wrap: break-word;
   -webkit-hyphens: auto;
+  overflow-x: clip;
 }
 
 body {
@@ -272,7 +273,14 @@ body {
   background-image: url("assets/bg.svg");
   background-size: 500px 500px;
   background-repeat: repeat;
-  overflow-x: hidden;
+  overflow-x: clip;
+}
+
+@supports not (overflow: clip) {
+  html,
+  body {
+    overflow-x: hidden;
+  }
 }
 
 .contentWrap {
@@ -739,6 +747,10 @@ img {
     grid-column: span 12 !important;
     padding: 2rem;
   }
+
+  .bg-icon {
+    display: none;
+  }
 }
 
 button,
@@ -996,9 +1008,14 @@ button:hover,
 }
 
 .racing-timeline-cell,
-.racing-chart-cell {
+.racing-chart-cell,
+.racing-event-cell {
   padding: 0;
   background: var(--base-bg);
+}
+
+.racing-event-cell[hidden] {
+  display: none !important;
 }
 
 .racing-shell {
@@ -1298,11 +1315,16 @@ button:hover,
   min-height: 198px;
   margin-top: 0;
   width: 100%;
+  overflow-x: auto;
+  overflow-y: hidden;
+  scrollbar-color: var(--base-500) transparent;
+  scrollbar-width: thin;
 }
 
 .racing-timeline {
   display: block;
-  width: 100%;
+  width: var(--timeline-width, 100%);
+  max-width: none;
   overflow: visible;
 }
 
@@ -1311,7 +1333,7 @@ button:hover,
   z-index: 5;
   left: calc(var(--timeline-left, 28px) - 0.575rem);
   top: var(--scrubber-y, 104px);
-  width: calc(100% - var(--timeline-left, 28px) - var(--timeline-right, 28px) + 1.15rem);
+  width: calc(var(--timeline-width, 100%) - var(--timeline-left, 28px) - var(--timeline-right, 28px) + 1.15rem);
   height: 2rem;
   transform: translateY(-50%);
   appearance: none;
@@ -1513,6 +1535,10 @@ button:hover,
   margin: 1rem 0;
 }
 
+.racing-event-panel[hidden] {
+  display: none !important;
+}
+
 .racing-event-panel h4 {
   display: flex;
   align-items: center;
@@ -1529,6 +1555,10 @@ button:hover,
   margin-top: 0.25rem;
   font-family: var(--font-mono);
   font-size: 0.85rem;
+}
+
+.racing-event-panel p {
+  margin: 0;
 }
 
 .racing-event-kicker {
@@ -2073,6 +2103,10 @@ button:hover,
 }
 
 @media (max-width: 860px) {
+  .deco {
+    max-width: 82vw;
+  }
+
   .deco-ballot {
     width: 290px;
     z-index: 0;
@@ -2990,11 +3024,13 @@ button:hover,
   }
 
   .pyramid-stat-list {
+    order: 1;
     grid-template-rows: none;
     min-height: 0;
   }
 
   .pyramid-chart-wrap {
+    order: 2;
     min-height: clamp(330px, 92vw, 430px);
     height: auto;
   }
@@ -3031,7 +3067,9 @@ button:hover,
   }
 
   .racing-timeline-wrap {
-    min-height: 174px;
+    min-height: 300px;
+    padding-bottom: 0.35rem;
+    -webkit-overflow-scrolling: touch;
   }
 
   .map-section,
@@ -3040,10 +3078,33 @@ button:hover,
     min-height: auto;
   }
 
+  .map-info-cell {
+    order: 1;
+    padding-bottom: 1.5rem;
+  }
+
+  .map-cell {
+    order: 2;
+  }
+
+  .map-header {
+    gap: 1rem;
+    margin-bottom: 0;
+  }
+
+  .map-header p {
+    line-height: 1.45;
+  }
+
   #map-shell,
   #Bundesrepublik_Deutschland,
   #info {
     min-height: 520px;
+  }
+
+  .map-info-cell #info {
+    margin-top: 1.1rem;
+    min-height: 0;
   }
 
   .map-controls {

@@ -106,6 +106,7 @@ console.log('racingBarChart.js loaded');
   </div>
 </div>
 </div>
+<div id="racingContextInfo" class="cell c-12 racing-event-cell" hidden></div>
     
 <div class="cell c-8 racing-chart-cell">
   <div class="racing-main-chart">
@@ -390,7 +391,9 @@ console.log('racingBarChart.js loaded');
     }
 
     function renderTimeline() {
-      timelineWidth = Math.max(320, container.select(".racing-timeline-wrap").node().clientWidth);
+      const timelineWrapNode = container.select(".racing-timeline-wrap").node();
+      const visibleTimelineWidth = Math.max(320, timelineWrapNode.clientWidth);
+      timelineWidth = visibleTimelineWidth < 560 ? 760 : visibleTimelineWidth;
       const topBand = timelineWidth < 560 ? 84 : 102;
       const height = (timelineWidth < 560 ? 174 : 198) + topBand;
       const margin = { left: timelineWidth < 560 ? 18 : 28, right: timelineWidth < 560 ? 18 : 28 };
@@ -401,11 +404,12 @@ console.log('racingBarChart.js loaded');
       container.select(".racing-timeline-wrap")
         .style("--timeline-left", `${margin.left}px`)
         .style("--timeline-right", `${margin.right}px`)
+        .style("--timeline-width", `${timelineWidth}px`)
         .style("--scrubber-y", `${baseline}px`);
 
       timeline
         .attr("viewBox", `0 0 ${timelineWidth} ${height}`)
-        .attr("width", "100%")
+        .attr("width", timelineWidth)
         .attr("height", height);
       timeline.selectAll("*").remove();
 
@@ -453,19 +457,24 @@ console.log('racingBarChart.js loaded');
           const lane = (index % 3) * (timelineWidth < 560 ? 23 : 26);
           return `translate(${x(d.year)},${eventBaseY + lane})`;
         })
-        .on("mouseenter focus", function (event, d) { showEventPopover(this, d); })
+        .on("mouseenter focus", function (event, d) {
+          if (!window.matchMedia("(max-width: 700px)").matches) {
+            showEventPopover(this, d);
+          }
+        })
         .on("mouseleave blur", () => {
           schedulePopoverHide();
         })
         .on("click", function (event, d) {
           event.stopPropagation();
-          selectEvent(d);
-          showEventPopover(this, d, true);
+          const markerBounds = this.getBoundingClientRect();
+          selectEvent(d, { showPanel: false });
+          showEventPopover(markerBounds, d, true);
         })
         .on("keydown", (event, d) => {
           if (event.key === "Enter" || event.key === " ") {
             event.preventDefault();
-            selectEvent(d);
+            selectEvent(d, { showPanel: true });
           }
         });
 
@@ -587,26 +596,39 @@ console.log('racingBarChart.js loaded');
       renderSpectrumChart(activeYear);
 
       const margin = { left: timelineWidth < 560 ? 18 : 28, right: timelineWidth < 560 ? 18 : 28 };
+      const topBand = timelineWidth < 560 ? 84 : 102;
+      const baseline = (timelineWidth < 560 ? 76 : 88) + topBand;
       const x = d3.scaleLinear()
         .domain([1919, 2025])
         .range([margin.left, timelineWidth - margin.right]);
-      updateScrubberIndicator(activeYear, x, timelineWidth < 560 ? 76 : 88, margin);
+      updateScrubberIndicator(activeYear, x, baseline, margin);
 
       timeline.select(".racing-playhead")
-        .attr("transform", `translate(${x(activeYear)},${timelineWidth < 560 ? 104 : 118})`);
+        .attr("transform", `translate(${x(activeYear)},${baseline})`);
       timeline.selectAll(".racing-election-marker")
         .classed("is-active", (d) => Math.abs(d.year - activeYear) < 0.01);
     }
 
-    function selectEvent(event) {
+    function selectEvent(event, options = {}) {
+      const { showPanel = false } = options;
       selectedEvent = event;
-      contextInfo.property("hidden", false).html(`
-        <strong>${escapeHtml(event.ereignis)}</strong><br>
-        ${escapeHtml(event.erklaerung)}
-        <a href="${escapeHtml(event.link)}" target="_blank" rel="noopener">Quelle &oumlffnen <span>&#8599;</span></a>
-      `);
+      if (showPanel) {
+        contextInfo.property("hidden", false).attr("hidden", null).html(`
+          <div class="racing-event-panel">
+            <p class="racing-event-kicker">${escapeHtml(event.kategorie)} · ${escapeHtml(event.jahr)}</p>
+            <h4>${escapeHtml(event.ereignis)}</h4>
+            <p>${escapeHtml(event.erklaerung)}</p>
+            <a href="${escapeHtml(event.link)}" target="_blank" rel="noopener">Quelle &oumlffnen <span>&#8599;</span></a>
+          </div>
+        `);
+      } else {
+        contextInfo.property("hidden", true).attr("hidden", "").html("");
+      }
       renderTimeline();
       render(event.year);
+      if (showPanel && window.matchMedia("(max-width: 700px)").matches) {
+        contextInfo.node()?.scrollIntoView({ block: "nearest", behavior: "smooth" });
+      }
     }
 
     function categoryClass(category) {
@@ -617,8 +639,10 @@ console.log('racingBarChart.js loaded');
       return "event-sonstige";
     }
 
-    function showEventPopover(markerNode, event, pinned = false) {
-      const markerBounds = markerNode.getBoundingClientRect();
+    function showEventPopover(anchor, event, pinned = false) {
+      const markerBounds = typeof anchor.getBoundingClientRect === "function"
+        ? anchor.getBoundingClientRect()
+        : anchor;
       const viewportWidth = document.documentElement.clientWidth;
       const viewportHeight = window.innerHeight;
       const popoverWidth = Math.min(260, viewportWidth - 16);
@@ -675,7 +699,8 @@ console.log('racingBarChart.js loaded');
 
     function schedulePopoverHide() {
       cancelPopoverHide();
-      if (d3.select(".racing-popover").classed("is-pinned")) return;
+      const activePopover = d3.select(".racing-popover");
+      if (activePopover.empty() || activePopover.classed("is-pinned")) return;
       popoverHideTimer = window.setTimeout(() => {
         const popover = d3.select(".racing-popover");
         if (!popover.empty() && !popover.node().matches(":hover")) {
@@ -718,7 +743,7 @@ console.log('racingBarChart.js loaded');
     resetButton.on("click", () => {
       pause();
       selectedEvent = null;
-      contextInfo.property("hidden", true).html("");
+      contextInfo.property("hidden", true).attr("hidden", "").html("");
       renderTimeline();
       render(1919);
     });
