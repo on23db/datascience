@@ -348,7 +348,7 @@ footer .logo {
 
 h2 {
   font-weight: 900;
-  font-size: clamp(1.5rem, 3vw, 2.5rem);
+  font-size: clamp(1.5rem, 3vw, 1.8rem);
   text-transform: uppercase;
   position: relative;
   padding-bottom: 3px;
@@ -682,6 +682,10 @@ img {
   border-radius: var(--bora-base);
 }
 
+.cell > :last-child {
+  margin-bottom: 0;
+}
+
 /* Spaltenbreiten */
 .c-1 {
   grid-column: span 1;
@@ -734,6 +738,7 @@ img {
 @media (max-width: 700px) {
   .cell {
     grid-column: span 12 !important;
+    padding: 2rem;
   }
 }
 
@@ -1459,8 +1464,13 @@ button:hover,
 }
 
 .racing-event-panel {
-  padding: 1rem;
-  background: var(--base-900);
+  display: grid;
+  gap: 0.45rem;
+  padding: 1.2rem;
+  background:
+    linear-gradient(135deg, color-mix(in srgb, var(--linke-950) 72%, transparent), transparent 58%),
+    var(--base-900);
+  border: 1px solid var(--border-color);
   border-left: 4px solid var(--accent-600);
   border-radius: var(--bora-base);
   margin: 1rem 0;
@@ -1470,24 +1480,25 @@ button:hover,
   display: flex;
   align-items: center;
   gap: 0.5rem;
-  margin: 0 0 0.45rem;
+  margin: 0;
   color: var(--base-10);
   font-size: clamp(1.05rem, 3vw, 1.3rem);
+  line-height: 1.1;
 }
 
 .racing-event-panel a {
   display: inline-flex;
   gap: 0.35rem;
-  margin-top: 0.7rem;
+  margin-top: 0.25rem;
   font-family: var(--font-mono);
   font-size: 0.85rem;
 }
 
 .racing-event-kicker {
-  margin-bottom: 0.35rem;
+  margin-bottom: 0;
   color: var(--accent-300) !important;
   font-family: var(--font-mono);
-  font-size: 0.78rem;
+  font-size: 0.72rem;
   text-transform: uppercase;
 }
 
@@ -1691,8 +1702,8 @@ button:hover,
 .stat-kicker {
   color: var(--base-200);
   font-family: var(--font-mono);
-  font-size: 1rem;
-  font-weight: 700;
+  font-size: 0.8rem;
+  font-weight: 400;
   letter-spacing: 0.06em;
   text-transform: uppercase;
 }
@@ -1700,7 +1711,7 @@ button:hover,
 .demographic-stat-card strong {
   color: var(--base-10);
   font-family: var(--font-mono);
-  font-size: clamp(1.15rem, 2.4vw, 1.65rem);
+  font-size: clamp(2rem, 2.4vw, 1.65rem);
   font-weight: 850;
   line-height: 1;
   overflow-wrap: anywhere;
@@ -1728,7 +1739,7 @@ button:hover,
 .reason-fact {
   display: grid;
   grid-template-columns: minmax(150px, 0.42fr) minmax(0, 1fr);
-  gap: clamp(1.35rem, 2.6vw, 2rem);
+  gap: clamp(1.35rem, 2vw, 1rem);
   align-content: start;
   width: 100%;
   height: 100%;
@@ -1785,7 +1796,7 @@ button:hover,
 
 .reason-percent span {
   display: inline-block;
-  font-size: clamp(3.8rem, 4vw, 3rem);  
+  font-size: clamp(3rem, 1vw, 2.5rem);  
   font-variant-numeric: tabular-nums;
 }
 
@@ -1939,7 +1950,7 @@ button:hover,
 
 .intro-stat strong {
   font-family: var(--font-mono);
-  font-size: clamp(3.8rem, 4vw, 3rem);
+  font-size: 3rem;
   font-weight: 850;
   line-height: 1;
   overflow-wrap: anywhere;
@@ -2855,8 +2866,9 @@ button:hover,
   }
 
   .spectrum-segment span {
-    writing-mode: horizontal-tb;
-    transform: none;
+    writing-mode: vertical-rl;
+    transform: rotate(180deg);
+    font-size: 0.58rem;
   }
 
   .simulation-chart-cell,
@@ -2892,6 +2904,32 @@ button:hover,
 
   .racing-chart {
     min-height: 290px;
+  }
+
+  .racing-main-chart,
+  .spectrum-chart,
+  .racing-event-panel {
+    padding: 1.35rem;
+  }
+
+  .racing-chart-header,
+  .spectrum-header {
+    min-height: 0;
+  }
+
+  .racing-chart-header p,
+  .spectrum-header p,
+  .racing-event-panel {
+    font-size: 0.95rem;
+    line-height: 1.45;
+  }
+
+  .racing-event-panel h4 {
+    font-size: clamp(1.25rem, 6vw, 1.7rem);
+  }
+
+  .racing-event-kicker {
+    font-size: 0.82rem;
   }
 
   .pyramid-content {
@@ -2974,6 +3012,26 @@ button:hover,
 
   .simulation-results {
     grid-template-columns: 1fr;
+  }
+
+  .simulation-result-card {
+    grid-template-rows: none;
+    align-content: start;
+    gap: 0.45rem;
+    min-height: auto;
+    padding: 1.35rem;
+  }
+
+  .simulation-results span,
+  .simulation-results small {
+    font-size: 0.82rem;
+    line-height: 1.35;
+  }
+
+  .simulation-results strong {
+    margin: 0;
+    font-size: clamp(1.35rem, 7vw, 2rem);
+    line-height: 1.05;
   }
 
   .simulation-chart-cell,
