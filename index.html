@@ -15,13 +15,22 @@
   <main>
     <div class="contentWrap">
       <h1 class="sr-only">The Right Vote</h1>
-      <nav>
-        <a href="#top"><img class="icon" src="assets/icon.svg" alt="Logo"></a>
-        <a class="navLink" href="#entwicklung">Entwicklung</a>
-        <a class="navLink" href="#regionen">Regionen</a>
-        <a class="navLink" href="#demografie">Demografie</a>
-        <a class="navLink" href="#gruende">Gründe</a>
-        <a class="navLink" href="#simulation">Simulation</a>
+      <nav class="site-nav" aria-label="Hauptnavigation">
+        <a class="nav-brand" href="#top" aria-label="Zur Startseite">
+          <img class="icon" src="assets/icon.svg" alt="">
+          <span>The Right Vote</span>
+        </a>
+        <button class="nav-toggle" type="button" aria-controls="nav-panel" aria-expanded="false" aria-label="Navigation öffnen">
+          <i class="bi bi-list"></i>
+        </button>
+        <div class="nav-panel" id="nav-panel">
+          <a class="navLink" href="#entwicklung">Entwicklung</a>
+          <a class="navLink" href="#regionen">Regionen</a>
+          <a class="navLink" href="#demografie">Demografie</a>
+          <a class="navLink" href="#gruende">Gründe</a>
+          <a class="navLink" href="#simulation">Simulation</a>
+          <a class="navLink navLink-secondary" href="#links">Ressourcen</a>
+        </div>
       </nav>
 
       <img class="deco deco-letter" src="assets/images/brief_blau.webp" alt="Wahlbrief">
@@ -30,7 +39,7 @@
       <div class="hero-wrapper">
         <div class="hero">
           <img class="logo" src="assets/logo_clean.svg" alt="Logo">
-          <p class="heroSub">Eine Datenreise durch 100 Jahre deutscher Demokratie.</span></p>
+          <p class="heroSub">Eine Datenreise durch 100 Jahre deutscher Demokratie.</p>
         </div>
       </div>
 <!-- Introduction-->
@@ -43,12 +52,12 @@
           <br><br>
           <h4>Themengebiete erkunden</h4>
           <div class="focus-buttons">
-            <button class="btn-outline" onclick="location.href='#'">Wahlgeschichte</button>
-            <button class="btn-outline" onclick="location.href='#'">Regionen</button>
-            <button class="btn-outline" onclick="location.href='#'">Demografie</button>
-            <button class="btn-outline" onclick="location.href='#'">Generationenvergleich</button>
-            <button class="btn-outline" onclick="location.href='#'">Fakten</button>
-            <button class="btn-outline" onclick="location.href='#'">Simulation</button>  
+            <button class="btn-outline" onclick="location.href='#entwicklung'">Wahlgeschichte</button>
+            <button class="btn-outline" onclick="location.href='#regionen'">Regionen</button>
+            <button class="btn-outline" onclick="location.href='#demografie'">Demografie</button>
+            <button class="btn-outline" onclick="location.href='#demografie'">Generationenvergleich</button>
+            <button class="btn-outline" onclick="location.href='#gruende'">Fakten</button>
+            <button class="btn-outline" onclick="location.href='#simulation'">Simulation</button>
           </div>      
         </div>
         <div class="cell c-8">
@@ -618,6 +627,69 @@ Die Karte zeigt den Zweitstimmenanteil je Bundesland. Dieser bestimmt die parlam
         </footer>
       <main>`;
     }
+  </script>
+  <script>
+    const siteNav = document.querySelector('.site-nav');
+    const navToggle = document.querySelector('.nav-toggle');
+    let lastScrollY = window.scrollY;
+    const scrollThreshold = 8;
+
+    function syncNavToGrid() {
+      const gridFrame = document.querySelector('.contentWrap > .grid');
+
+      if (!siteNav || !gridFrame) {
+        return;
+      }
+
+      const gridRect = gridFrame.getBoundingClientRect();
+      siteNav.style.setProperty('--site-nav-left', `${gridRect.left}px`);
+      siteNav.style.setProperty('--site-nav-width', `${gridRect.width}px`);
+      siteNav.style.setProperty('--site-nav-align', 'translateX(0)');
+    }
+
+    function closeMobileNav() {
+      if (!siteNav || !navToggle) {
+        return;
+      }
+
+      siteNav.classList.remove('nav-open');
+      navToggle.setAttribute('aria-expanded', 'false');
+    }
+
+    function updateNavVisibility() {
+      const currentScrollY = window.scrollY;
+      const scrollDelta = currentScrollY - lastScrollY;
+
+      if (Math.abs(scrollDelta) < scrollThreshold) {
+        return;
+      }
+
+      const scrollingDown = scrollDelta > 0;
+      const nearTop = currentScrollY < 80;
+      const menuOpen = siteNav?.classList.contains('nav-open');
+
+      if (siteNav) {
+        siteNav.classList.toggle('nav-hidden', scrollingDown && !nearTop && !menuOpen);
+      }
+
+      lastScrollY = currentScrollY;
+    }
+
+    window.addEventListener('scroll', updateNavVisibility, { passive: true });
+    window.addEventListener('resize', syncNavToGrid);
+    window.addEventListener('orientationchange', syncNavToGrid);
+    window.addEventListener('load', syncNavToGrid);
+    syncNavToGrid();
+
+    navToggle?.addEventListener('click', () => {
+      const isOpen = siteNav?.classList.toggle('nav-open');
+      navToggle.setAttribute('aria-expanded', isOpen ? 'true' : 'false');
+      siteNav?.classList.remove('nav-hidden');
+    });
+
+    document.querySelectorAll('.site-nav .navLink').forEach((link) => {
+      link.addEventListener('click', closeMobileNav);
+    });
   </script>
   <script src="https://cdn.jsdelivr.net/npm/d3@7"></script>
   <script src="assets/js/introStats.js"></script>
