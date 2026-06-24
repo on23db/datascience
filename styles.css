@@ -265,6 +265,7 @@ html {
   -webkit-hyphens: auto;
 }
 
+
 body {
   font-family: var(--font-base);
   color: var(--base-50);
@@ -1784,7 +1785,7 @@ button:hover,
 
 .reason-percent span {
   display: inline-block;
-  font-size: clamp(1.9rem, 3.6vw, 3.35rem);
+  font-size: clamp(3.8rem, 4vw, 3rem);  
   font-variant-numeric: tabular-nums;
 }
 
@@ -1792,7 +1793,7 @@ button:hover,
   display: inline-block;
   margin-top: 0;
   color: var(--base-200);
-  font-size: clamp(0.95rem, 1.35vw, 1.25rem);
+  font-size: clamp(2.5rem, 1.35vw, 1.25rem);
   font-weight: 760;
 }
 
@@ -1938,7 +1939,7 @@ button:hover,
 
 .intro-stat strong {
   font-family: var(--font-mono);
-  font-size: clamp(2rem, 4vw, 3rem);
+  font-size: clamp(3.8rem, 4vw, 3rem);
   font-weight: 850;
   line-height: 1;
   overflow-wrap: anywhere;
