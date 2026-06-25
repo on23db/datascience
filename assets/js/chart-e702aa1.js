@@ -248,6 +248,8 @@ console.log('chart-e702aa1.js loaded');
 
   function render(data, year, party) {
     const node = container.node();
+    container.selectAll("*").remove();
+
     const width = Math.max(node.clientWidth, 300);
     const height = Math.max(node.clientHeight, width < 520 ? 330 : 420);
     const compact = width < 620;
@@ -265,7 +267,6 @@ console.log('chart-e702aa1.js loaded');
     const sideWidth = (innerWidth - centerGap) / 2;
     const maxVotes = d3.max(data, (d) => Math.max(d.male, d.female)) || 1;
 
-    container.selectAll("*").remove();
     node.setAttribute(
       "aria-label",
       `Erststimmen für ${partyLabels[party]} ${year} nach Altersgruppe: Männer links, Frauen rechts.`
