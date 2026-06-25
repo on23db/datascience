@@ -251,13 +251,13 @@ console.log('chart-e702aa1.js loaded');
     container.selectAll("*").remove();
 
     const width = Math.max(node.clientWidth, 300);
-    const height = Math.max(node.clientHeight, width < 520 ? 330 : 420);
+    const height = width < 520 ? 360 : width < 760 ? 420 : 470;
     const compact = width < 620;
     const mobile = width < 460;
     const margin = {
       top: mobile ? 54 : 58,
       right: mobile ? 12 : compact ? 28 : 54,
-      bottom: mobile ? 34 : 48,
+      bottom: mobile ? 54 : 48,
       left: mobile ? 12 : compact ? 28 : 54
     };
     const innerWidth = width - margin.left - margin.right;
