@@ -82,7 +82,7 @@
                 <span class="stat-kicker"><i class="bi bi-graph-up-arrow"></i> Projektion</span>
                 <strong><span class="stat-value">0</span><span class="stat-unit">%</span></strong>
                 <p>Wenn sich der Trend der letzten vier Wahlen linear fortsetzt, könnte die AfD 2033 rund 30% der Stimmen erhalten. Kein Schicksal — aber ein Denkanstoß. Die Simulation zeigt, welche Faktoren diesen Verlauf verändern könnten.</p>
-                <a class="btn intro-source" href="#demografie">Quelle <i class="bi bi-arrow-up-right"></i></a>
+                <a class="btn intro-source" href="#simulation">Quelle <i class="bi bi-arrow-up-right"></i></a>
               </div>
             </div>
           </section>
@@ -114,10 +114,12 @@
           <!-- Entwicklung -->
           <h2 id="entwicklung"><i class="bi bi-graph-up"></i> Entwicklung</h2>
           <div class="columns">
-            <p>Wer die Wahlergebnisse der letzten Jahrzehnte nebeneinanderlegt, sieht mehr als Zahlen. Krisen, Wohlstand, Unsicherheit, Wiedervereinigung, Digitalisierung. Jede Generation trifft politische Entscheidungen unter anderen Bedingungen. Die Frage ist: Hinterlassen diese Ereignisse Spuren im Wahlverhalten?</p>
-            <p class="hint"><i class="bi bi-lightbulb"></i> Mache eine Reise durch die deutsche Wahlgeschichte, indem du den Slider verschiebst. Oder drücke auf ein Icon, um dir das Event in dieser Zeit genauer anzusehen.</p>
+            <p>Wer die Wahlergebnisse der letzten Jahrzehnte nebeneinanderlegt, sieht mehr als Zahlen. Krisen, Wohlstand, Unsicherheit, Wiedervereinigung, Digitalisierung. Jede Generation trifft politische Entscheidungen unter anderen Bedingungen. Die Frage ist: Hinterlassen diese Ereignisse Spuren im Wahlverhalten?
+              Seit 2013 gewinnen Parteien am rechten Rand bei jeder Bundestagswahl hinzu — die Daten zeigen wann dieser Trend begann.
+            </p>
+            <p class="hint"><i class="bi bi-lightbulb"></i> Mache eine Reise durch die deutsche Wahlgeschichte, indem du den Slider verschiebst. Drücke auf ein Icon, um dir das Event in dieser Zeit genauer anzusehen.</p>
           </div>
-          <p class="source">Quelle: Aufbereitete Bundestagswahlergebnisse und Ereignisdaten aus <code>rawData/BTW_1919-2025.csv</code>, <code>rawData/ereignisse.csv</code> und <code>rawData/partei_verteilung.csv</code>.</p>
+          <p class="source">Quelle: Bundeswahlleiterin, Bundestagswahlen ab 1949, Reichstagswahlergebnisse des Bundestags und Tagesschau Wahlarchiv; eigene Aufbereitung und Ergänzung um recherchierte Ereignisse.</p>
         </div>
       </section>
 
@@ -133,7 +135,7 @@
       <section class="parallax-section parallax-wandel" aria-label="Sitze im Parlament">
         <div class="parallax-panel">
           <h2>Im Wandel der Zeit</h2>
-          <p>Die großen Volksparteien verlieren seit Jahren an Zustimmung, neue Kräfte gewinnen Raum. Das Parteiensystem fragmentiert sich, <span class="highlight"> Muster, das Deutschland aus seiner Geschichte kennt.</span>
+          <p>Die großen Volksparteien verlieren seit Jahren an Zustimmung, neue Kräfte gewinnen Raum. Das Parteiensystem fragmentiert sich — <span class="highlight"> ein Muster, das Deutschland aus seiner Geschichte kennt.</span>
           <br><br>Doch der Aufstieg einzelner Parteien ist nur die eine Geschichte. Die andere ist das, was in der Mitte passiert: Während die Ränder wachsen, schrumpft das Zentrum — und mit ihm die Fähigkeit zur stabilen Regierungsbildung. Ein Muster, das damals wie heute Fragen aufwirft.</p>
         </div>
       </section>
@@ -152,7 +154,7 @@
             </p>       <p class="hint"><i class="bi bi-lightbulb"></i> Wähle oben Partei und Jahr, um die Karte zu filtern. Fahre mit der Maus über ein Bundesland für den genauen Wert — oder blende alle Werte gleichzeitig über das <i class="bi bi-eye-fill"></i>-Symbol ein.
           </p>
         </div>
-        <p class="source">Quelle: Aufbereitete Bundestagswahlergebnisse je Bundesland aus <code>rawData/btwErgebnis_2009.csv</code> bis <code>rawData/btwErgebnis_2025.csv</code>.</p>
+        <p class="source">Quelle: Bundeswahlleiterin, amtliche Bundestagswahlergebnisse je Bundesland für die Jahre 2009 bis 2025; eigene Aufbereitung.</p>
       </div>
     </section>
 
@@ -242,7 +244,7 @@
         <p class="hint"><i class="bi bi-lightbulb"></i> Wähle eine Partei und ein Jahr, um zu sehen wie sich das Wahlverhalten nach Alter und Geschlecht verteilt. Die Kacheln berechnen sich automatisch mit.
         </p>
       </div>
-      <p class="source">Quelle: Repräsentative Wahlstatistik, aufbereitet in <code>rawData/btw_2013.csv</code>, <code>rawData/btw_2017.csv</code>, <code>rawData/btw_2021.csv</code> und <code>rawData/btw_2025.csv</code>.</p>
+      <p class="source">Quelle: Repräsentative Wahlstatistik der Bundeswahlleiterin und demografische Begleitdaten des Statistischen Bundesamts zu Bundestagswahlen 2013 bis 2025; eigene Aufbereitung.</p>
     </div>
   </section>
   <section class="grid">
@@ -355,7 +357,11 @@
   <div class="cell c-12">
     <!-- Gründe -->
     <h2 id="gruende"><i class="bi bi-patch-question-fill"></i> Gründe</h2>
-    <p>Wahlergebnisse sind keine Zufälle. Hinter jedem Kreuz steckt eine Entscheidung, beeinflusst von Sorgen, Erfahrungen, Informationen und zunehmend auch von dem, was Algorithmen uns zeigen und was sie uns vorenthalten.</p>
+    <div class="columns">
+    <p>Wahlergebnisse sind keine Zufälle. Hinter jedem Kreuz steckt eine Entscheidung, beeinflusst von Sorgen, Erfahrungen, Informationen und zunehmend auch von dem, was Algorithmen uns zeigen und was sie uns vorenthalten.
+      <br>Die vorigen Sektionen zeigen das Was und das Wo. Diese Sektion stellt die nächste Frage: <span class="highlight">Warum gewinnen Protestparteien an Zustimmung?</span> Die Wahlforschung liefert dazu keine einfache Antwort, aber sie liefert Befunde, die das Muster erklären können.
+</p>
+    </div>
   </div>
 </section>
       <section class="grid reasons-grid">
@@ -363,8 +369,8 @@
   <article class="reason-fact reason-fact-afd">
     <div class="reason-percent"><span class="reason-value">34,5</span><small>%</small></div>
     <div class="reason-content">
-      <h3>Fakt #1 - wirtschaftliche Lage</h3>
-      <p>Im Politbarometer-Block zur Wirtschaft bewerteten 34,5&nbsp;% der gültigen Antworten die eigene wirtschaftliche Lage als schlecht. Gleichzeitig sahen 67,7&nbsp;% die Wirtschaft in Deutschland eher abwärts gehen. Bei sozialer Gerechtigkeit wurde die SPD am häufigsten genannt: 1.838 von 5.721 gültigen Antworten sahen sie hier vorn.</p>
+      <h3>Fakt #1 - Wirtschaftliche Lage</h3>
+      <p>34,5&nbsp;% der Befragten bewerteten die eigene wirtschaftliche Lage als schlecht. Gleichzeitig sahen 67,7&nbsp;% die wirtschaftliche Entwicklung in Deutschland eher negativ. Wirtschaftliche Unsicherheit ist damit einer der meistgenannten Faktoren, unabhängig von der tatsächlichen persönlichen Lage.</p>
       <p class="source">Quelle: Politbarometer-2024, <code>V20</code> / <code>v170</code>, n=18.342; <code>V22</code> / <code>v172</code>, n=18.171; <code>V23</code> / <code>v76</code>, n=5.721.</p>
     </div>
   </article>
@@ -373,8 +379,8 @@
   <article class="reason-fact reason-fact-bsw">
     <div class="reason-percent"><span class="reason-value">27,8</span><small>%</small></div>
     <div class="reason-content">
-      <h3>Fakt #2 - wichtigste Probleme</h3>
-      <p>Bei den offenen Problemnennungen wurde „Flüchtlinge, Ausländer, Zuwanderung, Integration und Asyl" am häufigsten genannt: 6.316 von 22.740 gültigen Fällen. Danach folgte die Wirtschaftslage mit 4.822 Nennungen.</p>
+      <h3>Fakt #2 - Wichtigste Probleme</h3>
+      <p>27,8&nbsp;% aller offenen Problemnennungen entfielen auf das Thema Zuwanderung und Integration — der höchste Wert überhaupt, noch vor der Wirtschaftslage mit 21,2&nbsp;%. Was Menschen als dringendstes Problem wahrnehmen, beeinflusst direkt ihre Wahlentscheidung.</p>
       <p class="source">Quelle: Politbarometer-2024, <code>V1A</code> / <code>v4</code> und <code>V1B</code> / <code>v5</code>, zusammengefasst ohne Doppelzählung pro Person.</p>
     </div>
   </article>
@@ -383,29 +389,29 @@
   <article class="reason-fact reason-fact-gruene">
     <div class="reason-percent"><span class="reason-value">81,9</span><small>%</small></div>
     <div class="reason-content">
-      <h3>Fakt #3 - AfD als Risiko</h3>
-      <p>Im Politbarometer-Block zur AfD sahen 81,9&nbsp;% der gültigen Antworten in der AfD eine Gefahr für die Demokratie in Deutschland. Im selben Fragenblock ging es auch um ein mögliches AfD-Verbot, Demonstrationen gegen rechtsextreme Parteien und die vermutete Wirkung dieser Demonstrationen auf die AfD.</p>
-      <p class="source">Quelle: Politbarometer-2024, Screenshot-Frage <code>V21</code> / Datensatzspalte <code>v82</code>, n=1.400.</p>
+      <h3>Fakt #3 - Demokratiebedenken</h3>
+      <p>81,9&nbsp;% 81,9% der Befragten sehen in der AfD eine Gefahr für die Demokratie in Deutschland. Gleichzeitig erhält die Partei bei Wahlen wachsenden Zuspruch — ein Widerspruch, der zeigt wie komplex politische Entscheidungen sind.</p>
+      <p class="source">Quelle: Politbarometer-2024, Frage <code>V21</code> / Datensatzspalte <code>v82</code>, n=1.400.</p>
     </div>
   </article>
 </div>
 <div class="cell c-6">
   <article class="reason-fact reason-fact-accent">
-    <div class="reason-percent"><span class="reason-value">81,6</span><small>%</small></div>
+    <div class="reason-percent"><span class="reason-value">77,3</span><small>%</small></div>
     <div class="reason-content">
-      <h3>Fakt #4 - Informationen</h3>
-      <p>Die Mediennutzung ist in der Rolling-Cross-Section stark ungleich verteilt: In der Medienbatterie liegt der Anteil häufiger Nutzung je nach Kanal zwischen 1,9&nbsp;% und 81,6&nbsp;%. Politische Information kommt deshalb nicht über einen gemeinsamen öffentlichen Raum bei allen an, sondern über sehr unterschiedliche Kanäle.</p>
-      <p class="source">Quelle: Politbarometer-2024 / GLES Rolling Cross-Section 2025, Variablen <code>v23_1</code>-<code>v23_7</code>, n=1.374-1.410.</p>
+      <h3>Fakt #4 - Demokratiezufriedenheit</h3>
+      <p>77,3&nbsp;% der Befragten zeigten sich mit der Demokratie in Deutschland grundsätzlich zufrieden. Fast ein Viertel jedoch nicht und genau diese Gruppe ist politisch besonders offen für Protestangebote und Alternativen zum etablierten Spektrum.</p>
+      <p class="source">Quelle: GLES Wahlstudie 2025, Variable <code>pre030</code>, n=8.547.</p>
     </div>
   </article>
 </div>
 <div class="cell c-6">
   <article class="reason-fact reason-fact-fdp">
-    <div class="reason-percent"><span class="reason-value">77,3</span><small>%</small></div>
+    <div class="reason-percent"><span class="reason-value">81,6</span><small>%</small></div>
     <div class="reason-content">
-      <h3>Fakt #5 - Vertrauen stabilisiert</h3>
-      <p>In der GLES Wahlstudie 2025 ordneten sich 77,3&nbsp;% der Befragten bei der Demokratiezufriedenheit auf den beiden positiven Antwortstufen ein. Gleichzeitig bleibt fast ein Viertel nicht klar zufrieden. Genau diese Gruppe ist politisch interessant, weil Unzufriedenheit die Offenheit für Alternativen und Protestangebote erhöhen kann.</p>
-      <p class="source">Quelle: GLES Wahlstudie 2025, Variable <code>pre030</code>, n=8.547.</p>
+      <h3>Fakt #5 - Mediennutzung</h3>
+      <p>Je nach Kanal liegt die regelmäßige Nutzung zwischen 1,9&nbsp;% und 81,6&nbsp;%. Politische Information erreicht die Menschen also über sehr unterschiedliche Wege, ein gemeinsamer öffentlicher Informationsraum existiert kaum noch.</p>
+      <p class="source">Quelle: Politbarometer-2024 / GLES Rolling Cross-Section 2025, Variablen <code>v23_1</code>-<code>v23_7</code>, n=1.374-1.410.</p>
     </div>
   </article>
 </div>
@@ -413,8 +419,8 @@
   <article class="reason-fact reason-fact-linke">
     <div class="reason-percent"><span class="reason-value">47,4</span><small>%</small></div>
     <div class="reason-content">
-      <h3>Fakt #6 - Interesse</h3>
-      <p>In der GLES Wahlstudie 2025 beschrieben sich 47,4&nbsp;% der Befragten als politisch stark interessiert. 12,2&nbsp;% lagen auf den beiden niedrigsten Stufen. Wer Politik kaum verfolgt, entscheidet unter anderen Bedingungen: weniger Routine, weniger Vergleich, mehr Abhängigkeit von wenigen Eindrücken.</p>
+      <h3>Fakt #6 - Politisches Interesse</h3>
+      <p>47,4&nbsp;% der Befragten bezeichneten sich als politisch stark interessiert, 12,2&nbsp;% zeigten kaum Interesse. Wer Politik selten verfolgt, trifft Wahlentscheidungen unter anderen Bedingungen, mit weniger Vergleichsmöglichkeiten und größerer Abhängigkeit von einzelnen Eindrücken.</p>
       <p class="source">Quelle: GLES Wahlstudie 2025, Variable <code>pre005</code>, n=8.555.</p>
     </div>
   </article>
@@ -434,7 +440,7 @@
       <p class="hint"><i class="bi bi-lightbulb"></i> Verändere die Regler und sieh, wie sich das simulierte Ergebnis für 2033 verschiebt. Die Kacheln darunter aktualisieren sich live.
       </p>
     </div>
-    <p class="source">Quelle: Historische Bundestagswahlergebnisse aus <code>rawData/BTW_1919-2025.csv</code>; die Projektion ist eine vereinfachte lineare Fortschreibung mit Szenario-Annahmen.</p>
+    <p class="source">Quelle: Bundeswahlleiterin und historische Bundestagswahlergebnisse; die Projektion ist eine vereinfachte lineare Fortschreibung mit Szenario-Annahmen aus den demografischen Auswertungen.</p>
   </div>
 </section>
 <section class="grid">
@@ -604,7 +610,7 @@
     <h2>Diese Daten zeigen keine Katastrophe.</h2>
     <p>Sie zeigen eine Verschiebung — langsam, messbar, real. Eine Demokratie ist nicht gefährdet, weil eine Partei an Stimmen zulegt.<br>
       <p>Sie ist gefährdet, wenn Menschen aufhören zu glauben, dass ihre Stimme zählt. Und wenn Algorithmen schneller entscheiden als Argumente.</p>
-    </p><p><span class="highlight">Den jeder hat selbst die Möglichkeit, eine Entscheidung zu treffen.</span></p>
+    </p><p><span class="highlight">Denn jeder hat selbst die Möglichkeit, eine Entscheidung zu treffen.</span></p>
   </div>
 </div>
 
